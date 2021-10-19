@@ -29,12 +29,19 @@ public class StartMenuGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        openProjectChooser = new javax.swing.JFileChooser();
         welcomeLabel = new javax.swing.JLabel();
         buttonPanel = new javax.swing.JPanel();
         newProjectButton = new javax.swing.JButton();
         openProjectButton = new javax.swing.JButton();
         settingsButton = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+
+        openProjectChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openProjectChooserActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CHOICE (Working title)");
@@ -143,8 +150,8 @@ public class StartMenuGUI extends javax.swing.JFrame {
 
     private void openProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectButtonActionPerformed
         System.out.println("Open project button pressed.");
-        JOptionPane.showMessageDialog(buttonPanel, "You pressed the Open Project button!");
-        
+        // JOptionPane.showMessageDialog(buttonPanel, "You pressed the Open Project button!");
+        this.openProjectChooser.setVisible(true);
     }//GEN-LAST:event_openProjectButtonActionPerformed
 
     private void newProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProjectButtonActionPerformed
@@ -155,6 +162,10 @@ public class StartMenuGUI extends javax.swing.JFrame {
         this.setVisible(false);
         //this.dispose();
     }//GEN-LAST:event_newProjectButtonActionPerformed
+
+    private void openProjectChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectChooserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_openProjectChooserActionPerformed
 
     
     /**
@@ -197,6 +208,7 @@ public class StartMenuGUI extends javax.swing.JFrame {
     javax.swing.JButton jButton4;
     javax.swing.JButton newProjectButton;
     javax.swing.JButton openProjectButton;
+    javax.swing.JFileChooser openProjectChooser;
     javax.swing.JButton settingsButton;
     javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
