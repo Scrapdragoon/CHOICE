@@ -145,19 +145,21 @@ public class StartMenuGUI extends javax.swing.JFrame {
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
         System.out.println("Settings button pressed.");
-        JOptionPane.showMessageDialog(buttonPanel,"You pressed the Settings button!");
+        JOptionPane.showMessageDialog(buttonPanel, "You pressed the Settings button!");
     }//GEN-LAST:event_settingsButtonActionPerformed
 
     private void openProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectButtonActionPerformed
-        System.out.println("Open project button pressed.");
-        // JOptionPane.showMessageDialog(buttonPanel, "You pressed the Open Project button!");
-        this.openProjectChooser.setVisible(true);
+        try {
+            openProjectChooser.showOpenDialog(this);
+        } catch (java.awt.HeadlessException e1) {
+            e1.printStackTrace();
+        }
     }//GEN-LAST:event_openProjectButtonActionPerformed
 
     private void newProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProjectButtonActionPerformed
         System.out.println("New Project button pressed.");
         // JOptionPane.showMessageDialog(buttonPanel, "You pressed the New Project button!");
-        
+
         new EditorWindowGUI().setVisible(true);
         this.setVisible(false);
         //this.dispose();
@@ -167,7 +169,6 @@ public class StartMenuGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_openProjectChooserActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
