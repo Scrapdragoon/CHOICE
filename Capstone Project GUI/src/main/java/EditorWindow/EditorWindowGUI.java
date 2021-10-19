@@ -28,6 +28,7 @@ public class EditorWindowGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        openProjectChooser = new javax.swing.JFileChooser();
         mainEditorScrollPane = new javax.swing.JScrollPane();
         editorPanel = new javax.swing.JPanel();
         editorMenu = new javax.swing.JMenuBar();
@@ -77,6 +78,7 @@ public class EditorWindowGUI extends javax.swing.JFrame {
         fileMenuOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fileMenuOpenActionPerformed(evt);
+                fileMenuOpenActionPerformed1(evt);
             }
         });
         menuFile.add(fileMenuOpen);
@@ -90,6 +92,11 @@ public class EditorWindowGUI extends javax.swing.JFrame {
         menuFile.add(fileMenuProjectSettings);
 
         fileMenuExit.setText("Exit");
+        fileMenuExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileMenuExitActionPerformed(evt);
+            }
+        });
         menuFile.add(fileMenuExit);
 
         editorMenu.add(menuFile);
@@ -150,6 +157,18 @@ public class EditorWindowGUI extends javax.swing.JFrame {
         new ProjectSettingsMenu().setVisible(true);
     }//GEN-LAST:event_fileMenuProjectSettingsActionPerformed
 
+    private void fileMenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_fileMenuExitActionPerformed
+
+    private void fileMenuOpenActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuOpenActionPerformed1
+        try {
+            openProjectChooser.showOpenDialog(this);
+        } catch (java.awt.HeadlessException e1) {
+            e1.printStackTrace();
+        }
+    }//GEN-LAST:event_fileMenuOpenActionPerformed1
+
     /**
      * @param args the command line arguments
      */
@@ -198,5 +217,6 @@ public class EditorWindowGUI extends javax.swing.JFrame {
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuView;
+    private javax.swing.JFileChooser openProjectChooser;
     // End of variables declaration//GEN-END:variables
 }

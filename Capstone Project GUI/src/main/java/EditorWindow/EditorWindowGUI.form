@@ -2,6 +2,8 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
+    <Component class="javax.swing.JFileChooser" name="openProjectChooser">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="editorMenu">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuFile">
@@ -25,7 +27,7 @@
                 <Property name="text" type="java.lang.String" value="Open..."/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileMenuOpenActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileMenuOpenActionPerformed,fileMenuOpenActionPerformed1"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileMenuProjectSettings">
@@ -40,6 +42,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileMenuExitActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
