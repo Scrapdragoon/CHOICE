@@ -10,12 +10,12 @@ import javax.swing.JOptionPane;
  *
  * @author rolep
  */
-public class EditorWindowGUI extends javax.swing.JFrame {
+public class EditorWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form EditorWindowGUI
      */
-    public EditorWindowGUI() {
+    public EditorWindow() {
         initComponents();
     }
 
@@ -30,7 +30,9 @@ public class EditorWindowGUI extends javax.swing.JFrame {
 
         openProjectChooser = new javax.swing.JFileChooser();
         mainEditorScrollPane = new javax.swing.JScrollPane();
-        editorPanel = new javax.swing.JPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         editorMenu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         fileMenuNew = new javax.swing.JMenuItem();
@@ -47,21 +49,40 @@ public class EditorWindowGUI extends javax.swing.JFrame {
         mainEditorScrollPane.setBackground(new java.awt.Color(204, 204, 255));
         mainEditorScrollPane.setForeground(new java.awt.Color(204, 204, 255));
 
-        editorPanel.setBackground(new java.awt.Color(222, 222, 239));
-        editorPanel.setForeground(new java.awt.Color(0, 0, 0));
+        jSplitPane1.setDividerLocation(500);
+        jSplitPane1.setResizeWeight(1.0);
 
-        javax.swing.GroupLayout editorPanelLayout = new javax.swing.GroupLayout(editorPanel);
-        editorPanel.setLayout(editorPanelLayout);
-        editorPanelLayout.setHorizontalGroup(
-            editorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 948, Short.MAX_VALUE)
+        jPanel1.setBackground(new java.awt.Color(222, 222, 239));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
-        editorPanelLayout.setVerticalGroup(
-            editorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 747, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 706, Short.MAX_VALUE)
         );
 
-        mainEditorScrollPane.setViewportView(editorPanel);
+        jSplitPane1.setLeftComponent(jPanel1);
+
+        jPanel2.setBackground(new java.awt.Color(255, 153, 153));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 308, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 706, Short.MAX_VALUE)
+        );
+
+        jSplitPane1.setRightComponent(jPanel2);
+
+        mainEditorScrollPane.setViewportView(jSplitPane1);
 
         menuFile.setText("File");
 
@@ -133,7 +154,7 @@ public class EditorWindowGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mainEditorScrollPane))
+                .addComponent(mainEditorScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE))
         );
 
         pack();
@@ -142,7 +163,7 @@ public class EditorWindowGUI extends javax.swing.JFrame {
 
     private void fileMenuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuNewActionPerformed
         System.out.println("File menu: New button pressed.");
-        JOptionPane.showMessageDialog(editorPanel, "You pressed the New menu option!");
+        // JOptionPane.showMessageDialog(editorPanel, "You pressed the New menu option!");
     }//GEN-LAST:event_fileMenuNewActionPerformed
 
     private void fileMenuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuOpenActionPerformed
@@ -186,20 +207,21 @@ public class EditorWindowGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditorWindowGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditorWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditorWindowGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditorWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditorWindowGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditorWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditorWindowGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditorWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditorWindowGUI().setVisible(true);
+                new EditorWindow().setVisible(true);
             }
         });
     }
@@ -208,11 +230,13 @@ public class EditorWindowGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem editMenuRedo;
     private javax.swing.JMenuItem editMenuUndo;
     private javax.swing.JMenuBar editorMenu;
-    private javax.swing.JPanel editorPanel;
     private javax.swing.JMenuItem fileMenuExit;
     private javax.swing.JMenuItem fileMenuNew;
     private javax.swing.JMenuItem fileMenuOpen;
     private javax.swing.JMenuItem fileMenuProjectSettings;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JScrollPane mainEditorScrollPane;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
