@@ -100,7 +100,7 @@ public class EditorPopupWindow extends javax.swing.JFrame {
         passageIDLabel1.setText("Title:");
 
         titleField.setFont(new java.awt.Font("DFPOP1-W9", 0, 14)); // NOI18N
-        titleField.setText("titleField");
+        titleField.setText("New Passage");
 
         javax.swing.GroupLayout titlePanelLayout = new javax.swing.GroupLayout(titlePanel);
         titlePanel.setLayout(titlePanelLayout);
