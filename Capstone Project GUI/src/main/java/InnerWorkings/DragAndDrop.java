@@ -167,7 +167,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
     
     public static void main(String[] args)
     {
-        /*
+        
         JFrame frame = new JFrame();
         frame.setSize(500, 300);
         frame.setLocationRelativeTo(null);
@@ -175,7 +175,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
         
         frame.getContentPane().add(new DragAndDrop());
         frame.setVisible(true);
-        */
+        
         
         
     }
