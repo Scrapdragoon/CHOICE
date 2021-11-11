@@ -27,7 +27,7 @@ import javax.swing.JPanel;
 public class DragAndDrop extends JPanel implements MouseMotionListener{
     
     // ArrayList of all nodes on screen
-    private ArrayList<Rectangle> nodes = new ArrayList<>();
+    private ArrayList<NodeRectangle> nodes = new ArrayList<>();
 
     // size of rectangle used to represent nodes
     private Dimension nodeDimensions = new Dimension(100, 50);
@@ -72,12 +72,14 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
         super.paintComponent(g);
         
        g.setColor(Color.RED);
+       ((Graphics2D)g).setStroke(new java.awt.BasicStroke(3));
         
         
         // draw every node
-        for (Rectangle n : nodes)
+        for (NodeRectangle n : nodes)
         {
             ((Graphics2D)g).draw(n);
+            ((Graphics2D)g).drawString(n.title, n.x, n.y);
         }
     }
     
@@ -107,7 +109,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
         int newY = y - (nodeDimensions.height/2);
         
         Point p = new Point(newX, newY);
-        nodes.add(new Rectangle(p, nodeDimensions));
+        nodes.add(new NodeRectangle(p, nodeDimensions));
         repaint();
     }
     
@@ -145,24 +147,27 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
     {
         if (currentNode >= 0)
         {
+            NodeRectangle n = nodes.get(currentNode);
             Graphics g = getGraphics();
             g.setXORMode(getBackground());  
-            ((Graphics2D)g).draw(nodes.get(currentNode));
+            ((Graphics2D)g).draw(n);
+            ((Graphics2D)g).drawString(n.title, n.x, n.y);
             
             nodes.get(currentNode).x = event.getX() - 50;
             nodes.get(currentNode).y = event.getY() - 25;
             
-            ((Graphics2D)g).draw(nodes.get(currentNode));
+            ((Graphics2D)g).draw(n);
+            ((Graphics2D)g).drawString(n.title, n.x, n.y);
             
             g.dispose(); // get rid of graphics object after using
-            // repaint();
+            repaint();
         }
     }
     
     
     public static void main(String[] args)
     {
-        
+        /*
         JFrame frame = new JFrame();
         frame.setSize(500, 300);
         frame.setLocationRelativeTo(null);
@@ -170,6 +175,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
         
         frame.getContentPane().add(new DragAndDrop());
         frame.setVisible(true);
+        */
         
         
     }
