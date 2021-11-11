@@ -3,14 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  
 
-Code referenced from https://examples.javacodegeeks.com/desktop-java/awt/event/draw-and-drag-rectangles/
-
 */
 package InnerWorkings;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -22,16 +22,19 @@ import javax.swing.JPanel;
 /**
  *
  * @author Victor Malone (vm19171)
+ * Code referenced from https://examples.javacodegeeks.com/desktop-java/awt/event/draw-and-drag-rectangles/
  */
 public class DragAndDrop extends JPanel implements MouseMotionListener{
     
     // ArrayList of all nodes on screen
     private ArrayList<Rectangle> nodes = new ArrayList<>();
+
+    // size of rectangle used to represent nodes
+    private Dimension nodeDimensions = new Dimension(100, 50);
     private int currentNode = -1;
     
     public DragAndDrop() {
-        
-        
+      
         
         this.addMouseListener(new MouseAdapter() {
             
@@ -40,14 +43,21 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
             {
                 // select the node the user clicks
                currentNode = getNode(event.getX(), event.getY());
+               System.out.println("Clicked on node " + currentNode);
             }
             
             
             @Override
             public void mouseClicked(MouseEvent event)
             {
+                if (event.getButton() == MouseEvent.BUTTON1 && currentNode < 0)
+                {
+                    addNode(event.getX(), event.getY());
+                    return;
+                }
                  if (event.getButton() == MouseEvent.BUTTON3)   // if rectangle is right clicked
                 {
+                     System.out.println("Right click detected. Current node: " + currentNode);
                     remove(currentNode);
                 }
             }
@@ -61,11 +71,8 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
     {
         super.paintComponent(g);
         
-        g.setColor(Color.RED);
-        if (nodes.isEmpty())
-        {
-            nodes.add(new Rectangle(50, 50, 100, 50));
-        }
+       g.setColor(Color.RED);
+        
         
         // draw every node
         for (Rectangle n : nodes)
@@ -93,12 +100,24 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
     
 
     
+    public void addNode(int x, int y)
+    {
+        // create node with center at the passed values
+        int newX = x - (nodeDimensions.width/2);
+        int newY = y - (nodeDimensions.height/2);
+        
+        Point p = new Point(newX, newY);
+        nodes.add(new Rectangle(p, nodeDimensions));
+        repaint();
+    }
+    
     @Override
     public void remove(int i)
     {
         // if i is within nodes' range
-        if (!(i < 0 || i >= nodes.size() - 1))
+        if (!(i < 0 || i >= nodes.size()))
         {
+            System.out.println("Removing rectangle at index : " + i);
                nodes.remove(i); // remove rectangle at index
                
                if (currentNode == i)
@@ -117,7 +136,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
     @Override
     public void mouseMoved(MouseEvent event)
     {
-        
+        //repaint();
     }
     
     
@@ -127,7 +146,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
         if (currentNode >= 0)
         {
             Graphics g = getGraphics();
-            g.setXORMode(getBackground());   // get rid of original rectangle?
+            g.setXORMode(getBackground());  
             ((Graphics2D)g).draw(nodes.get(currentNode));
             
             nodes.get(currentNode).x = event.getX() - 50;
@@ -136,15 +155,17 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
             ((Graphics2D)g).draw(nodes.get(currentNode));
             
             g.dispose(); // get rid of graphics object after using
-            repaint();
+            // repaint();
         }
     }
     
     
     public static void main(String[] args)
     {
+        
         JFrame frame = new JFrame();
-        frame.setSize(300, 300);
+        frame.setSize(500, 300);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         frame.getContentPane().add(new DragAndDrop());
