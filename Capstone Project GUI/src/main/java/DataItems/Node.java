@@ -16,12 +16,15 @@ import java.util.ArrayList;
  *
  */
 public class Node {
-
-    private String title;    // name of passage
-    private String ID;      // ID of passage (used for searching and whatnot)
-    private URL url;        // URL used to access passage
     
-    public Image image;                     // accompanying image
+    public static int passageNumber = 1000;    // used to determine the IDs of new passages
+    
+
+    private String title;    // name of node
+    private String ID;      // ID of node (used for searching and whatnot)
+    private URL url;        // URL used to access node
+    
+    public Image image;                      // accompanying image
     public ArrayList<Node> choices;  // list of choices, that connect to other passages/nodes
 
     public Node() {
@@ -55,8 +58,15 @@ public class Node {
 
     
     // add link to list of choices
-    public void addLink(Node passage) {
-        choices.add(passage);
+    public void addLink(Node choice) {
+        choices.add(choice);
     }
 
+    
+    
+    
+    public static void autoSetID()
+    {
+        
+    }
 }

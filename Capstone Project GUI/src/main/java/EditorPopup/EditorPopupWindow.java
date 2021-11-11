@@ -26,24 +26,33 @@ public class EditorPopupWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        imageChooser = new javax.swing.JFileChooser();
         editorBasePanel = new javax.swing.JPanel();
         passageIDPanel = new javax.swing.JPanel();
         passageIDLabel = new javax.swing.JLabel();
         passageIDField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         titlePanel = new javax.swing.JPanel();
-        passageIDLabel1 = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
         titleField = new javax.swing.JTextField();
         bodyPanel = new javax.swing.JPanel();
-        passageIDLabel2 = new javax.swing.JLabel();
+        bodyLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
         imagePanel = new javax.swing.JPanel();
-        passageIDLabel3 = new javax.swing.JLabel();
+        imageLabel = new javax.swing.JLabel();
+        chooseImageButton = new javax.swing.JButton();
         choicePanel = new javax.swing.JPanel();
         passageIDLabel4 = new javax.swing.JLabel();
+        buttonPanel = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+
+        imageChooser.setAcceptAllFileFilterUsed(false);
+        imageChooser.setDialogTitle("Select Passage Image");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Edit Passage");
         setMinimumSize(new java.awt.Dimension(550, 600));
         setResizable(false);
 
@@ -61,43 +70,35 @@ public class EditorPopupWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("DFPOP1-W9", 0, 14)); // NOI18N
-        jLabel1.setText("This is the ID used to refer to the current passage.");
-        jLabel1.setFocusable(false);
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
         javax.swing.GroupLayout passageIDPanelLayout = new javax.swing.GroupLayout(passageIDPanel);
         passageIDPanel.setLayout(passageIDPanelLayout);
         passageIDPanelLayout.setHorizontalGroup(
             passageIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(passageIDPanelLayout.createSequentialGroup()
-                .addGroup(passageIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(passageIDPanelLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(passageIDLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(passageIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(passageIDPanelLayout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jLabel1)))
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(passageIDLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(passageIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         passageIDPanelLayout.setVerticalGroup(
             passageIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(passageIDPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(passageIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(passageIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(passageIDLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(passageIDField))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(passageIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         editorBasePanel.add(passageIDPanel);
 
-        passageIDLabel1.setFont(new java.awt.Font("DFPOP1-W9", 0, 24)); // NOI18N
-        passageIDLabel1.setText("Title:");
+        titleLabel.setFont(new java.awt.Font("DFPOP1-W9", 0, 24)); // NOI18N
+        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        titleLabel.setText("Title:");
+        titleLabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        titleLabel.setMaximumSize(new java.awt.Dimension(132, 25));
+        titleLabel.setMinimumSize(new java.awt.Dimension(132, 25));
 
         titleField.setFont(new java.awt.Font("DFPOP1-W9", 0, 14)); // NOI18N
         titleField.setText("New Passage");
@@ -107,27 +108,28 @@ public class EditorPopupWindow extends javax.swing.JFrame {
         titlePanelLayout.setHorizontalGroup(
             titlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(titlePanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(passageIDLabel1)
+                .addContainerGap()
+                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         titlePanelLayout.setVerticalGroup(
             titlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(titlePanelLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(titlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(passageIDLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(titlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(titleField))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         editorBasePanel.add(titlePanel);
 
-        passageIDLabel2.setFont(new java.awt.Font("DFPOP1-W9", 0, 24)); // NOI18N
-        passageIDLabel2.setText("Body:");
+        bodyLabel.setFont(new java.awt.Font("DFPOP1-W9", 0, 24)); // NOI18N
+        bodyLabel.setText("Body:");
 
+        jEditorPane1.setEditorKit(null);
         jEditorPane1.setFont(new java.awt.Font("DFPOP1-W9", 0, 14)); // NOI18N
         jEditorPane1.setText("Body paragraph goes here.");
         jEditorPane1.setDragEnabled(true);
@@ -139,7 +141,7 @@ public class EditorPopupWindow extends javax.swing.JFrame {
             bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bodyPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(passageIDLabel2)
+                .addComponent(bodyLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(31, Short.MAX_VALUE))
@@ -150,33 +152,44 @@ public class EditorPopupWindow extends javax.swing.JFrame {
                 .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bodyPanelLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(passageIDLabel2))
+                        .addComponent(bodyLabel))
                     .addGroup(bodyPanelLayout.createSequentialGroup()
                         .addGap(49, 49, 49)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         editorBasePanel.add(bodyPanel);
 
-        passageIDLabel3.setFont(new java.awt.Font("DFPOP1-W9", 0, 24)); // NOI18N
-        passageIDLabel3.setText("Image:");
+        imageLabel.setFont(new java.awt.Font("DFPOP1-W9", 0, 24)); // NOI18N
+        imageLabel.setText("Image:");
+
+        chooseImageButton.setText("Choose Image...");
+        chooseImageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseImageButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout imagePanelLayout = new javax.swing.GroupLayout(imagePanel);
         imagePanel.setLayout(imagePanelLayout);
         imagePanelLayout.setHorizontalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(imagePanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(passageIDLabel3)
-                .addContainerGap(460, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addComponent(chooseImageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(176, 176, 176))
         );
         imagePanelLayout.setVerticalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(imagePanelLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(passageIDLabel3)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(imageLabel)
+                    .addComponent(chooseImageButton))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         editorBasePanel.add(imagePanel);
@@ -203,6 +216,38 @@ public class EditorPopupWindow extends javax.swing.JFrame {
 
         editorBasePanel.add(choicePanel);
 
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+
+        jButton3.setText("jButton3");
+
+        javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
+        buttonPanel.setLayout(buttonPanelLayout);
+        buttonPanelLayout.setHorizontalGroup(
+            buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
+                .addContainerGap(308, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
+        buttonPanelLayout.setVerticalGroup(
+            buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
+                .addContainerGap(114, Short.MAX_VALUE)
+                .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addContainerGap())
+        );
+
+        editorBasePanel.add(buttonPanel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -218,6 +263,14 @@ public class EditorPopupWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void chooseImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseImageButtonActionPerformed
+        try {
+            imageChooser.showOpenDialog(getOwner());
+        } catch (java.awt.HeadlessException e1) {
+            e1.printStackTrace();
+        }
+    }//GEN-LAST:event_chooseImageButtonActionPerformed
 
     private void passageIDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passageIDFieldActionPerformed
         // TODO add your handling code here:
@@ -260,21 +313,26 @@ public class EditorPopupWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bodyLabel;
     private javax.swing.JPanel bodyPanel;
+    private javax.swing.JPanel buttonPanel;
     private javax.swing.JPanel choicePanel;
+    private javax.swing.JButton chooseImageButton;
     private javax.swing.JPanel editorBasePanel;
+    private javax.swing.JFileChooser imageChooser;
+    private javax.swing.JLabel imageLabel;
     private javax.swing.JPanel imagePanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField passageIDField;
     private javax.swing.JLabel passageIDLabel;
-    private javax.swing.JLabel passageIDLabel1;
-    private javax.swing.JLabel passageIDLabel2;
-    private javax.swing.JLabel passageIDLabel3;
     private javax.swing.JLabel passageIDLabel4;
     private javax.swing.JPanel passageIDPanel;
     private javax.swing.JTextField titleField;
+    private javax.swing.JLabel titleLabel;
     private javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables
 }
