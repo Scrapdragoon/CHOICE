@@ -5,6 +5,13 @@
 package EditorWindow;
 
 import javax.swing.JOptionPane;
+import InnerWorkings.DragAndDrop;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -12,6 +19,9 @@ import javax.swing.JOptionPane;
  */
 public class EditorWindow extends javax.swing.JFrame {
 
+    public DragAndDrop mainEditor;
+    
+    
     /**
      * Creates new form EditorWindowGUI
      */
@@ -29,10 +39,14 @@ public class EditorWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         openProjectChooser = new javax.swing.JFileChooser();
-        mainEditorScrollPane = new javax.swing.JScrollPane();
-        jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        editorSideBar = new javax.swing.JPanel();
+        dragAndDrop1 = new InnerWorkings.DragAndDrop();
         jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         editorMenu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         fileMenuNew = new javax.swing.JMenuItem();
@@ -44,45 +58,123 @@ public class EditorWindow extends javax.swing.JFrame {
         editMenuRedo = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        mainEditorScrollPane.setBackground(new java.awt.Color(204, 204, 255));
-        mainEditorScrollPane.setForeground(new java.awt.Color(204, 204, 255));
-
-        jSplitPane1.setDividerLocation(500);
-        jSplitPane1.setResizeWeight(1.0);
-
-        jPanel1.setBackground(new java.awt.Color(222, 222, 239));
+        jPanel1.setBackground(new java.awt.Color(51, 255, 51));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 706, Short.MAX_VALUE)
         );
 
-        jSplitPane1.setLeftComponent(jPanel1);
+        jPanel1.addMouseListener(new MouseAdapter() {
 
-        jPanel2.setBackground(new java.awt.Color(255, 153, 153));
+            private Point clicked;
+
+            @Override
+            public void mousePressed(MouseEvent event) {
+                clicked = new Point(event.getPoint());
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent event)
+            {
+                if (clicked != null)
+                {
+                    JViewport viewport = (JViewport) SwingUtilities.getAncestorOfClass(JViewport.class, dragAndDrop1);
+                    if (viewport != null) {
+                        int deltaX = clicked.x - event.getX();
+                        int deltaY = clicked.y - event.getY();
+
+                        Rectangle view = viewport.getViewRect();
+                        view.x += deltaX;
+                        view.y += deltaY;
+
+                        dragAndDrop1.scrollRectToVisible(view);
+                    }
+                }
+            }
+        });
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jSplitPane1.setDividerLocation(500);
+        jSplitPane1.setResizeWeight(1.0);
+        jSplitPane1.setToolTipText("");
+
+        editorSideBar.setBackground(new java.awt.Color(255, 153, 153));
+        editorSideBar.setMaximumSize(new java.awt.Dimension(500, 32767));
+
+        javax.swing.GroupLayout editorSideBarLayout = new javax.swing.GroupLayout(editorSideBar);
+        editorSideBar.setLayout(editorSideBarLayout);
+        editorSideBarLayout.setHorizontalGroup(
+            editorSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 446, Short.MAX_VALUE)
+        );
+        editorSideBarLayout.setVerticalGroup(
+            editorSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 657, Short.MAX_VALUE)
+        );
+
+        jSplitPane1.setRightComponent(editorSideBar);
+
+        dragAndDrop1.setBackground(new java.awt.Color(204, 204, 255));
+
+        javax.swing.GroupLayout dragAndDrop1Layout = new javax.swing.GroupLayout(dragAndDrop1);
+        dragAndDrop1.setLayout(dragAndDrop1Layout);
+        dragAndDrop1Layout.setHorizontalGroup(
+            dragAndDrop1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 541, Short.MAX_VALUE)
+        );
+        dragAndDrop1Layout.setVerticalGroup(
+            dragAndDrop1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 657, Short.MAX_VALUE)
+        );
+
+        mainEditor = dragAndDrop1;
+
+        jSplitPane1.setLeftComponent(dragAndDrop1);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 102));
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("jButton2");
+
+        jButton3.setText("jButton3");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 706, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jSplitPane1.setRightComponent(jPanel2);
-
-        mainEditorScrollPane.setViewportView(jSplitPane1);
 
         menuFile.setText("File");
 
@@ -146,15 +238,21 @@ public class EditorWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(mainEditorScrollPane))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSplitPane1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mainEditorScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSplitPane1)
+                .addContainerGap())
         );
 
         pack();
@@ -189,6 +287,11 @@ public class EditorWindow extends javax.swing.JFrame {
             e1.printStackTrace();
         }
     }//GEN-LAST:event_fileMenuOpenActionPerformed1
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.out.println("JButton1 pressed! This is how the user will be able to add new nodes.");
+        mainEditor.addNode(100, 100);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,17 +330,21 @@ public class EditorWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private InnerWorkings.DragAndDrop dragAndDrop1;
     private javax.swing.JMenuItem editMenuRedo;
     private javax.swing.JMenuItem editMenuUndo;
     private javax.swing.JMenuBar editorMenu;
+    private javax.swing.JPanel editorSideBar;
     private javax.swing.JMenuItem fileMenuExit;
     private javax.swing.JMenuItem fileMenuNew;
     private javax.swing.JMenuItem fileMenuOpen;
     private javax.swing.JMenuItem fileMenuProjectSettings;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JScrollPane mainEditorScrollPane;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuView;

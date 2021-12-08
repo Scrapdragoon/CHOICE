@@ -18,6 +18,8 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -62,7 +64,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
                 }
             }
         });
-        
+                
         addMouseMotionListener(this);
     }
     
@@ -149,16 +151,21 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
         {
             NodeRectangle n = nodes.get(currentNode);
             Graphics g = getGraphics();
-            g.setXORMode(getBackground());  
-            ((Graphics2D)g).draw(n);
-            ((Graphics2D)g).drawString(n.title, n.x, n.y);
             
-            nodes.get(currentNode).x = event.getX() - 50;
-            nodes.get(currentNode).y = event.getY() - 25;
+            // set up graphics
+            g.setColor(Color.RED);
+            ((Graphics2D)g).setStroke(new java.awt.BasicStroke(3));
             
-            ((Graphics2D)g).draw(n);
-            ((Graphics2D)g).drawString(n.title, n.x, n.y);
+            // g.setXORMode(getBackground());  
+            // ((Graphics2D)g).draw(n);
+            // ((Graphics2D)g).drawString(n.title, n.x, n.y);
             
+            nodes.get(currentNode).x = event.getX() - (nodeDimensions.width/2);
+            nodes.get(currentNode).y = event.getY() - (nodeDimensions.height/2);
+            
+           ((Graphics2D)g).draw(n);
+           ((Graphics2D)g).drawString(n.title, n.x, n.y);
+           
             g.dispose(); // get rid of graphics object after using
             repaint();
         }
@@ -167,15 +174,15 @@ public class DragAndDrop extends JPanel implements MouseMotionListener{
     
     public static void main(String[] args)
     {
-        
+        /*
         JFrame frame = new JFrame();
-        frame.setSize(500, 300);
+        frame.setSize(1000, 600);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         frame.getContentPane().add(new DragAndDrop());
         frame.setVisible(true);
-        
+        */
         
         
     }
