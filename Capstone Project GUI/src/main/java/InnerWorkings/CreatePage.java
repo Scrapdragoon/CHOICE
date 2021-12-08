@@ -5,18 +5,13 @@
 package InnerWorkings;
 
 import static j2html.TagCreator.*;
-import j2html.tags.Tag;
-import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
 
 
 /**
@@ -38,7 +33,20 @@ public class CreatePage {
     
     public static void main(String[] args)
     {
-        String nodeTitle = "testing";
+        // IF YOU CHANGE THESE, YOU'LL HAVE TO CHANGE THE NAMES IN THE CSS AS WELL.
+        String titleClass = "pageTitle";
+        String contentClass = "content";
+        String outputFolderURL;
+        String projectName;
+        String imgSrc = "../resources/sunset.jpg";    
+        // for choices, you'll need to find a way to display each on its own separate line. You can't put a for loop inside the html thing, I think...
+        
+        
+        
+        
+        
+        
+        String nodeTitle = "Start!";
         String paragraph = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \n"
             + "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
             + "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
@@ -60,19 +68,35 @@ public class CreatePage {
         String html;  
         html = html(
                 
+                // header
                 head(
-                        
-                link().withRel("stylesheet").withHref(styleSheetLink)
+                        title(nodeTitle),
+                        link().withRel("stylesheet").withHref(styleSheetLink)
                 ),
                 
+               
+                p(),    // blank line for separation of elements
                 
-                h1(nodeTitle),
-                // img().withSrc("jksdkj")
-                p(),
-                div(
-                        p(paragraph),
-                        p(choicesList)
-                ).withClass("content")
+                div(                                                            // content div
+                        
+                        // page title
+                        h1(nodeTitle).withClass(titleClass),
+                        
+                        //page image
+                        img().withSrc(imgSrc),
+                        
+                        div(                                                        // paragraph div
+                                // user-input paragraph
+                                p(paragraph)        
+                        ).withClass("paragraph"),
+                        
+                        div(                                                        // choices div
+                                // user-input choices
+                                p(choicesList)      
+                        ).withClass("choices")
+                        
+                        
+                ).withClass(contentClass)
                 
                 
                 
@@ -80,8 +104,8 @@ public class CreatePage {
     
       System.out.print(html);
       
-      new File("./src/main/java/InnerWorkings/output").mkdir();
-      File result = new File("./src/main/java/InnerWorkings/output/index.html");
+      new File("src/main/java/InnerWorkings/output").mkdir();
+      File result = new File("src/main/java/InnerWorkings/output/index.html");
       
       PrintWriter w;
         try {
@@ -94,20 +118,29 @@ public class CreatePage {
             Logger.getLogger(CreatePage.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(0);
         }
+        
+        try {
+            // try to open file in browser. just for testing at the moment
+            Desktop.getDesktop().browse(result.toURI());
+            
 
-      
-      /*
-      JFrame fr = new JFrame();
-      JPanel contentPanel = new JPanel();
-      contentPanel.setLayout(new BorderLayout());
-      JLabel e = new JLabel(html);
-      
-      contentPanel.add(e, BorderLayout.NORTH);
-      fr.add(contentPanel);
-      fr.setVisible(true);
-      fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      fr.setSize(500, 500);
-       */
+        }
+        catch (IOException ex) {
+            Logger.getLogger(CreatePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+                    /*
+            JFrame fr = new JFrame();
+            JPanel contentPanel = new JPanel();
+            contentPanel.setLayout(new BorderLayout());
+            JLabel e = new JLabel(html);
+            
+            contentPanel.add(e, BorderLayout.NORTH);
+            fr.add(contentPanel);
+            fr.setVisible(true);
+            fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            fr.setSize(500, 500);
+            */        
     }
     
 }
