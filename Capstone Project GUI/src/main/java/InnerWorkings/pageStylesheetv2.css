@@ -13,8 +13,9 @@ May have to create other layouts for a image-less pages.
 
 html {
     min-height: 100%;
-    background-image: url("resources/bgImageEDIT.png"); 
-    background-repeat: repeat;
+    /* background-image: url("resources/bgImageEDIT.png"); */
+    /* background-repeat: repeat; */
+    background-color: #ccccff;
     
     width: 70%;
     margin-left: auto;
@@ -41,10 +42,14 @@ img {
     text-decoration: underline;
     font-family: DFPOP1-W9, sans-serif;
     font-size: 40px;
+
 }
 
 .content {
 
+    background-image: url("resources/bookinside.png");
+    background-repeat: repeat-y;
+    background-size: 100% auto; /* should make image repeat along y-axis and take up the whole space along the x?? or is it the other way around... that needs to be fixed*/
     
 }
 

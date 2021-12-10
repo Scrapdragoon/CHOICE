@@ -5,11 +5,18 @@
 package InnerWorkings;
 
 import static j2html.TagCreator.*;
+import j2html.tags.ContainerTag;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,15 +27,15 @@ import java.util.logging.Logger;
  */
 public class CreatePage {
     
-    /*
-    String nodeTitle;
-    String paragraph = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \n"
-            + "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
-            + "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
-            + "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-            + " Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    String choicesList = "choice 1 \n choice 2 \n choice 3";
-*/
+    
+    // class to create page based on inputs
+    public static void CreatePage()
+    {
+        
+    }
+    
+    
+    
     
     
     public static void main(String[] args)
@@ -36,10 +43,18 @@ public class CreatePage {
         // IF YOU CHANGE THESE, YOU'LL HAVE TO CHANGE THE NAMES IN THE CSS AS WELL.
         String titleClass = "pageTitle";
         String contentClass = "content";
-        String outputFolderURL;
+        String outputFolderURI;
         String projectName;
         String imgSrc = "../resources/sunset.jpg";    
-        // for choices, you'll need to find a way to display each on its own separate line. You can't put a for loop inside the html thing, I think...
+        
+        
+        // for testing purposes. Use j2html's "each" function to iterate through the list when generating HTML.
+        Map<String, String> choices = new TreeMap<>();
+        choices.put("Choice 1", "choice1.html");
+        choices.put("Choice 2", "choice2.html");
+        choices.put("Choice 3", "choice3.html");
+
+
         
         
         
@@ -47,7 +62,9 @@ public class CreatePage {
         
         
         String nodeTitle = "Start!";
-        String paragraph = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \n"
+        
+        // paragraph may have to be an arraylist, to allow the user to input line breaks. Parse this elsewhere.
+        String paragraph = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
             + "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
             + "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
             + "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
@@ -62,7 +79,8 @@ public class CreatePage {
                 choicesList = "";
             }
             
-            String styleSheetLink = "../pageStylesheet.css";
+            //String styleSheetLink = "../pageStylesheet.css";
+            String styleSheetLink = "../pageStylesheetv2.css";
             
     
         String html;  
@@ -70,12 +88,14 @@ public class CreatePage {
                 
                 // header
                 head(
+                        // tab title
                         title(nodeTitle),
+                        // link to css
                         link().withRel("stylesheet").withHref(styleSheetLink)
                 ),
                 
                
-                p(),    // blank line for separation of elements
+                p(),    // blank line
                 
                 div(                                                            // content div
                         
@@ -86,13 +106,24 @@ public class CreatePage {
                         img().withSrc(imgSrc),
                         
                         div(                                                        // paragraph div
+                                
                                 // user-input paragraph
                                 p(paragraph)        
+                                
                         ).withClass("paragraph"),
                         
                         div(                                                        // choices div
+                                
                                 // user-input choices
-                                p(choicesList)      
+                                p("Choices List:"),
+                                each(choices, choice -> 
+                                        div(attrs(".choices"),
+                                                p(a(choice.getKey()).withHref(choice.getValue()))
+                                        
+                                        
+                                        )
+                                )
+                                
                         ).withClass("choices")
                         
                         

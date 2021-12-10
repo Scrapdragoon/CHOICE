@@ -7,6 +7,7 @@ package DataItems;
 import java.awt.Image;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -25,7 +26,9 @@ public class Node {
     private URL url;        // URL used to access node
     
     public Image image;                      // accompanying image
-    public ArrayList<Node> choices;  // list of choices, that connect to other passages/nodes
+    // public ArrayList<Node> choices;  // list of choices, that connect to other passages/nodes
+    
+    public Map<String, URL> choices2;
 
     public Node() {
         title = "defaultTitle";
@@ -50,7 +53,7 @@ public class Node {
         ID = newID;
     }
 
-    
+   /* 
     //get list of choices
     public ArrayList<Node> getChoices() {
         return choices;
@@ -62,7 +65,7 @@ public class Node {
         choices.add(choice);
     }
 
-    
+    */
     
     
     public static void autoSetID()
