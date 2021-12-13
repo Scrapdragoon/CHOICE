@@ -5,16 +5,11 @@
 package InnerWorkings;
 
 import static j2html.TagCreator.*;
-import j2html.tags.ContainerTag;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -94,8 +89,9 @@ public class CreatePage {
                         link().withRel("stylesheet").withHref(styleSheetLink)
                 ),
                 
-               
-                p(),    // blank line
+               body(
+                       // div( p("div is here!")).withClass("background-image"), // div for bg image
+                // p(),    // blank line
                 
                 div(                                                            // content div
                         
@@ -103,12 +99,17 @@ public class CreatePage {
                         h1(nodeTitle).withClass(titleClass),
                         
                         //page image
-                        img().withSrc(imgSrc),
+                        img().withSrc(imgSrc).withClass("user-image"),
                         
                         div(                                                        // paragraph div
                                 
                                 // user-input paragraph
-                                p(paragraph)        
+                                p(paragraph + paragraph + paragraph + paragraph + paragraph),      
+                                p(paragraph + paragraph + paragraph + paragraph + paragraph),  
+                                p(paragraph + paragraph + paragraph + paragraph + paragraph),  
+                                p(paragraph + paragraph + paragraph + paragraph + paragraph),  
+                                p(paragraph + paragraph + paragraph + paragraph + paragraph),  
+                                p(paragraph + paragraph + paragraph + paragraph + paragraph)
                                 
                         ).withClass("paragraph"),
                         
@@ -127,7 +128,8 @@ public class CreatePage {
                         ).withClass("choices")
                         
                         
-                ).withClass(contentClass)
+                ).withClass(contentClass) // </div>
+               )    // </body>
                 
                 
                 
