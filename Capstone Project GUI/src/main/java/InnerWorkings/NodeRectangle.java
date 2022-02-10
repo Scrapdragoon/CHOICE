@@ -16,6 +16,12 @@ import java.awt.Rectangle;
  */
 public class NodeRectangle extends Rectangle{
     
+    /*
+    
+    Currently does not use the Node data item.
+    
+    */
+    
     public String title = "test";
     public Node node;
     

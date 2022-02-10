@@ -29,10 +29,7 @@ html {
     background-size: 100% auto;
     background-position-y: 0px, 1100px;
 
-    /* background-size: cover; */
-    /* should make image repeat along y-axis and take up the whole space along the x?? */ 
-    /* or is it the other way around... that needs to be fixed*/
-    
+/* CURRENTLY CONTAINS A VISUAL GLITCH WHEN THE WINDOW IS NOT FULL SIZE.*/
     
     
 

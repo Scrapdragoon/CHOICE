@@ -18,21 +18,35 @@ import java.util.Map;
  */
 public class Node {
     
-    public static int passageNumber = 1000;    // used to determine the IDs of new passages
+    public static int passageNumber = 100;    // used to determine the IDs of new passages
     
 
     private String title;    // name of node
+    private String paragraph; // paragraph of text
+    
+    
     private String ID;      // ID of node (used for searching and whatnot)
     private URL url;        // URL used to access node
     
     public Image image;                      // accompanying image
     // public ArrayList<Node> choices;  // list of choices, that connect to other passages/nodes
     
-    public Map<String, URL> choices2;
+    public Map<String, URL> choices;
 
     public Node() {
         title = "defaultTitle";
-
+    }
+    
+    public Node(String title)
+    {
+        this.title = title;
+    }
+    
+    
+    public Node(String title, String paragraph)
+    {
+        this.title = title;
+        this.paragraph = paragraph;
     }
 
     // get/set methods for title
@@ -71,5 +85,13 @@ public class Node {
     public static void autoSetID()
     {
         
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "Page title: " + this.title 
+                + "\n Paragraph: " + this.paragraph
+                ;
     }
 }

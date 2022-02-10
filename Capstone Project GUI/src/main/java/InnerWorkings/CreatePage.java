@@ -5,6 +5,8 @@
 package InnerWorkings;
 
 import static j2html.TagCreator.*;
+import j2html.rendering.HtmlBuilder;
+
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,12 +37,14 @@ public class CreatePage {
     
     public static void main(String[] args)
     {
+        
+        
         // IF YOU CHANGE THESE, YOU'LL HAVE TO CHANGE THE NAMES IN THE CSS AS WELL.
         String titleClass = "pageTitle";
         String contentClass = "content";
         String outputFolderURI;
         String projectName;
-        String imgSrc = "../resources/sunset.jpg";    
+        String imgSrc = "../resources/UofE.jpg";    
         
         
         // for testing purposes. Use j2html's "each" function to iterate through the list when generating HTML.
@@ -134,7 +138,7 @@ public class CreatePage {
                 
                 
         ).render();  // last tag must not have a comma after it for this to work.
-    
+           
       System.out.print(html);
       
       new File("src/main/java/InnerWorkings/output").mkdir();
@@ -143,7 +147,63 @@ public class CreatePage {
       PrintWriter w;
         try {
             w = new PrintWriter(result);
-            w.write(html);
+            w.write(
+            html(
+                
+                // header
+                head(
+                        // tab title
+                        title(nodeTitle),
+                        // link to css
+                        link().withRel("stylesheet").withHref(styleSheetLink)
+                ),
+                
+               body(
+                       // div( p("div is here!")).withClass("background-image"), // div for bg image
+                // p(),    // blank line
+                
+                div(                                                            // content div
+                        
+                        // page title
+                        h1(nodeTitle).withClass(titleClass),
+                        
+                        //page image
+                        img().withSrc(imgSrc).withClass("user-image"),
+                        
+                        div(                                                        // paragraph div
+                                
+                                // user-input paragraph
+                                p(paragraph + paragraph + paragraph + paragraph + paragraph),      
+                                p(paragraph + paragraph + paragraph + paragraph + paragraph),  
+                                p(paragraph + paragraph + paragraph + paragraph + paragraph),  
+                                p(paragraph + paragraph + paragraph + paragraph + paragraph),  
+                                p(paragraph + paragraph + paragraph + paragraph + paragraph),  
+                                p(paragraph + paragraph + paragraph + paragraph + paragraph)
+                                
+                        ).withClass("paragraph"),
+                        
+                        div(                                                        // choices div
+                                
+                                // user-input choices
+                                p("Choices List:"),
+                                each(choices, choice -> 
+                                        div(attrs(".choices"),
+                                                p(a(choice.getKey()).withHref(choice.getValue()))
+                                        
+                                        
+                                        )
+                                )
+                                
+                        ).withClass("choices")
+                        
+                        
+                ).withClass(contentClass) // </div>
+               )    // </body>
+                
+                
+                
+        ).render()
+            );
             w.flush();
             w.close();
         }

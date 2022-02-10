@@ -13,8 +13,9 @@ May have to create other layouts for a image-less pages.
 
 html {
     /* min-height: 100%; */
-    background-image: url("resources/bgImageEDIT.png"); 
-    background-repeat: repeat;
+    background-image: url("resources/booktop.png"), url("resources/bgImageEDIT.png"); 
+    
+    background-repeat: no-repeat, repeat;
     
     width: 70%;
     margin-left: auto;
