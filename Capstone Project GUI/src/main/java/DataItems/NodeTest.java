@@ -40,6 +40,7 @@ public class NodeTest {
         {
             nodeArray.add(newNode);
             System.out.println(newNode);
+            System.out.println(nodeArray.get(0).toString());
         }
         else
         {

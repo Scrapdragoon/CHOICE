@@ -45,29 +45,12 @@ public class EditorWindow extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         openProjectChooser = new javax.swing.JFileChooser();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        dragAndDrop1 = new InnerWorkings.DragAndDrop();
-        editorSideBar = new javax.swing.JPanel();
-        nodeTitlePanel = new javax.swing.JPanel();
-        pageEditorLabel = new java.awt.Label();
-        jTextField1 = new javax.swing.JTextField();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0));
-        paragraphPanel = new javax.swing.JPanel();
-        paragraphTextLabel = new javax.swing.JLabel();
-        nodeParagraphScrollPane = new javax.swing.JScrollPane();
-        nodeParagraphField = new javax.swing.JTextArea();
-        nodeIDPanel = new javax.swing.JPanel();
-        IDLabel = new java.awt.Label();
-        nodeIDField = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton4 = new javax.swing.JButton();
         buttonMenuPanel = new javax.swing.JPanel();
         createNodeButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        loadTestButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        editorLayeredPane = new javax.swing.JLayeredPane();
+        dragAndDrop1 = new InnerWorkings.DragAndDrop();
         editorMenu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         fileMenuNew = new javax.swing.JMenuItem();
@@ -81,234 +64,6 @@ public class EditorWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jSplitPane1.setDividerLocation(500);
-        jSplitPane1.setResizeWeight(1.0);
-        jSplitPane1.setToolTipText("");
-
-        dragAndDrop1.setBackground(new java.awt.Color(204, 204, 255));
-
-        javax.swing.GroupLayout dragAndDrop1Layout = new javax.swing.GroupLayout(dragAndDrop1);
-        dragAndDrop1.setLayout(dragAndDrop1Layout);
-        dragAndDrop1Layout.setHorizontalGroup(
-            dragAndDrop1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
-        dragAndDrop1Layout.setVerticalGroup(
-            dragAndDrop1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 657, Short.MAX_VALUE)
-        );
-
-        mainEditor = dragAndDrop1;
-
-        jSplitPane1.setLeftComponent(dragAndDrop1);
-
-        editorSideBar.setBackground(new java.awt.Color(255, 153, 153));
-        editorSideBar.setMaximumSize(new java.awt.Dimension(500, 32767));
-        editorSideBar.setLayout(new java.awt.GridBagLayout());
-
-        nodeTitlePanel.setForeground(new java.awt.Color(0, 0, 0));
-        nodeTitlePanel.setFont(new java.awt.Font("DFPOP1-W9", 0, 12)); // NOI18N
-
-        pageEditorLabel.setAlignment(java.awt.Label.CENTER);
-        pageEditorLabel.setBackground(new java.awt.Color(255, 255, 255));
-        pageEditorLabel.setFont(new java.awt.Font("DFPOP1-W9", 0, 36)); // NOI18N
-        pageEditorLabel.setText("Page Editor");
-
-        jTextField1.setFont(new java.awt.Font("DFPOP1-W9", 0, 14)); // NOI18N
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("Page Title");
-        jTextField1.setPreferredSize(new java.awt.Dimension(97, 26));
-
-        javax.swing.GroupLayout nodeTitlePanelLayout = new javax.swing.GroupLayout(nodeTitlePanel);
-        nodeTitlePanel.setLayout(nodeTitlePanelLayout);
-        nodeTitlePanelLayout.setHorizontalGroup(
-            nodeTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(nodeTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(pageEditorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(nodeTitlePanelLayout.createSequentialGroup()
-                    .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(222, 222, 222)
-                    .addComponent(filler1, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        nodeTitlePanelLayout.setVerticalGroup(
-            nodeTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(nodeTitlePanelLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(nodeTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(pageEditorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        editorSideBar.add(nodeTitlePanel, gridBagConstraints);
-
-        paragraphPanel.setForeground(new java.awt.Color(0, 0, 0));
-
-        paragraphTextLabel.setFont(new java.awt.Font("DFPOP1-W9", 0, 18)); // NOI18N
-        paragraphTextLabel.setText("Paragraph Text:");
-
-        nodeParagraphField.setColumns(20);
-        nodeParagraphField.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        nodeParagraphField.setLineWrap(true);
-        nodeParagraphField.setRows(5);
-        nodeParagraphField.setText("Write your story here...");
-        nodeParagraphField.setWrapStyleWord(true);
-        nodeParagraphScrollPane.setViewportView(nodeParagraphField);
-
-        javax.swing.GroupLayout paragraphPanelLayout = new javax.swing.GroupLayout(paragraphPanel);
-        paragraphPanel.setLayout(paragraphPanelLayout);
-        paragraphPanelLayout.setHorizontalGroup(
-            paragraphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paragraphPanelLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(paragraphTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paragraphPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(nodeParagraphScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-        paragraphPanelLayout.setVerticalGroup(
-            paragraphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paragraphPanelLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(paragraphTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(nodeParagraphScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        editorSideBar.add(paragraphPanel, gridBagConstraints);
-
-        nodeIDPanel.setFont(new java.awt.Font("DFPOP1-W9", 0, 18)); // NOI18N
-
-        IDLabel.setFont(new java.awt.Font("DFPOP1-W9", 0, 18)); // NOI18N
-        IDLabel.setForeground(new java.awt.Color(187, 187, 187));
-        IDLabel.setText("Page ID:");
-
-        nodeIDField.setText("AutoGeneratedIDGoesHere");
-        nodeIDField.setInputVerifier(new InputVerifier() {
-            @Override
-            public boolean verify(JComponent component)
-            {
-
-                JTextField field = (JTextField)component;
-                String input = field.getText();
-                // allow alphanumeric and underscore chars only
-                Pattern regex = Pattern.compile("^[a-zA-Z0-9_]+$");
-                Matcher matcher = regex.matcher(input);
-
-                if (matcher.matches())
-                { 
-                    /*
-                    component.setComponent(input); */
-                    return true;
-                } 
-                else
-                {
-                    // remove all unacceptable characters
-                    // String resultingInput = input.replaceAll("[^a-zA-Z0-9_]", "");
-                    // component.setText(resultingInput);
-                    return false;   // just return true here too?
-                }
-            }
-
-            @Override
-            public boolean shouldYieldFocus(JComponent component)
-            {
-                boolean isValid = verify(component);
-
-                if (isValid)
-                {
-                    component.setToolTipText(null);
-                }
-                else
-                {
-                    component.setToolTipText("IDs may only contain alphanumeric characters(A-Z, a-z, 0-9) and underscores(_).");
-                }
-
-                return isValid;
-            }
-
-        });
-        nodeIDField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nodeIDFieldActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout nodeIDPanelLayout = new javax.swing.GroupLayout(nodeIDPanel);
-        nodeIDPanel.setLayout(nodeIDPanelLayout);
-        nodeIDPanelLayout.setHorizontalGroup(
-            nodeIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(nodeIDPanelLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(IDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nodeIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(173, Short.MAX_VALUE))
-        );
-        nodeIDPanelLayout.setVerticalGroup(
-            nodeIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(nodeIDPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(nodeIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(nodeIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(IDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        editorSideBar.add(nodeIDPanel, gridBagConstraints);
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jButton4.setText("jButton4");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        editorSideBar.add(jPanel1, gridBagConstraints);
-
-        jSplitPane1.setRightComponent(editorSideBar);
-
         buttonMenuPanel.setBackground(new java.awt.Color(255, 255, 102));
 
         createNodeButton.setText("Create Node");
@@ -318,7 +73,7 @@ public class EditorWindow extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
+        loadTestButton.setText("Load");
 
         jButton3.setText("jButton3");
 
@@ -330,10 +85,10 @@ public class EditorWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(createNodeButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(loadTestButton)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(766, Short.MAX_VALUE))
         );
         buttonMenuPanelLayout.setVerticalGroup(
             buttonMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,9 +96,37 @@ public class EditorWindow extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(buttonMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createNodeButton)
-                    .addComponent(jButton2)
+                    .addComponent(loadTestButton)
                     .addComponent(jButton3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        dragAndDrop1.setBackground(new java.awt.Color(204, 204, 255));
+
+        javax.swing.GroupLayout dragAndDrop1Layout = new javax.swing.GroupLayout(dragAndDrop1);
+        dragAndDrop1.setLayout(dragAndDrop1Layout);
+        dragAndDrop1Layout.setHorizontalGroup(
+            dragAndDrop1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        dragAndDrop1Layout.setVerticalGroup(
+            dragAndDrop1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 669, Short.MAX_VALUE)
+        );
+
+        mainEditor = dragAndDrop1;
+
+        editorLayeredPane.setLayer(dragAndDrop1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout editorLayeredPaneLayout = new javax.swing.GroupLayout(editorLayeredPane);
+        editorLayeredPane.setLayout(editorLayeredPaneLayout);
+        editorLayeredPaneLayout.setHorizontalGroup(
+            editorLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dragAndDrop1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        editorLayeredPaneLayout.setVerticalGroup(
+            editorLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dragAndDrop1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         menuFile.setText("File");
@@ -409,10 +192,9 @@ public class EditorWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSplitPane1)
-                    .addComponent(buttonMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(buttonMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(editorLayeredPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,8 +202,7 @@ public class EditorWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(buttonMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSplitPane1)
-                .addContainerGap())
+                .addComponent(editorLayeredPane))
         );
 
         pack();
@@ -462,10 +243,6 @@ public class EditorWindow extends javax.swing.JFrame {
         mainEditor.addNode(100, 100);
     }//GEN-LAST:event_createNodeButtonActionPerformed
 
-    private void nodeIDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nodeIDFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nodeIDFieldActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -503,39 +280,22 @@ public class EditorWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Label IDLabel;
     private javax.swing.JPanel buttonMenuPanel;
     private javax.swing.JButton createNodeButton;
     private InnerWorkings.DragAndDrop dragAndDrop1;
     private javax.swing.JMenuItem editMenuRedo;
     private javax.swing.JMenuItem editMenuUndo;
+    private javax.swing.JLayeredPane editorLayeredPane;
     private javax.swing.JMenuBar editorMenu;
-    private javax.swing.JPanel editorSideBar;
     private javax.swing.JMenuItem fileMenuExit;
     private javax.swing.JMenuItem fileMenuNew;
     private javax.swing.JMenuItem fileMenuOpen;
     private javax.swing.JMenuItem fileMenuProjectSettings;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton loadTestButton;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuView;
-    private javax.swing.JTextField nodeIDField;
-    private javax.swing.JPanel nodeIDPanel;
-    private javax.swing.JTextArea nodeParagraphField;
-    private javax.swing.JScrollPane nodeParagraphScrollPane;
-    private javax.swing.JPanel nodeTitlePanel;
     private javax.swing.JFileChooser openProjectChooser;
-    private java.awt.Label pageEditorLabel;
-    private javax.swing.JPanel paragraphPanel;
-    private javax.swing.JLabel paragraphTextLabel;
     // End of variables declaration//GEN-END:variables
 }
