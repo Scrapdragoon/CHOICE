@@ -4,13 +4,33 @@
   <NonVisualComponents>
     <Component class="javax.swing.JFileChooser" name="openProjectChooser">
     </Component>
+    <Component class="javax.swing.JFileChooser" name="saveFileDialog">
+      <Properties>
+        <Property name="acceptAllFileFilterUsed" type="boolean" value="false"/>
+        <Property name="dialogType" type="int" value="1"/>
+        <Property name="dialogTitle" type="java.lang.String" value="Save Project"/>
+      </Properties>
+    </Component>
+    <Component class="InnerWorkings.ApplicationHandler" name="appHandler">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="editorMenu">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="" noResource="true"/>
+      </Properties>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuFile">
           <Properties>
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="fileMenuSave">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Save..."/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileMenuSaveActionPerformed,fileMenuSaveActionPerformed1"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileMenuNew">
               <Properties>
                 <Property name="text" type="java.lang.String" value="New..."/>
@@ -75,6 +95,10 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="NAME OF PROJECT"/>
+    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+      <Color id="Default Cursor"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="editorMenu"/>

@@ -55,6 +55,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             @Override
             public void mouseClicked(MouseEvent event)
             {
+                // if empty space clicked, add new node
                 if (event.getButton() == MouseEvent.BUTTON1 && currentNode < 0)
                 {
                     addNode(event.getX(), event.getY());
@@ -63,7 +64,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                  if (event.getButton() == MouseEvent.BUTTON3)   // if rectangle is right clicked
                 {
                      System.out.println("Right click detected. Current node: " + currentNode);
-                    remove(currentNode);
+                    removeNode(currentNode);
                 }
             }
         });
@@ -90,17 +91,14 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             g.setColor(Color.RED);
             ((Graphics2D)g).setStroke(new java.awt.BasicStroke(3));
             
-            // g.setXORMode(getBackground());  
-            // ((Graphics2D)g).draw(n);
-            // ((Graphics2D)g).drawString(n.title, n.x, n.y);
             
             nodeArray.get(currentNode).x = event.getX() - (nodeDimensions.width/2);
             nodeArray.get(currentNode).y = event.getY() - (nodeDimensions.height/2);
             
            ((Graphics2D)g).draw(n);
-           ((Graphics2D)g).drawString(n.title, n.x, n.y);
+           ((Graphics2D)g).drawString(n.getNode().getTitle(), n.x, n.y);
            
-            g.dispose(); // get rid of graphics object after using
+            // g.dispose(); // get rid of graphics object after using
             repaint();
         }
     }
@@ -118,8 +116,9 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         for (NodeRectangle n : nodeArray)
         {
             ((Graphics2D)g).draw(n);
-            ((Graphics2D)g).drawString(n.title, n.x, n.y);
+            ((Graphics2D)g).drawString(n.getNode().getTitle() + " " + nodeArray.indexOf(n), n.x, n.y);
         }
+        // g.dispose();
     }
     
     
@@ -142,6 +141,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             return nodeNum;
     }
     
+    
     public void addNode(int x, int y)
     {
         // create node with center at the passed values
@@ -150,13 +150,17 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         
         Point p = new Point(newX, newY);
         nodeArray.add(new NodeRectangle(p, nodeDimensions));
+        
+        // for debugging/log
+        System.out.println("Added node " + (nodeArray.size() - 1) + "!");
+        
         repaint();
     }
     
    
     public void removeNode(int i)
     {
-        // if i is within nodes' range
+        // if i is within nodeArray's range
         if (!(i < 0 || i >= nodeArray.size()))
         {
             System.out.println("Removing rectangle at index : " + i);

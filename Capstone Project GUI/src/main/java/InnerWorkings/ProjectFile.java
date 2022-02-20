@@ -4,6 +4,7 @@
  */
 package InnerWorkings;
 
+import DataItems.Node;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -18,13 +19,20 @@ import java.util.ArrayList;
 public class ProjectFile implements Serializable {
     
     String projectName;
-    
     String authorName;
     
     Path filePath;
     Path outputPath;
     
     ArrayList<NodeRectangle> nodes;
+    
+    
+    public ProjectFile()
+    {
+        projectName = "New Project";
+        authorName = "Author";
+        nodes = new ArrayList<>();
+    }
     
     
 
@@ -65,7 +73,24 @@ public class ProjectFile implements Serializable {
     }
 
     public void setNodes(ArrayList<NodeRectangle> nodes) {
-        this.nodes = nodes;
+        this.nodes = nodes; // make a copy of the new arraylist instead?
+    }
+    
+    // returns the Node at index i.
+    public Node getNode(int i)
+    {
+        return nodes.get(i).getNode();
+    }
+    
+    // sets the node at index i
+    public void setNode(int i, Node n)
+    {
+        nodes.get(i).setNode(n);
+    }
+    
+    public void deleteNode(int i)
+    {
+        nodes.remove(i);
     }
     
        

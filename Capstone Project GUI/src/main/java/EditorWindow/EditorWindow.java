@@ -4,6 +4,7 @@
  */
 package EditorWindow;
 
+import InnerWorkings.ApplicationHandler;
 import javax.swing.JOptionPane;
 import InnerWorkings.DragAndDrop;
 import java.awt.Point;
@@ -31,6 +32,7 @@ public class EditorWindow extends javax.swing.JFrame {
      * Creates new form EditorWindowGUI
      */
     public EditorWindow() {
+        
         initComponents();
     }
 
@@ -42,9 +44,10 @@ public class EditorWindow extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         openProjectChooser = new javax.swing.JFileChooser();
+        saveFileDialog = new javax.swing.JFileChooser();
+        appHandler = new InnerWorkings.ApplicationHandler();
         buttonMenuPanel = new javax.swing.JPanel();
         createNodeButton = new javax.swing.JButton();
         loadTestButton = new javax.swing.JButton();
@@ -53,6 +56,7 @@ public class EditorWindow extends javax.swing.JFrame {
         dragAndDrop1 = new InnerWorkings.DragAndDrop();
         editorMenu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
+        fileMenuSave = new javax.swing.JMenuItem();
         fileMenuNew = new javax.swing.JMenuItem();
         fileMenuOpen = new javax.swing.JMenuItem();
         fileMenuProjectSettings = new javax.swing.JMenuItem();
@@ -62,7 +66,13 @@ public class EditorWindow extends javax.swing.JFrame {
         editMenuRedo = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
 
+        saveFileDialog.setAcceptAllFileFilterUsed(false);
+        saveFileDialog.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        saveFileDialog.setDialogTitle("Save Project");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("NAME OF PROJECT");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         buttonMenuPanel.setBackground(new java.awt.Color(255, 255, 102));
 
@@ -129,7 +139,18 @@ public class EditorWindow extends javax.swing.JFrame {
             .addComponent(dragAndDrop1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        editorMenu.setName(""); // NOI18N
+
         menuFile.setText("File");
+
+        fileMenuSave.setText("Save...");
+        fileMenuSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileMenuSaveActionPerformed(evt);
+                fileMenuSaveActionPerformed1(evt);
+            }
+        });
+        menuFile.add(fileMenuSave);
 
         fileMenuNew.setText("New...");
         fileMenuNew.addActionListener(new java.awt.event.ActionListener() {
@@ -215,7 +236,11 @@ public class EditorWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_fileMenuNewActionPerformed
 
     private void fileMenuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuOpenActionPerformed
-        // TODO add your handling code here:
+        try {
+            openProjectChooser.showOpenDialog(this);
+        } catch (java.awt.HeadlessException e1) {
+            e1.printStackTrace();
+        }
     }//GEN-LAST:event_fileMenuOpenActionPerformed
 
     private void editMenuUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuUndoActionPerformed
@@ -242,6 +267,18 @@ public class EditorWindow extends javax.swing.JFrame {
         System.out.println("JButton1 pressed! This is how the user will be able to add new nodes.");
         mainEditor.addNode(100, 100);
     }//GEN-LAST:event_createNodeButtonActionPerformed
+
+    private void fileMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuSaveActionPerformed
+        try {
+            saveFileDialog.showSaveDialog(this);
+        } catch (java.awt.HeadlessException e1) {
+            e1.printStackTrace();
+        }
+    }//GEN-LAST:event_fileMenuSaveActionPerformed
+
+    private void fileMenuSaveActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuSaveActionPerformed1
+        saveFileDialog.setVisible(true);
+    }//GEN-LAST:event_fileMenuSaveActionPerformed1
 
     /**
      * @param args the command line arguments
@@ -270,16 +307,31 @@ public class EditorWindow extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
-        /* Create and display the form */
+        
+          /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new EditorWindow().setVisible(true);
             }
         });
+        
+        
+        // WHILE FRAME IS RUNNING:    
+        
+        
+        
+        
+        
+        
+
+       
+        
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private InnerWorkings.ApplicationHandler appHandler;
     private javax.swing.JPanel buttonMenuPanel;
     private javax.swing.JButton createNodeButton;
     private InnerWorkings.DragAndDrop dragAndDrop1;
@@ -291,11 +343,13 @@ public class EditorWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem fileMenuNew;
     private javax.swing.JMenuItem fileMenuOpen;
     private javax.swing.JMenuItem fileMenuProjectSettings;
+    private javax.swing.JMenuItem fileMenuSave;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton loadTestButton;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuView;
     private javax.swing.JFileChooser openProjectChooser;
+    private javax.swing.JFileChooser saveFileDialog;
     // End of variables declaration//GEN-END:variables
 }

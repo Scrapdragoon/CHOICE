@@ -13,7 +13,8 @@ import java.util.Map;
  *
  * @author Victor Malone (vm19171)
  *
- * This is a class representing a user-created passage. It includes a name, ID, image, and list of links. This will be used to store the data used to create HTML pages based on user input.
+ * This is a class representing a user-created passage. 
+ * It includes a name, ID, image, and list of links. This will be used to store the data used to create HTML pages based on user input.
  *
  */
 public class Node {
@@ -56,6 +57,22 @@ public class Node {
 
     public void setTitle(String newTitle) {
         title = newTitle;
+    }
+    
+        public String getParagraph() {
+        return paragraph;
+    }
+
+    public void setParagraph(String paragraph) {
+        this.paragraph = paragraph;
+    }
+
+    public URL getUrl() {
+        return url;
+    }
+
+    public void setUrl(URL url) {
+        this.url = url;
     }
 
     // get/set methods for ID

@@ -13,31 +13,49 @@ import java.awt.Rectangle;
 /**
  *
  * @author Victor Malone (vm19171)
+ * 
+ * This is a visual representation of the Node class, used for the visual editor.
  */
-public class NodeRectangle extends Rectangle{
+public class NodeRectangle extends Rectangle {
     
-    /*
+   
+    private Node node;
     
-    Currently does not use the Node data item.
+    public Point upperLeft;
     
-    */
     
-    public String title = "test";
-    public Node node;
-    
+    // no-argument constructor
     public NodeRectangle()
     {
-        title = "test";
+        this.node = new Node("New Node");
     }
     
     public NodeRectangle(String title)
     {
-        this.title = title;
+        this.node = new Node(title);
     }
     
     public NodeRectangle(Point p, Dimension d)
     {
         super(p, d);
+        this.node = new Node("New Node");
+    }
+    
+    // getters and setters
+        public Node getNode() {
+        return node;
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
+    }
+
+    public Point getUpperLeft() {
+        return upperLeft;
+    }
+
+    public void setUpperLeft(Point upperLeft) {
+        this.upperLeft = upperLeft;
     }
     
    
