@@ -30,7 +30,7 @@ import javax.swing.SwingUtilities;
 public class DragAndDrop extends JPanel implements MouseMotionListener, Serializable {
     
     // ArrayList of all nodes on screen
-    private ArrayList<NodeRectangle> nodeArray = new ArrayList<>();
+    private ArrayList<NodeRectangle> nodeArrayCopy = new ArrayList<>();
 
     // size of rectangle used to represent nodes
     private Dimension nodeDimensions = new Dimension(100, 50);
@@ -40,7 +40,9 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     
     public DragAndDrop() {
       
+        //<editor-fold defaultstate="collapsed" desc="Mouse Listeners">
         
+
         this.addMouseListener(new MouseAdapter() {
             
             @Override
@@ -84,7 +86,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     {
         if (currentNode >= 0)
         {
-            NodeRectangle n = nodeArray.get(currentNode);
+            NodeRectangle n = nodeArrayCopy.get(currentNode);
             Graphics g = getGraphics();
             
             // set up graphics
@@ -92,8 +94,8 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             ((Graphics2D)g).setStroke(new java.awt.BasicStroke(3));
             
             
-            nodeArray.get(currentNode).x = event.getX() - (nodeDimensions.width/2);
-            nodeArray.get(currentNode).y = event.getY() - (nodeDimensions.height/2);
+            nodeArrayCopy.get(currentNode).x = event.getX() - (nodeDimensions.width/2);
+            nodeArrayCopy.get(currentNode).y = event.getY() - (nodeDimensions.height/2);
             
            ((Graphics2D)g).draw(n);
            ((Graphics2D)g).drawString(n.getNode().getTitle(), n.x, n.y);
@@ -102,6 +104,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             repaint();
         }
     }
+    //</editor-fold>
     
     @Override
     public void paintComponent(Graphics g)
@@ -113,10 +116,10 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         
         
         // draw every node
-        for (NodeRectangle n : nodeArray)
+        for (NodeRectangle n : nodeArrayCopy)
         {
             ((Graphics2D)g).draw(n);
-            ((Graphics2D)g).drawString(n.getNode().getTitle() + " " + nodeArray.indexOf(n), n.x, n.y);
+            ((Graphics2D)g).drawString(n.getNode().getTitle() + " " + nodeArrayCopy.indexOf(n), n.x, n.y);
         }
         // g.dispose();
     }
@@ -129,12 +132,12 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     {
         // by default, start with index that does not exist
         int nodeNum = -1;
-            for (Rectangle n : nodeArray)
+            for (Rectangle n : nodeArrayCopy)
             {
                 // if x and y are within a node
                 if (n.contains(x, y))
                 {
-                    nodeNum = nodeArray.indexOf(n);
+                    nodeNum = nodeArrayCopy.indexOf(n);
                     break;
                 }
             }
@@ -149,10 +152,10 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         int newY = y - (nodeDimensions.height/2);
         
         Point p = new Point(newX, newY);
-        nodeArray.add(new NodeRectangle(p, nodeDimensions));
+        nodeArrayCopy.add(new NodeRectangle(p, nodeDimensions));
         
         // for debugging/log
-        System.out.println("Added node " + (nodeArray.size() - 1) + "!");
+        System.out.println("Added node " + (nodeArrayCopy.size() - 1) + "!");
         
         repaint();
     }
@@ -160,11 +163,11 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
    
     public void removeNode(int i)
     {
-        // if i is within nodeArray's range
-        if (!(i < 0 || i >= nodeArray.size()))
+        // if i is within nodeArrayCopy's range
+        if (!(i < 0 || i >= nodeArrayCopy.size()))
         {
             System.out.println("Removing rectangle at index : " + i);
-               nodeArray.remove(i); // remove rectangle at index
+               nodeArrayCopy.remove(i); // remove rectangle at index
                
                if (currentNode == i)
                {
@@ -178,17 +181,17 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         repaint();
     }
     
-    // clones the contents of n to nodeArray
-    public void setNodeArray(ArrayList<NodeRectangle> n)
+    // clones the contents of n to nodeArrayCopy
+    public void setnodeArrayCopy(ArrayList<NodeRectangle> n)
     {
-        this.nodeArray.clear();
-        this.nodeArray = (ArrayList<NodeRectangle>)n.clone();
+        this.nodeArrayCopy.clear();
+        this.nodeArrayCopy = (ArrayList<NodeRectangle>)n.clone();
     }
     
-    // returns nodeArray
-    public ArrayList<NodeRectangle> getNodeArray()
+    // returns nodeArrayCopy
+    public ArrayList<NodeRectangle> getnodeArrayCopy()
     {
-        return nodeArray;
+        return nodeArrayCopy;
     }
     
     

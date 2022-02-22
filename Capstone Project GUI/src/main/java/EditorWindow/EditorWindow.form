@@ -3,13 +3,28 @@
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.JFileChooser" name="openProjectChooser">
+      <Properties>
+        <Property name="dialogTitle" type="java.lang.String" value="Open Dialogue"/>
+        <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new MyFileFilter()" type="code"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFileChooser(System.getProperty(&quot;user.dir&quot;))"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JFileChooser" name="saveFileDialog">
       <Properties>
         <Property name="acceptAllFileFilterUsed" type="boolean" value="false"/>
         <Property name="dialogType" type="int" value="1"/>
         <Property name="dialogTitle" type="java.lang.String" value="Save Project"/>
+        <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new MyFileFilter()" type="code"/>
+        </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFileChooser(System.getProperty(&quot;user.dir&quot;))"/>
+      </AuxValues>
     </Component>
     <Component class="InnerWorkings.ApplicationHandler" name="appHandler">
     </Component>
@@ -156,8 +171,8 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="loadTestButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="766" max="32767" attributes="0"/>
+                  <Component id="saveTestButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="762" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -168,7 +183,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="createNodeButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="loadTestButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="saveTestButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -189,10 +204,13 @@
             <Property name="text" type="java.lang.String" value="Load"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="saveTestButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jButton3"/>
+            <Property name="text" type="java.lang.String" value="Save As..."/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveTestButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

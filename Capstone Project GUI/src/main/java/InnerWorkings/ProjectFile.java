@@ -18,30 +18,31 @@ import java.util.ArrayList;
  */
 public class ProjectFile implements Serializable {
     
-    String projectName;
-    String authorName;
+    String projectTitle;     // project's title  
+    String authorName;      // author's name
     
-    Path filePath;
-    Path outputPath;
+    Path filePath;                // path to access file
+    Path outputPath;          // path to output exported game (do you even need to store this separately?)
     
-    ArrayList<NodeRectangle> nodes;
+    
+    ArrayList<NodeRectangle> nodes; // ArrayList of story nodes/pages
     
     
     public ProjectFile()
     {
-        projectName = "New Project";
+        projectTitle = "New Project";
         authorName = "Author";
         nodes = new ArrayList<>();
     }
     
     
 
-    public String getProjectName() {
-        return projectName;
+    public String getProjectTitle() {
+        return projectTitle;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setProjectTitle(String projectTitle) {
+        this.projectTitle = projectTitle;
     }
 
     public String getAuthorName() {
@@ -73,7 +74,7 @@ public class ProjectFile implements Serializable {
     }
 
     public void setNodes(ArrayList<NodeRectangle> nodes) {
-        this.nodes = nodes; // make a copy of the new arraylist instead?
+        this.nodes = nodes; // make a deep copy of the new arraylist instead?
     }
     
     // returns the Node at index i.
