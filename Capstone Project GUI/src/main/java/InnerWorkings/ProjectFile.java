@@ -32,7 +32,7 @@ public class ProjectFile implements Serializable {
     {
         projectTitle = "New Project";
         authorName = "Author";
-        nodes = new ArrayList<>();
+        nodes = new ArrayList<>();  // should I start with one node placed?
     }
     
     

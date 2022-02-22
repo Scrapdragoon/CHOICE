@@ -58,5 +58,11 @@ public class NodeRectangle extends Rectangle {
         this.upperLeft = upperLeft;
     }
     
+    @Override
+    public String toString()
+    {
+        String returnString = "Title: " + node.getTitle() + "\n Paragraph: " + node.getParagraph();
+        return returnString;
+    }
    
 }

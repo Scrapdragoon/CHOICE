@@ -27,9 +27,11 @@
       </AuxValues>
     </Component>
     <Component class="InnerWorkings.ApplicationHandler" name="appHandler">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="appHandler.setView(dragAndDropPanel);"/>
-      </AuxValues>
+      <Properties>
+        <Property name="view" type="InnerWorkings.DragAndDrop" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="dragAndDropPanel"/>
+        </Property>
+      </Properties>
     </Component>
     <Menu class="javax.swing.JMenuBar" name="editorMenu">
       <Properties>
@@ -237,7 +239,13 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="cc" red="cc" type="rgb"/>
             </Property>
+            <Property name="controller" type="InnerWorkings.ApplicationHandler" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="appHandler"/>
+            </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dragAndDropPanelKeyTyped"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_LayoutCodePost" type="java.lang.String" value="mainEditor = dragAndDropPanel;"/>
           </AuxValues>

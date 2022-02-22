@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
@@ -40,7 +41,7 @@ public class ApplicationHandler {
     
    
     // dimension for visual representation of nodes
-    private Dimension nodeDimensions = new Dimension(100, 50);
+    public Dimension nodeDimensions = new Dimension(100, 50);
     
     
     
@@ -57,6 +58,8 @@ public class ApplicationHandler {
 
     public ApplicationHandler() {
         // no-argument
+        // for testing
+        project = new ProjectFile();
     }
     
     //</editor-fold> 
@@ -89,10 +92,10 @@ public class ApplicationHandler {
     
     
    
-    public void update(DragAndDrop DDPanel)
+    public void update()
     {
         // to sync the ProjectFile's node data with DragAndDrop's.
-        this.project.setNodes(DDPanel.getnodeArrayCopy());
+        this.project.setNodes(view.getNodes());
         
         // is this more of a "link"? Does it only need to be done once?
     }
@@ -147,6 +150,20 @@ public class ApplicationHandler {
         project = projectFile;
     }
     
+    public DragAndDrop getView() {
+        return view;
+    }
+
+    public void setView(DragAndDrop view) {
+        this.view = view;
+    }
+    
+    public ArrayList<NodeRectangle> getNodes()
+    {
+        return project.getNodes();
+    }
+    
+    
     public String getNodeTitle(int index)
     {
         return project.getNode(index).getTitle();
@@ -165,16 +182,7 @@ public class ApplicationHandler {
     public String getNodeID(int index)
     {
         return project.getNode(index).getID();
-    }
-
-    public DragAndDrop getView() {
-        return view;
-    }
-
-    public void setView(DragAndDrop view) {
-        this.view = view;
-    }
-    
+    }   
     
     //</editor-fold>
     

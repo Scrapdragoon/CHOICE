@@ -124,6 +124,12 @@ public class EditorWindow extends javax.swing.JFrame {
         );
 
         dragAndDropPanel.setBackground(new java.awt.Color(204, 204, 255));
+        dragAndDropPanel.setController(appHandler);
+        dragAndDropPanel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dragAndDropPanelKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout dragAndDropPanelLayout = new javax.swing.GroupLayout(dragAndDropPanel);
         dragAndDropPanel.setLayout(dragAndDropPanelLayout);
@@ -299,6 +305,12 @@ public class EditorWindow extends javax.swing.JFrame {
             e1.printStackTrace();
         }
     }//GEN-LAST:event_saveTestButtonActionPerformed
+
+    private void dragAndDropPanelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dragAndDropPanelKeyTyped
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == 49)     // if space bar pressed
+        dragAndDropPanel.showControllerNodeStats();
+    }//GEN-LAST:event_dragAndDropPanelKeyTyped
 
     /**
      * @param args the command line arguments
