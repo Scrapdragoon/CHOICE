@@ -27,6 +27,9 @@
       </AuxValues>
     </Component>
     <Component class="InnerWorkings.ApplicationHandler" name="appHandler">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="appHandler.setView(dragAndDropPanel);"/>
+      </AuxValues>
     </Component>
     <Menu class="javax.swing.JMenuBar" name="editorMenu">
       <Properties>
@@ -219,24 +222,24 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="dragAndDrop1" alignment="0" max="32767" attributes="0"/>
+              <Component id="dragAndDropPanel" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="dragAndDrop1" alignment="0" max="32767" attributes="0"/>
+              <Component id="dragAndDropPanel" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="InnerWorkings.DragAndDrop" name="dragAndDrop1">
+        <Container class="InnerWorkings.DragAndDrop" name="dragAndDropPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="cc" red="cc" type="rgb"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_LayoutCodePost" type="java.lang.String" value="mainEditor = dragAndDrop1;"/>
+            <AuxValue name="JavaCodeGenerator_LayoutCodePost" type="java.lang.String" value="mainEditor = dragAndDropPanel;"/>
           </AuxValues>
 
           <Layout>

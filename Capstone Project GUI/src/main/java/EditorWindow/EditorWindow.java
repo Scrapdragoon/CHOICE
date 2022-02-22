@@ -54,7 +54,7 @@ public class EditorWindow extends javax.swing.JFrame {
         loadTestButton = new javax.swing.JButton();
         saveTestButton = new javax.swing.JButton();
         editorLayeredPane = new javax.swing.JLayeredPane();
-        dragAndDrop1 = new InnerWorkings.DragAndDrop();
+        dragAndDropPanel = new InnerWorkings.DragAndDrop();
         editorMenu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         fileMenuSave = new javax.swing.JMenuItem();
@@ -74,6 +74,8 @@ public class EditorWindow extends javax.swing.JFrame {
         saveFileDialog.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         saveFileDialog.setDialogTitle("Save Project");
         saveFileDialog.setFileFilter(new MyFileFilter());
+
+        appHandler.setView(dragAndDropPanel);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NAME OF PROJECT");
@@ -121,32 +123,32 @@ public class EditorWindow extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        dragAndDrop1.setBackground(new java.awt.Color(204, 204, 255));
+        dragAndDropPanel.setBackground(new java.awt.Color(204, 204, 255));
 
-        javax.swing.GroupLayout dragAndDrop1Layout = new javax.swing.GroupLayout(dragAndDrop1);
-        dragAndDrop1.setLayout(dragAndDrop1Layout);
-        dragAndDrop1Layout.setHorizontalGroup(
-            dragAndDrop1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout dragAndDropPanelLayout = new javax.swing.GroupLayout(dragAndDropPanel);
+        dragAndDropPanel.setLayout(dragAndDropPanelLayout);
+        dragAndDropPanelLayout.setHorizontalGroup(
+            dragAndDropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        dragAndDrop1Layout.setVerticalGroup(
-            dragAndDrop1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        dragAndDropPanelLayout.setVerticalGroup(
+            dragAndDropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 669, Short.MAX_VALUE)
         );
 
-        mainEditor = dragAndDrop1;
+        mainEditor = dragAndDropPanel;
 
-        editorLayeredPane.setLayer(dragAndDrop1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        editorLayeredPane.setLayer(dragAndDropPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout editorLayeredPaneLayout = new javax.swing.GroupLayout(editorLayeredPane);
         editorLayeredPane.setLayout(editorLayeredPaneLayout);
         editorLayeredPaneLayout.setHorizontalGroup(
             editorLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dragAndDrop1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(dragAndDropPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         editorLayeredPaneLayout.setVerticalGroup(
             editorLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dragAndDrop1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(dragAndDropPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         editorMenu.setName(""); // NOI18N
@@ -352,7 +354,7 @@ public class EditorWindow extends javax.swing.JFrame {
     private InnerWorkings.ApplicationHandler appHandler;
     private javax.swing.JPanel buttonMenuPanel;
     private javax.swing.JButton createNodeButton;
-    private InnerWorkings.DragAndDrop dragAndDrop1;
+    private InnerWorkings.DragAndDrop dragAndDropPanel;
     private javax.swing.JMenuItem editMenuRedo;
     private javax.swing.JMenuItem editMenuUndo;
     private javax.swing.JLayeredPane editorLayeredPane;

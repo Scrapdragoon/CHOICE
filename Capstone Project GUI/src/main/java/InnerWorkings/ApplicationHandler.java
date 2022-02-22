@@ -24,7 +24,9 @@ import javax.swing.filechooser.FileSystemView;
  * @author Victor Malone (vm19171)
  * 
  * This class is meant to be used to handle the methods the application will use. 
- * This includes saving, loading, modifying the ProjectFile, 
+ * This includes saving, loading, modifying the ProjectFile, etc.
+ * 
+ * This is the Controller in the MVC pattern.
  */
 
 
@@ -32,6 +34,8 @@ public class ApplicationHandler {
     
     // Project file containing all project-specific data
     private static ProjectFile project;
+    
+    // DragAndDrop panel
     private DragAndDrop view;
     
    
@@ -40,8 +44,11 @@ public class ApplicationHandler {
     
     
     
+    //------------------------------------------------
+
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
     
-    // Constructors
+
     public ApplicationHandler(ProjectFile p, DragAndDrop d)
     {
         project = p;
@@ -49,10 +56,10 @@ public class ApplicationHandler {
     }
 
     public ApplicationHandler() {
+        // no-argument
     }
     
-    
-    
+    //</editor-fold> 
     
     //------------------------------------------------
 
@@ -159,6 +166,15 @@ public class ApplicationHandler {
     {
         return project.getNode(index).getID();
     }
+
+    public DragAndDrop getView() {
+        return view;
+    }
+
+    public void setView(DragAndDrop view) {
+        this.view = view;
+    }
+    
     
     //</editor-fold>
     
