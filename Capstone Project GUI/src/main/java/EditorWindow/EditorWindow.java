@@ -13,8 +13,13 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import javax.swing.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JViewport;
@@ -46,7 +51,7 @@ public class EditorWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        openProjectChooser = new javax.swing.JFileChooser(System.getProperty("user.dir"));
+        openFileDialog = new javax.swing.JFileChooser(System.getProperty("user.dir"));
         saveFileDialog = new javax.swing.JFileChooser(System.getProperty("user.dir"));
         appHandler = new InnerWorkings.ApplicationHandler();
         buttonMenuPanel = new javax.swing.JPanel();
@@ -67,23 +72,40 @@ public class EditorWindow extends javax.swing.JFrame {
         editMenuRedo = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
 
-        openProjectChooser.setDialogTitle("Open Dialogue");
-        openProjectChooser.setFileFilter(new MyFileFilter());
+        openFileDialog.setDialogTitle("Open Project");
+        openFileDialog.setFileFilter(new MyFileFilter());
+        openFileDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openFileDialogActionPerformed(evt);
+            }
+        });
 
         saveFileDialog.setAcceptAllFileFilterUsed(false);
         saveFileDialog.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         saveFileDialog.setDialogTitle("Save Project");
         saveFileDialog.setFileFilter(new MyFileFilter());
+        saveFileDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveFileDialogActionPerformed(evt);
+            }
+        });
 
         appHandler.setView(dragAndDropPanel);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NAME OF PROJECT");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         buttonMenuPanel.setBackground(new java.awt.Color(255, 255, 102));
 
         createNodeButton.setText("Create Node");
+        createNodeButton.setEnabled(false);
+        createNodeButton.setRequestFocusEnabled(false);
         createNodeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createNodeButtonActionPerformed(evt);
@@ -91,8 +113,10 @@ public class EditorWindow extends javax.swing.JFrame {
         });
 
         loadTestButton.setText("Load");
+        loadTestButton.setEnabled(false);
 
         saveTestButton.setText("Save As...");
+        saveTestButton.setEnabled(false);
         saveTestButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveTestButtonActionPerformed(evt);
@@ -182,7 +206,6 @@ public class EditorWindow extends javax.swing.JFrame {
         fileMenuOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fileMenuOpenActionPerformed(evt);
-                fileMenuOpenActionPerformed1(evt);
             }
         });
         menuFile.add(fileMenuOpen);
@@ -254,10 +277,32 @@ public class EditorWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_fileMenuNewActionPerformed
 
     private void fileMenuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuOpenActionPerformed
+
         try {
-            openProjectChooser.showOpenDialog(this);
-        } catch (java.awt.HeadlessException e1) {
+            int returnValue = openFileDialog.showOpenDialog(this);
+            System.out.println(""); // for clarity
+
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                System.out.println("Approved!");
+
+                appHandler.loadProject(openFileDialog.getSelectedFile());
+                dragAndDropPanel.setNodes(appHandler.getNodes());
+                dragAndDropPanel.repaint();
+            }
+            else {
+                System.out.println("Not approved...");
+            }
+
+        }
+        catch (java.awt.HeadlessException e1) {
             e1.printStackTrace();
+        }
+        catch (IOException ex) {
+            System.out.println("Problem loading file.");
+            Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (ClassNotFoundException ex) {
+            Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_fileMenuOpenActionPerformed
 
@@ -273,24 +318,37 @@ public class EditorWindow extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_fileMenuExitActionPerformed
 
-    private void fileMenuOpenActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuOpenActionPerformed1
-        try {
-            openProjectChooser.showOpenDialog(this);
-        } catch (java.awt.HeadlessException e1) {
-            e1.printStackTrace();
-        }
-    }//GEN-LAST:event_fileMenuOpenActionPerformed1
-
     private void createNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNodeButtonActionPerformed
         System.out.println("JButton1 pressed! This is how the user will be able to add new nodes.");
         mainEditor.addNode(100, 100);
     }//GEN-LAST:event_createNodeButtonActionPerformed
 
     private void fileMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuSaveActionPerformed
+        
+        // for saving files
         try {
-            saveFileDialog.showSaveDialog(this);
+            
+            int returnValue = saveFileDialog.showSaveDialog(this);
+            System.out.println(""); // for clarity
+            
+            if (returnValue == JFileChooser.APPROVE_OPTION)
+            {
+                System.out.println("Approved!");
+
+                appHandler.saveProject(saveFileDialog.getSelectedFile());
+            }
+                else
+                {
+                    System.out.println("Not approved...");
+                }
+            
         } catch (java.awt.HeadlessException e1) {
             e1.printStackTrace();
+        }
+        catch (IOException ex)
+        {
+            System.out.println("Problem saving file.");
+            Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_fileMenuSaveActionPerformed
 
@@ -308,9 +366,22 @@ public class EditorWindow extends javax.swing.JFrame {
 
     private void dragAndDropPanelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dragAndDropPanelKeyTyped
         // TODO add your handling code here:
-        if (evt.getKeyCode() == 49)     // if space bar pressed
-        dragAndDropPanel.showControllerNodeStats();
     }//GEN-LAST:event_dragAndDropPanelKeyTyped
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+
+           System.out.println("Key Pressed!");
+        dragAndDropPanel.showControllerNodeStats();
+       
+    }//GEN-LAST:event_formKeyTyped
+
+    private void saveFileDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFileDialogActionPerformed
+
+    }//GEN-LAST:event_saveFileDialogActionPerformed
+
+    private void openFileDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileDialogActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_openFileDialogActionPerformed
 
     /**
      * @param args the command line arguments
@@ -346,20 +417,6 @@ public class EditorWindow extends javax.swing.JFrame {
                 new EditorWindow().setVisible(true);
             }
         });
-        
-        
-        // WHILE FRAME IS RUNNING:    
-        
-        
-        
-        
-        
-        
-
-       
-        
-        
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -380,7 +437,7 @@ public class EditorWindow extends javax.swing.JFrame {
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuView;
-    private javax.swing.JFileChooser openProjectChooser;
+    private javax.swing.JFileChooser openFileDialog;
     private javax.swing.JFileChooser saveFileDialog;
     private javax.swing.JButton saveTestButton;
     // End of variables declaration//GEN-END:variables

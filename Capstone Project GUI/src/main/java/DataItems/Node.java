@@ -5,6 +5,7 @@
 package DataItems;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
@@ -17,7 +18,7 @@ import java.util.Map;
  * It includes a name, ID, image, and list of links. This will be used to store the data used to create HTML pages based on user input.
  *
  */
-public class Node {
+public class Node implements Serializable {
     
     public static int passageNumber = 100;    // used to determine the IDs of new passages
     

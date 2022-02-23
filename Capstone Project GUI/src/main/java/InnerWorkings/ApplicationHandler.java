@@ -76,17 +76,43 @@ public class ApplicationHandler {
                
     }
     
-    public void loadProject(File f)
+    public void loadProject(File f) throws FileNotFoundException, IOException, ClassNotFoundException
     {
         // load project data from a file and assign to project.
+
+        // create streams
+        FileInputStream fileInStream = new FileInputStream(f);
+        ObjectInputStream objectInStream = new ObjectInputStream(fileInStream);
+
+        project = (ProjectFile) objectInStream.readObject();
+        System.out.println("Data loaded? Project name: " + project.getProjectTitle());
+        
+        // close streams
+        fileInStream.close();
+        objectInStream.close();
+        
                 
     }
     
-    public void saveProject(File f)
+    public void saveProject(File f) throws FileNotFoundException, IOException
     {
         // save project's data to a file.
         // if file.exists(), ask to overwrite- or perhaps handle that in the JFileChooser itself. See here: https://stackoverflow.com/questions/3651494/jfilechooser-with-confirmation-dialog
         
+        // File projectFile = new File(f + "NewProjectv2.choice"); // test name
+        
+        // create streams
+        // File projectFile = new File(f, "test.choice");
+        FileOutputStream fileOutStream = new FileOutputStream(f);
+        ObjectOutputStream objectOutStream = new ObjectOutputStream(fileOutStream);
+            
+        // write to file
+        objectOutStream.writeObject(project);
+            
+        // close streams
+        fileOutStream.close();
+        objectOutStream.close();
+                
         
     }
     
