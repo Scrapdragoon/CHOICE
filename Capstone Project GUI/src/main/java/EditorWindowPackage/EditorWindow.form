@@ -115,6 +115,13 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="View"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="viewMenuReturnToStart">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Return to Start"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

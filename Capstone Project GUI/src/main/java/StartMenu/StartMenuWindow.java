@@ -4,7 +4,7 @@
  */
 package StartMenu;
 
-import EditorWindow.EditorWindow;
+import EditorWindowPackage.EditorWindow;
 import javax.swing.*;
 
 /**

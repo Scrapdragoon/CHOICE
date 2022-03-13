@@ -43,6 +43,8 @@ public class ApplicationHandler {
     // dimension for visual representation of nodes
     public Dimension nodeDimensions = new Dimension(100, 50);
     
+    // custom file extension
+    public final String extension = ".choice";
     
     
     //------------------------------------------------
@@ -84,25 +86,23 @@ public class ApplicationHandler {
         FileInputStream fileInStream = new FileInputStream(f);
         ObjectInputStream objectInStream = new ObjectInputStream(fileInStream);
 
+        // read from file
         project = (ProjectFile) objectInStream.readObject();
-        System.out.println("Data loaded? Project name: " + project.getProjectTitle());
+        //System.out.println("Data loaded? Project name: " + project.getProjectTitle());
         
         // close streams
         fileInStream.close();
-        objectInStream.close();
-        
-                
+        objectInStream.close();                   
     }
     
     public void saveProject(File f) throws FileNotFoundException, IOException
     {
         // save project's data to a file.
         // if file.exists(), ask to overwrite- or perhaps handle that in the JFileChooser itself. See here: https://stackoverflow.com/questions/3651494/jfilechooser-with-confirmation-dialog
-        
-        // File projectFile = new File(f + "NewProjectv2.choice"); // test name
+              
+        // main code already checks for extension.
         
         // create streams
-        // File projectFile = new File(f, "test.choice");
         FileOutputStream fileOutStream = new FileOutputStream(f);
         ObjectOutputStream objectOutStream = new ObjectOutputStream(fileOutStream);
             
@@ -112,8 +112,6 @@ public class ApplicationHandler {
         // close streams
         fileOutStream.close();
         objectOutStream.close();
-                
-        
     }
     
     

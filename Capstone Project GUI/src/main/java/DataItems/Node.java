@@ -33,7 +33,10 @@ public class Node implements Serializable {
     public Image image;                      // accompanying image
     // public ArrayList<Node> choices;  // list of choices, that connect to other passages/nodes
     
-    public Map<String, URL> choices;
+    
+    // List of links from this node to other nodes.
+    // Key is the ID, value is the hyperlink text. This may be changed later. 
+    public Map<String, String> choices;
 
     public Node() {
         title = "defaultTitle";

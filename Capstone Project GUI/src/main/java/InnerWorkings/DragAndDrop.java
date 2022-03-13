@@ -134,6 +134,25 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                 ((Graphics2D)g).drawString(n.getNode().getTitle() + " " + nodes.indexOf(n), n.x, n.y);
             }
         }
+        
+        // draw lines between connected passages
+        drawLines((Graphics2D)g);
+    }
+    
+    public void drawLines(Graphics2D g)
+    {
+        
+             if (!(nodes.isEmpty()))
+        {
+            for (int index = 0; index < nodes.size() -1; index++)
+            {
+                // draw lines from middle of nodes
+               ((Graphics2D)g).drawLine(nodes.get(index).x + controller.nodeDimensions.width/2, nodes.get(index).y + controller.nodeDimensions.height/2, nodes.get(index + 1).x 
+                       + controller.nodeDimensions.width/2, nodes.get(index + 1).y + controller.nodeDimensions.height/2);
+               
+               
+           }
+        }
     }
     
     

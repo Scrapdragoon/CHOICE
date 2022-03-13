@@ -25,6 +25,10 @@ import java.util.logging.Logger;
 public class CreatePage {
     
     
+    // ProjectFile from the... well, project file.
+    ProjectFile project;
+    
+    
     // class to create page based on inputs
     public static void CreatePage()
     {

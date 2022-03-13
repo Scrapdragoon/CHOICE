@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package EditorWindow;
+package EditorWindowPackage;
 
 import InnerWorkings.ApplicationHandler;
 import javax.swing.JOptionPane;
@@ -71,6 +71,7 @@ public class EditorWindow extends javax.swing.JFrame {
         editMenuUndo = new javax.swing.JMenuItem();
         editMenuRedo = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
+        viewMenuReturnToStart = new javax.swing.JMenuItem();
 
         openFileDialog.setDialogTitle("Open Project");
         openFileDialog.setFileFilter(new MyFileFilter());
@@ -244,6 +245,10 @@ public class EditorWindow extends javax.swing.JFrame {
         editorMenu.add(menuEdit);
 
         menuView.setText("View");
+
+        viewMenuReturnToStart.setText("Return to Start");
+        menuView.add(viewMenuReturnToStart);
+
         editorMenu.add(menuView);
 
         setJMenuBar(editorMenu);
@@ -329,17 +334,35 @@ public class EditorWindow extends javax.swing.JFrame {
         try {
             
             int returnValue = saveFileDialog.showSaveDialog(this);
-            System.out.println(""); // for clarity
             
             if (returnValue == JFileChooser.APPROVE_OPTION)
-            {
-                System.out.println("Approved!");
-
-                appHandler.saveProject(saveFileDialog.getSelectedFile());
+            {                
+                // add proper extension if not added manually
+                File saveFile = saveFileDialog.getSelectedFile();
+                if (!(saveFile.getAbsolutePath().endsWith(appHandler.extension)))
+                {
+                    saveFile = new File(saveFileDialog.getSelectedFile() + appHandler.extension);   // add extension
+                }
+                
+                // If file exists, ask to overwrite
+                {
+                if (saveFile.exists())
+                        {
+                            int overwrite = JOptionPane.showConfirmDialog(this, "Would you like to overwrite the existing file?", "Overwrite file?", JOptionPane.YES_NO_OPTION);
+                            
+                            if (!(overwrite == JOptionPane.YES_OPTION)) // if not "yes"
+                            {
+                                return; // cancel.
+                            }
+                        }
+            }
+                
+                appHandler.saveProject(saveFile);   // saves file!
+                System.out.println("File saved!");
             }
                 else
                 {
-                    System.out.println("Not approved...");
+                    System.out.println("Unable to save.");
                 }
             
         } catch (java.awt.HeadlessException e1) {
@@ -351,10 +374,6 @@ public class EditorWindow extends javax.swing.JFrame {
             Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_fileMenuSaveActionPerformed
-
-    private void fileMenuSaveActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuSaveActionPerformed1
-        saveFileDialog.setVisible(true);
-    }//GEN-LAST:event_fileMenuSaveActionPerformed1
 
     private void saveTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTestButtonActionPerformed
         try {
@@ -382,6 +401,10 @@ public class EditorWindow extends javax.swing.JFrame {
     private void openFileDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileDialogActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_openFileDialogActionPerformed
+
+    private void fileMenuSaveActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuSaveActionPerformed1
+        saveFileDialog.setVisible(true);
+    }//GEN-LAST:event_fileMenuSaveActionPerformed1
 
     /**
      * @param args the command line arguments
@@ -440,5 +463,6 @@ public class EditorWindow extends javax.swing.JFrame {
     private javax.swing.JFileChooser openFileDialog;
     private javax.swing.JFileChooser saveFileDialog;
     private javax.swing.JButton saveTestButton;
+    private javax.swing.JMenuItem viewMenuReturnToStart;
     // End of variables declaration//GEN-END:variables
 }
