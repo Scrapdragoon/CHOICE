@@ -6,6 +6,7 @@
 */
 package InnerWorkings;
 
+import EditorWindowPackage.PageEditorPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -32,10 +33,12 @@ import javax.swing.SwingUtilities;
  */
 public class DragAndDrop extends JPanel implements MouseMotionListener, Serializable {
     
+    // Controller.
     ApplicationHandler controller;
     
+    
     // ArrayList of all nodes on screen. Should be linked to list from controller
-   private ArrayList<NodeRectangle> nodes;
+   private ArrayList<NodeRectangle> nodes = new ArrayList<>();
     
     // size of rectangle used to represent nodes
    // private Dimension nodeDimensions = new Dimension(100, 50);
@@ -46,11 +49,12 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     
     
     public DragAndDrop() {
-      
-        //<editor-fold defaultstate="collapsed" desc="Mouse Listeners">
         
-        nodes = new ArrayList<>();
-       
+        //nodes = new ArrayList<>();
+        //nodes = controller.getProjectFile().getNodes();
+        
+        //<editor-fold defaultstate="collapsed" desc="Mouse Listeners">
+
 
         this.addMouseListener(new MouseAdapter() {
             
@@ -76,6 +80,14 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                 {
                      System.out.println("Right click detected. Current node: " + currentNode);
                     removeNode(currentNode);
+                    return;
+                }
+                 
+                 // double click on node to open editor
+                 if (event.getButton() == MouseEvent.BUTTON1 && event.getClickCount() == 2)
+                {
+                    System.out.println("Double click on node detected!");
+                    controller.openPageEditor(nodes.get(currentNode));
                 }
             }
         });
@@ -108,14 +120,15 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             nodes.get(currentNode).x = event.getX() - (controller.nodeDimensions.width/2);
             nodes.get(currentNode).y = event.getY() - (controller.nodeDimensions.height/2);
             
-           ((Graphics2D)g).draw(n);
-           ((Graphics2D)g).drawString(n.getNode().getTitle(), n.x, n.y);
+           //((Graphics2D)g).draw(n);
+           //((Graphics2D)g).drawString(n.getNode().getTitle(), n.x, n.y);
            
             // g.dispose(); // get rid of graphics object after using
             repaint();
         }
-    }
+ 
     //</editor-fold>
+    }
     
     @Override
     public void paintComponent(Graphics g)
@@ -125,6 +138,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
        g.setColor(Color.RED);
        ((Graphics2D)g).setStroke(new java.awt.BasicStroke(3));
         
+       nodes = controller.getNodes();
         if (!(nodes.isEmpty()))
         {
             // draw every node
@@ -134,14 +148,86 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                 ((Graphics2D)g).drawString(n.getNode().getTitle() + " " + nodes.indexOf(n), n.x, n.y);
             }
         }
-        
-        // draw lines between connected passages
+                // draw lines between connected passages
         drawLines((Graphics2D)g);
+        
+
     }
     
+    // used to draw lines between connected pages
     public void drawLines(Graphics2D g)
     {
         
+        //System.out.println("Drawing lines...");
+        
+        /*
+        if (!(controller.getProjectFile().links.isEmpty()) && !(nodes.isEmpty()))
+        {
+            for(Link l : controller.getProjectFile().links)
+            {
+                System.out.println("Link: ID " + l.from + " to ID " + l.to);
+                Point start = null, finish = null;
+                
+                for (NodeRectangle r : nodes)
+                {
+                    System.out.println("Current r: " + r.getNode().getID());
+                    if (r.getNode().getID().equals(l.getFrom()))
+                    {
+                        System.out.println("Start assigned!");
+                        start = new Point(r.getUpperLeft().x + controller.nodeDimensions.width/2, r.getUpperLeft().y + controller.nodeDimensions.height/2);
+                    }
+                    else if(r.getNode().getID().equals(l.getTo()))
+                    {
+                        System.out.println("Finish assigned!");
+                        finish = new Point(r.getUpperLeft().x + controller.nodeDimensions.width/2, r.getUpperLeft().y + controller.nodeDimensions.height/2);
+                    }
+                }
+                
+                if (start != null && finish != null)
+                {
+                    g.drawLine(start.x, start.y, finish.x, finish.y);
+                }
+                else
+                {
+                    System.out.println("Start and/or finish are null.");
+                }
+            }
+        }
+        else
+        {
+            System.out.println("'Links' is empty!");
+        }
+        
+        System.out.println("Lines have been drawn.");
+        */
+
+        
+        if (!nodes.isEmpty())
+        {
+            // for each link in the project file
+            for (Link l : controller.getProjectFile().getLinks())
+            {
+                 Point s = null, f = null;
+                // search the list of nodes for the points of the corresponding pair
+                for (NodeRectangle n : nodes)
+                {
+                    if (n.getNode().getID().equals(l.from))
+                    {
+                        s = n.getLocation();
+                    }
+                    else if (n.getNode().getID().equals(l.to))
+                    {
+                        f = n.getLocation();
+                    }
+                }
+                if (s != null && f != null)
+                    // connect centers
+                g.drawLine(s.x + controller.nodeDimensions.width/2, s.y + controller.nodeDimensions.height/2, f.x+ controller.nodeDimensions.width/2, f.y + controller.nodeDimensions.height/2);
+            }
+        }
+                
+        /*
+        // Draws lines between consecutive nodes. For testing.
              if (!(nodes.isEmpty()))
         {
             for (int index = 0; index < nodes.size() -1; index++)
@@ -153,6 +239,8 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                
            }
         }
+        */
+
     }
     
     
@@ -191,16 +279,16 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         System.out.println("Added node " + (nodes.size() - 1) + "!");
         
         // have controller update project file
-        controller.update();
+        controller.updateProject();
         
         repaint();
     }
     
     public void addNode(int x, int y, String title)
     {
-        // for adding nodes with a title
+        // for adding nodes with a title. see above
         
-        controller.update();
+        controller.updateProject();
     }
     
    
@@ -222,7 +310,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             return;
         }
         
-        controller.update();
+        controller.updateProject();
         repaint();
     }
     
@@ -245,9 +333,15 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         return nodes;
     }
     
+    public void clearNodes()
+    {
+        nodes.clear();
+    }
+      
     
     public void showControllerNodeStats()
     {
+        repaint();
         for (NodeRectangle n : controller.getNodes())
         {
         System.out.println(n);

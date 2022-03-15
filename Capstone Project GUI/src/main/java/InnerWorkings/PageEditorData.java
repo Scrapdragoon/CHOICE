@@ -4,7 +4,9 @@
  */
 package InnerWorkings;
 
+import DataItems.Node;
 import EditorWindowPackage.LinkPanel;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -17,7 +19,7 @@ import java.util.TreeMap;
  * The data will remain here until the user has selected 'OK', at which point the main project file will be updated.
  * If 'Cancel' is chosen, the main project file will not be updated.
  */
-public class PageEditorData {
+public class PageEditorData implements Serializable {
     
     
     private String title, ID, paragraph;
@@ -27,7 +29,8 @@ public class PageEditorData {
     
     
     // List of other nodes that can be connected to from this node Should be just about any node in the project file.
-    private ArrayList<String> otherNodes = new ArrayList<>(); 
+    // Links from a node to itself are allowed.
+    private ArrayList<NodeRectangle> otherNodes = new ArrayList<>(); 
     
     
     // Map of the user's created links.
@@ -41,7 +44,9 @@ public class PageEditorData {
     // no-arg constructor
     public PageEditorData()
     {
-        
+        title = "Page Title";
+       // ID = 
+       paragraph = "Write your story here...";
     }
     
     // Constructor.
@@ -53,15 +58,19 @@ public class PageEditorData {
 
     
     
-    public void save()
+    public Node save()
     {
+        
+        Node n = new Node();
         // a method to "export" the data to the main program? This is only used when the user hits "OK". Else, just discard the data.
+        
+        // create node from data and return.
+        return n;
     }
     
     // used to remove link panels from the editor. 
     public LinkPanel removeLinkPanel()
     {
-        
         if (!linkPanels.isEmpty())
         {
             // get last panel, delete from list
@@ -73,10 +82,19 @@ public class PageEditorData {
         }
         else
         {
-            // return nothing!
+            // return nothing! do nothing!
             return null;
         }       
     }
+    
+
+    public boolean validateID()
+    {
+        // make sure entered ID is not taken. If so, automatically change
+        
+        return true;
+    }
+
     
  // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public String getTitle() {
@@ -103,11 +121,11 @@ public class PageEditorData {
         this.paragraph = paragraph;
     }
 
-    public ArrayList<String> getOtherNodes() {
+    public ArrayList<NodeRectangle> getOtherNodes() {
         return otherNodes;
     }
 
-    public void setOtherNodes(ArrayList<String> otherNodes) {
+    public void setOtherNodes(ArrayList<NodeRectangle> otherNodes) {
         this.otherNodes = otherNodes;
     }
 
@@ -118,9 +136,19 @@ public class PageEditorData {
     public void setLinks(Map<String, String> links) {
         this.links = links;
     }
+
+    public ArrayList<LinkPanel> getLinkPanels() {
+        return linkPanels;
+    }
+
+    public void setLinkPanels(ArrayList<LinkPanel> linkPanels) {
+        this.linkPanels = linkPanels;
+    }
+    
+    
    // </editor-fold> 
     
-    // for testing
+    // for testing purposes
    public static void main(String[] args)
    {
        

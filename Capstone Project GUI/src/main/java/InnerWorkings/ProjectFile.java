@@ -5,9 +5,11 @@
 package InnerWorkings;
 
 import DataItems.Node;
+import java.awt.Point;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -15,6 +17,7 @@ import java.util.ArrayList;
  * 
  * 
  * This file is intended to hold all of the data used in a project. User-input data, settings, all of that.
+ * I believe this is the Model in the MVC pattern.
  */
 public class ProjectFile implements Serializable {
     
@@ -29,6 +32,7 @@ public class ProjectFile implements Serializable {
     
     
     ArrayList<NodeRectangle> nodes; // ArrayList of story nodes/pages
+    ArrayList<Link> links;    // ArrayList of links between pages. This is just for the View to use.
     
     
     public ProjectFile()
@@ -36,8 +40,74 @@ public class ProjectFile implements Serializable {
         projectTitle = "New Project";
         authorName = "Author";
         nodes = new ArrayList<>();  // should I start with one node placed?
+        
+        links = new ArrayList<>();
+        
+        // for testing
+        Node n = new Node("Title", "Content", "from");
+        n.addLink("to", "Click here!");
+        n.addLink("to2", "And click here too!");
+        
+        Node t = new Node("Title2", "Content2", "to");
+        
+        Node t2 = new Node("to2", "Content", "to2");
+        
+        NodeRectangle from = new NodeRectangle(n, new Point(300, 300));
+        NodeRectangle to = new NodeRectangle(t, new Point(500, 500));
+        NodeRectangle to2 = new NodeRectangle(t2, new Point(300, 500));
+        
+        nodes.add(from);
+        nodes.add(to);
+        nodes.add(to2);
+        
+        updateLinks();
     }
     
+    
+    // update list of visual links between nodes. This is for the View to use.
+    public void updateLinks()
+    {
+        System.out.println("Links update starting.");
+        links.clear();
+        
+        // go through node list, check all nodes against each other. 
+        // If a link between two nodes found, add to links.
+        for (NodeRectangle n : nodes)
+        {
+            // NodeRectangle current = n;
+            System.out.println("Node n ID:" + n.getNode().getID());
+            
+            for (NodeRectangle m : nodes)
+            {
+              System.out.println("Node m ID:" + m.getNode().getID());
+                if (!(n.getNode().getID() == m.getNode().getID()))
+                {
+                    System.out.println("Node n does not equal m.");
+                        // for each ID in n's links
+                        for (Map.Entry<String, String> entry : n.getNode().getLinks().entrySet())
+                        {
+                            System.out.println("n's link: " + entry.getKey());
+                            // compare to the ID of m, add if matches
+                            if (entry.getKey().equals(m.getNode().getID()))
+                            {
+                                System.out.println("Link added.");
+                                links.add(new Link(n.getNode().getID(), m.getNode().getID()));
+                            }
+                            else
+                            {
+                                System.out.println("Link not added.");
+                        }
+                        }
+                }
+                else
+                {
+                    System.out.println("Node n equals m.");
+                }
+            }
+        }
+        System.out.println("Links update finished.");
+        System.out.println("");
+    }
     
 
     public String getProjectTitle() {
@@ -96,6 +166,17 @@ public class ProjectFile implements Serializable {
     {
         nodes.remove(i);
     }
+
+    public ArrayList<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(ArrayList<Link> links) {
+        this.links = links;
+    }
+    
+    
+    
     
        
 }

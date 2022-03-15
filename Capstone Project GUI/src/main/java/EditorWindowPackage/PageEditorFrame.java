@@ -4,16 +4,18 @@
  */
 package EditorWindowPackage;
 
+import InnerWorkings.NodeRectangle;
+
 /**
  *
  * @author Victor Malone (vm19171)
  */
-public class PageEditorTest extends javax.swing.JFrame {
+public class PageEditorFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form PageEditorTest
      */
-    public PageEditorTest() {
+    public PageEditorFrame() {
         initComponents();
     }
 
@@ -26,12 +28,13 @@ public class PageEditorTest extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        pageEditorPanel1 = new EditorWindowPackage.PageEditorPanel();
+        pageEditorPanel = new EditorWindowPackage.PageEditorPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(650, 500));
 
         jScrollPane1.setHorizontalScrollBar(null);
-        jScrollPane1.setViewportView(pageEditorPanel1);
+        jScrollPane1.setViewportView(pageEditorPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -47,9 +50,29 @@ public class PageEditorTest extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+       public void setWindowData(NodeRectangle n)
+    {
+        // add data to editor's object
+        pageEditorPanel.getPageEditorData().setTitle(n.getNode().getTitle());
+        pageEditorPanel.getPageEditorData().setParagraph(n.getNode().getParagraph());
+        pageEditorPanel.getPageEditorData().setID(n.getNode().getID());
+               
+        // display data in panel
+        pageEditorPanel.getTitleField().setText(n.getNode().getTitle());
+        pageEditorPanel.getParagraphField().setText(n.getNode().getParagraph());
+        pageEditorPanel.getIDField().setText(n.getNode().getID());
+        
+        
+        //pageEditorPanel.addLinksToPanel();
+        
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
+       
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -65,29 +88,30 @@ public class PageEditorTest extends javax.swing.JFrame {
             }
         }
         catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PageEditorTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PageEditorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PageEditorTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PageEditorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PageEditorTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PageEditorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PageEditorTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PageEditorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PageEditorTest().setVisible(true);
+                new PageEditorFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private EditorWindowPackage.PageEditorPanel pageEditorPanel1;
+    private EditorWindowPackage.PageEditorPanel pageEditorPanel;
     // End of variables declaration//GEN-END:variables
 }

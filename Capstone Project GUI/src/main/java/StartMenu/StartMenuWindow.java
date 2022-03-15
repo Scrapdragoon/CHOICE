@@ -161,8 +161,7 @@ public class StartMenuWindow extends javax.swing.JFrame {
         // JOptionPane.showMessageDialog(buttonPanel, "You pressed the New Project button!");
 
         new EditorWindow().setVisible(true);
-        this.setVisible(false);
-        //this.dispose();
+        this.dispose();
     }//GEN-LAST:event_newProjectButtonActionPerformed
 
     private void openProjectChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectChooserActionPerformed

@@ -4,6 +4,9 @@
  */
 package EditorWindowPackage;
 
+import InnerWorkings.NodeRectangle;
+import java.util.ArrayList;
+
 /**
  *
  * @author Victor Malone (vm19171)
@@ -31,7 +34,7 @@ public class LinkPanel extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(500, 34));
 
-        choiceChooserBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        choiceChooserBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item ahjdgjgadbjhasdgajd1", "Item 2", "Item 3", "Item 4" }));
 
         choiceTextField.setText("jTextField1");
         choiceTextField.setMinimumSize(new java.awt.Dimension(30, 22));
@@ -54,7 +57,7 @@ public class LinkPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(choiceChooserBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(choiceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
+                .addComponent(choiceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
                 .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
@@ -73,7 +76,22 @@ public class LinkPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_choiceTextFieldActionPerformed
 
-
+    
+    
+    // Set model for combo boxes
+    public void setComboBox(ArrayList<NodeRectangle> otherNodes)
+    {
+        // remove all before populating list
+        choiceChooserBox.removeAllItems();
+        
+        // add all node IDs to list
+        for (NodeRectangle n : otherNodes)
+        {
+            choiceChooserBox.addItem(n.getNode().getID());
+        }
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> choiceChooserBox;
     private javax.swing.JTextField choiceTextField;

@@ -4,6 +4,8 @@
  */
 package InnerWorkings;
 
+import EditorWindowPackage.PageEditorFrame;
+import EditorWindowPackage.PageEditorPanel;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -17,6 +19,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.filechooser.FileSystemView;
 
 
@@ -33,19 +36,24 @@ import javax.swing.filechooser.FileSystemView;
 
 public class ApplicationHandler {
     
-    // Project file containing all project-specific data
+    // Project file containing all project-specific data. Model.
     private static ProjectFile project;
     
-    // DragAndDrop panel
+    // DragAndDrop panel. View.
     private DragAndDrop view;
     
+    // Page editor.
+     PageEditorFrame pageEditorFrame = new PageEditorFrame();
+    private static PageEditorPanel pageEditor = new PageEditorPanel();
    
     // dimension for visual representation of nodes
-    public Dimension nodeDimensions = new Dimension(100, 50);
+    public static Dimension nodeDimensions = new Dimension(100, 50);
     
     // custom file extension
     public final String extension = ".choice";
     
+    
+    public boolean enabled = true;
     
     //------------------------------------------------
 
@@ -56,12 +64,20 @@ public class ApplicationHandler {
     {
         project = p;
         view = d;
+        // view.setNodes(project.getNodes());
     }
 
     public ApplicationHandler() {
         // no-argument
         // for testing
+        System.out.println("AppHan no arg");
         project = new ProjectFile();
+        //view = new DragAndDrop();
+
+        // updateView();
+        // view.revalidate();
+        //view.repaint();
+        
     }
     
     //</editor-fold> 
@@ -116,13 +132,28 @@ public class ApplicationHandler {
     
     
    
-    public void update()
+    public void updateProject()
     {
         // to sync the ProjectFile's node data with DragAndDrop's.
         this.project.setNodes(view.getNodes());
         
         // is this more of a "link"? Does it only need to be done once?
     }
+    
+    /*
+    // to sync DragAndDrop's data with ProjectFile's.
+    public void updateView()
+    {
+        //System.out.println("Updating view...");
+        view.clearNodes();
+        
+        for (NodeRectangle r : project.getNodes())
+        {
+            System.out.println("Adding project nodes to view...");
+            view.addNode(r);
+        }
+    }
+*/
     
     
     public void export()
@@ -133,6 +164,20 @@ public class ApplicationHandler {
     //</editor-fold>
     
    // ------------------------------------------------
+    
+    
+    public void openPageEditor(NodeRectangle n)
+    {
+        
+        pageEditorFrame.setVisible(true);
+        pageEditorFrame.setWindowData(n);
+        
+        //while page frame is open, disable main frame
+        //frame.isEnabled(false)
+        
+        
+                
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Node-Specific">
 

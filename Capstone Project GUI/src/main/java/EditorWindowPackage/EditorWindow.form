@@ -38,6 +38,11 @@
           <ComponentRef name="dragAndDropPanel"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="EditorWindow_appHandler"/>
+      </AuxValues>
+    </Component>
+    <Component class="EditorWindowPackage.PageEditorPanel" name="pageEditorPanel">
     </Component>
     <Menu class="javax.swing.JMenuBar" name="editorMenu">
       <Properties>
@@ -215,7 +220,7 @@
         <Component class="javax.swing.JButton" name="createNodeButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Create Node"/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
             <Property name="requestFocusEnabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -225,13 +230,13 @@
         <Component class="javax.swing.JButton" name="loadTestButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Load"/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="saveTestButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Save As..."/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveTestButtonActionPerformed"/>

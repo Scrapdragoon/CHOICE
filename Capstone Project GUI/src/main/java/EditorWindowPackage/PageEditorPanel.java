@@ -4,17 +4,21 @@
  */
 package EditorWindowPackage;
 
+import InnerWorkings.NodeRectangle;
+import InnerWorkings.PageEditorData;
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
  *
  * @author Victor Malone (vm19171)
  */
-public class PageEditorPanel extends javax.swing.JPanel {
+public class PageEditorPanel extends javax.swing.JPanel implements Serializable {
 
     /**
      * Creates new form NewJPanel
@@ -84,7 +88,7 @@ public class PageEditorPanel extends javax.swing.JPanel {
                 .addGroup(nodeTitlePanelLayout.createSequentialGroup()
                     .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(222, 222, 222)
-                    .addComponent(filler1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
+                    .addComponent(filler1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
                 .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         nodeTitlePanelLayout.setVerticalGroup(
@@ -126,7 +130,7 @@ public class PageEditorPanel extends javax.swing.JPanel {
             .addGroup(paragraphPanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(paragraphTextLabel)
-                .addContainerGap(411, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paragraphPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(paragraphScrollPane)
@@ -138,7 +142,7 @@ public class PageEditorPanel extends javax.swing.JPanel {
                 .addGap(11, 11, 11)
                 .addComponent(paragraphTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(paragraphScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                .addComponent(paragraphScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                 .addGap(14, 14, 14))
         );
 
@@ -215,7 +219,7 @@ public class PageEditorPanel extends javax.swing.JPanel {
                 .addGap(32, 32, 32)
                 .addComponent(IDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(IDField, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                .addComponent(IDField, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
                 .addGap(14, 14, 14))
         );
         nodeIDPanelLayout.setVerticalGroup(
@@ -247,7 +251,7 @@ public class PageEditorPanel extends javax.swing.JPanel {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addContainerGap(286, Short.MAX_VALUE))
         );
         imagePanelLayout.setVerticalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +282,7 @@ public class PageEditorPanel extends javax.swing.JPanel {
             .addGroup(choicesTitlePanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(choiceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(470, Short.MAX_VALUE))
+                .addContainerGap(460, Short.MAX_VALUE))
         );
         choicesTitlePanelLayout.setVerticalGroup(
             choicesTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,13 +322,13 @@ public class PageEditorPanel extends javax.swing.JPanel {
             REMOVELATERfillerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, REMOVELATERfillerPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                 .addGap(14, 14, 14))
         );
         REMOVELATERfillerPanelLayout.setVerticalGroup(
             REMOVELATERfillerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, REMOVELATERfillerPanelLayout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7))
         );
@@ -353,7 +357,7 @@ public class PageEditorPanel extends javax.swing.JPanel {
         OKPanelLayout.setHorizontalGroup(
             OKPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OKPanelLayout.createSequentialGroup()
-                .addContainerGap(422, Short.MAX_VALUE)
+                .addContainerGap(412, Short.MAX_VALUE)
                 .addComponent(cancelButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(OKButton)
@@ -382,7 +386,7 @@ public class PageEditorPanel extends javax.swing.JPanel {
 
     private void addChoiceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChoiceButtonActionPerformed
         // TODO add your handling code here:
-        LinkPanel p = new LinkPanel();
+       LinkPanel p = new LinkPanel();
        pageEditorData.linkPanels.add(p);        
        choicesPanel.add(p);
        
@@ -405,6 +409,49 @@ public class PageEditorPanel extends javax.swing.JPanel {
         pageEditorData.save();
     }//GEN-LAST:event_OKButtonActionPerformed
 
+    public JTextField getIDField() {
+        return IDField;
+    }
+
+    public void setIDField(JTextField IDField) {
+        this.IDField = IDField;
+    }
+
+    public PageEditorData getPageEditorData() {
+        return pageEditorData;
+    }
+
+    public void setPageEditorData(PageEditorData pageEditorData) {
+        this.pageEditorData = pageEditorData;
+    }
+
+    public JTextArea getParagraphField() {
+        return paragraphField;
+    }
+
+    public void setParagraphField(JTextArea paragraphField) {
+        this.paragraphField = paragraphField;
+    }
+
+    public JTextField getTitleField() {
+        return titleField;
+    }
+
+    public void setTitleField(JTextField titleField) {
+        this.titleField = titleField;
+    }
+
+    
+    // used to populate the choices portion of the panel
+    public void addLinksToPanel(NodeRectangle n)
+    {
+        // for each link in n
+        // add a panel
+        // assign ID value to combo box
+        // set text to link text
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField IDField;
