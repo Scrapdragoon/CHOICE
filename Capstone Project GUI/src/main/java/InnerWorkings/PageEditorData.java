@@ -85,7 +85,7 @@ public class PageEditorData implements Serializable {
             LinkPanel p = linkPanels.get(linkPanels.size() - 1);
             linkPanels.remove(p);
 
-            // return last panel
+            // return last panel that was removed
             return p;
         }
         else

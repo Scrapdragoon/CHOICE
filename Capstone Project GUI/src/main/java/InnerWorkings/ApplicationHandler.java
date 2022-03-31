@@ -138,7 +138,7 @@ public class ApplicationHandler {
     public void updateProject()
     {
         // to sync the ProjectFile's node data with DragAndDrop's.
-        this.project.setNodes(view.getNodes());
+        project.setNodes(view.getNodes());
         
         // is this more of a "link"? Does it only need to be done once?
     }
@@ -215,6 +215,13 @@ public class ApplicationHandler {
         }
         
     }
+    
+    public void deleteLink(String ID1, String ID2)
+    {
+        // for deleting links between two nodes, i.e. when one node is deteted.
+        // 
+    }
+    
        
     
     public void saveNode()

@@ -4,10 +4,7 @@
  */
 package EditorWindowPackage;
 
-import InnerWorkings.NodeRectangle;
-import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -80,36 +77,22 @@ public class LinkPanel extends javax.swing.JPanel {
     private void choiceTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choiceTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_choiceTextFieldActionPerformed
-
-  
-    
-    
-    /*
-    // Set list of combo box items
-    public void setComboBox(ArrayList<String> IDs)
-    {
-        System.out.println("Setting combo box!");
-        choiceChooserBox.removeAllItems();
-        
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel();
-        
-        for (String ID : IDs)
-        {
-            model.addElement(ID);
-        }
-        choiceChooserBox.setModel(model);
-        System.out.println("Model set.");
-    }
-    */
-    
+ 
     
     
     public void setComboBoxModel(ComboBoxModel m)
     {
         this.choiceChooserBox.setModel(m);
-        
-        this.revalidate();
-        this.repaint();
+    }
+    
+    public void setSelectedID(String s)
+    {
+        this.choiceChooserBox.setSelectedItem(s);
+    }
+    
+    public void setHyperlinkText(String s)
+    {
+        this.choiceTextField.setText(s);
     }
     
     

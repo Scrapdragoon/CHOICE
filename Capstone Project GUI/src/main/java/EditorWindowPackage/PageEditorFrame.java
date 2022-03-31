@@ -71,23 +71,7 @@ public class PageEditorFrame extends javax.swing.JFrame {
         this.controller = a; // in order to pass data back to the handler
         
         
-        
-        pageEditorPanel.removeAllLinkPanels();  // clear all link panels
-        
-        // code for creating Panel's ComboBoxModel (unused)
-        ArrayList<String> IDsArrayList = a.getAllIDs();
-        String[] IDsArray = IDsArrayList.toArray(new String[0]);    // convert ArrayList to String[]
-        pageEditorPanel.populateComboBoxModel(IDsArray);
-        
-        // add LinkPanels
-        pageEditorPanel.addLinksToPanel(n);
-        System.out.println("Added links to panel.");
-        
-        // set all LinkPanels combo boxes
-        pageEditorPanel.setComboBoxes(IDsArray);
-        
-        
-        
+                
         // add data to panel's PageEditorData object
         pageEditorPanel.getPageEditorData().setTitle(n.getNode().getTitle());
         pageEditorPanel.getPageEditorData().setParagraph(n.getNode().getParagraph());
@@ -99,25 +83,15 @@ public class PageEditorFrame extends javax.swing.JFrame {
         pageEditorPanel.getIDField().setText(n.getNode().getID());
         
         
+        // FOR LINK PANELS: 
+        pageEditorPanel.removeAllLinkPanels();  // clear all link panels
         
+         // gets list of all IDs in the project, creates array for use by combo box models.
+        ArrayList<String> IDsArrayList = a.getAllIDs();
+        String[] IDsArray = IDsArrayList.toArray(new String[0]);    // convert ArrayList to String[]
+        // pageEditorPanel.populateComboBoxModel(IDsArray);
         
-        
-        
-        /*pageEditorPanel.removeAllLinkPanels();
-        pageEditorPanel.populateComboBoxModel(a);
-        pageEditorPanel.addLinksToPanel(n);
-        
-        
-        // add data to editor's object
-        pageEditorPanel.getPageEditorData().setTitle(n.getNode().getTitle());
-        pageEditorPanel.getPageEditorData().setParagraph(n.getNode().getParagraph());
-        pageEditorPanel.getPageEditorData().setID(n.getNode().getID());
-               
-        // display data in panel
-        pageEditorPanel.getTitleField().setText(n.getNode().getTitle());
-        pageEditorPanel.getParagraphField().setText(n.getNode().getParagraph());
-        pageEditorPanel.getIDField().setText(n.getNode().getID());
-        */
+        pageEditorPanel.addChoices(n, IDsArray);
     }
     
     

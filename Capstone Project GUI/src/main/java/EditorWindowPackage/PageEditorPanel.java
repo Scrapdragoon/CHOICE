@@ -4,21 +4,17 @@
  */
 package EditorWindowPackage;
 
-import InnerWorkings.ApplicationHandler;
+import DataItems.Node;
 import InnerWorkings.NodeRectangle;
 import InnerWorkings.PageEditorData;
 import com.google.common.collect.Multimap;
 import java.awt.Component;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.InputVerifier;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -447,12 +443,61 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
     }
 
     
+    
+    // Used for adding the LinkPanels to the display. Sets the combo boxes and text fields as well.
+    public void addChoices(NodeRectangle n, String[] IDsArray)
+    {
+        // Link panels are cleared before calling this method.
+        System.out.println("AddChoices called.");
+
+        
+        // store IDsArray for use later, for things like adding a new, blank choice.
+        panelIDsArray = IDsArray;
+        //-----
+        
+        Node node = n.getNode();
+        Multimap<String, String> links = node.getLinks();   // copies the links multimap from Node. Key = ID, Value = hyperlink text
+        
+        // for each link in this node, add a LinkPanel,
+        // set combo box to new instance of DefaultComboBoxModel(IDsArray), and set text field.
+        for (Map.Entry entry : links.entries())
+        {
+            LinkPanel p = new LinkPanel();
+            DefaultComboBoxModel m = new DefaultComboBoxModel(IDsArray);
+            
+            System.out.println("Adding choice. Combo box: " + entry.getKey() +". Text field: " + entry.getValue());
+            p.setComboBoxModel(m);  // set combo box model
+            p.setSelectedID((String)entry.getKey());    // set selected item
+            p.setHyperlinkText((String)entry.getValue());   // set text in field next to box
+
+            pageEditorData.linkPanels.add(p);   // add link
+            choicesPanel.add(p);
+        }
+        
+        System.out.println("---------");
+        System.out.println("");
+        this.revalidate();
+        this.repaint();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public void addChoice()
     {
        LinkPanel p = new LinkPanel();
-       //p.setChoiceChooserBox(choiceBox);
+       p.setComboBoxModel(new DefaultComboBoxModel(panelIDsArray));
+       
+       // add to data object and panel itself
        pageEditorData.linkPanels.add(p);        
        choicesPanel.add(p);
+       
        
        this.revalidate();
        this.repaint();
@@ -460,30 +505,16 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
     
     public void addChoice(String ID, String text)
     {
-        
-        // add choice and populate with info
-        LinkPanel p = new LinkPanel();
-        //p.getChoiceChooserBox().setSelectedItem(ID);
-        p.getChoiceTextField().setText(text);
-        
-        pageEditorData.linkPanels.add(p);   // replace with Data.addLinkPanel
-        choicesPanel.add(p);
-
-        System.out.println("Choice added. ID: " + ID + ". Text:" + text +  ".");
-        
-
-        
-        this.revalidate();
-        this.repaint();
+        System.out.println("Whoops, this is the old addChoice method! Call addChoices() instead.");
     }
-    
-    
     
     
     public void removeAllLinkPanels()
     {
+        // clear panels from data object
         pageEditorData.linkPanels.clear();
         
+        // and then remove all link panels from the actual editor panel.
         for (Component c : choicesPanel.getComponents())
         {
             if (c instanceof LinkPanel)
@@ -491,71 +522,14 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
                 choicesPanel.remove(c);
             }
         }
+        
         this.revalidate();
         this.repaint();
     }
     
-    // used to populate the choices portion of the panel
-    public void addLinksToPanel(NodeRectangle n)
-    {
-        System.out.println("Adding links to panel:");
-        
-        // for each link in n
-        // add a panel
-        // assign ID value to combo box
-        // set text to link text
-        
-        Multimap links = n.getNode().getLinks();
-        
-        Set<String> IDs = links.keySet();
-        
-        // iterates through set of keys.
-        for(String ID : IDs)
-        {
-            System.out.println("ID: " + ID);
-            // get associated text
-            Collection<String> linksText = links.get(ID);
-            
-            for (String text : linksText)
-            {
-                System.out.println("Link: " + text);
-                addChoice(ID, text);
-            }
-        }
-        System.out.println(""); // for reading clarity
-    }
+   
     
-    // creates a comboboxmodel from the list of IDs passed from the Frame(who gets it from the AppHandler)
-        public void populateComboBoxModel(String[] IDsArray) {
-            
-            // creates model filled with ID (Strings)
-            model = new DefaultComboBoxModel(IDsArray);            
-            System.out.println("ComboBoxModel populated.");
-                        
-            //<editor-fold defaultstate="collapsed" desc="Previous(parameters: ApplicationHandler a)">
-            
-
-            /*
-            System.out.println("populateItemList called. This project's IDs are:");
-           ArrayList<String> IDs = a.getAllIDs();
-           for(String id : IDs)
-           {
-               System.out.println(id);
-           }
-            System.out.println("");
-            
-            
-          
-          // create new combobox with all of the IDs in it. LinkPanels will copy from this.
-          /*
-            choiceBox = new JComboBox(a.getAllIDs().toArray());
-            System.out.println("Item list populated.");
-            
-                    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            */
-          //</editor-fold>
-    }
-        
+        /*
         public void setComboBoxes(String[] IDsArray)
         {
             // iterates through LinkPanels and sets combo box models.
@@ -569,13 +543,11 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
                     System.out.println("Combo box model set.");
                 }
             }
-            
-
         }
+        */
         
         
-        
-        private DefaultComboBoxModel model;
+        private String[] panelIDsArray;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField IDField;
