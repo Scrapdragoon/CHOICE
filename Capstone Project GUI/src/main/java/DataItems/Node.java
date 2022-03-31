@@ -4,10 +4,10 @@
  */
 package DataItems;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import java.awt.Image;
 import java.io.Serializable;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -35,7 +35,12 @@ public class Node implements Serializable {
     
     // List of links from this node to other nodes.
     // Key is the ID, value is the hyperlink text. This may be changed later.
-    public Map<String, String> links = new TreeMap();
+    //public Map<String, String> links = new TreeMap();
+    
+    
+    // Multimap to hold links to other nodes.
+    // Key is the ID, value is the hyperlink text.
+    Multimap<String, String> links = ArrayListMultimap.create();
 
     
     public Node() {
@@ -60,6 +65,15 @@ public class Node implements Serializable {
         this.paragraph = paragraph;
         this.ID = ID;
     }
+    
+    public Node(String title, String paragraph, String ID, Multimap<String, String> links)
+    {
+        this.title = title;
+        this.paragraph = paragraph;
+        this.ID = ID;
+        this.links = links;
+    }
+    
 
     // get/set methods for title
     public String getTitle() {
@@ -96,11 +110,11 @@ public class Node implements Serializable {
         this.image = image;
     }
 
-    public Map<String, String> getLinks() {
+    public Multimap<String, String> getLinks() {
         return links;
     }
 
-    public void setLinks(Map<String, String> links) {
+    public void setLinks(Multimap<String, String> links) {
         this.links = links;
     }
     

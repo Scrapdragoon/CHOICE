@@ -35,7 +35,8 @@ public class PageEditorData implements Serializable {
     
     // Map of the user's created links.
     // Key is the page's ID/URL, and value is the hyperlink text that will be displayed on the page. Change this if you need to.
-    private Map<String, String> links = new TreeMap();
+    // use this to create a combo box model??
+   // private Map<String, String> links = new TreeMap()
     
     // and a record of the panels added, so the last one can be removed when you hit the '-' button.
     public ArrayList<LinkPanel> linkPanels = new ArrayList<>();
@@ -60,13 +61,20 @@ public class PageEditorData implements Serializable {
     
     public Node save()
     {
-        
+        // TODO 
         Node n = new Node();
         // a method to "export" the data to the main program? This is only used when the user hits "OK". Else, just discard the data.
         
         // create node from data and return.
         return n;
     }
+    
+    public void addLinkPanel()
+    {
+        // TODO - nothing yet!
+    }
+    
+    
     
     // used to remove link panels from the editor. 
     public LinkPanel removeLinkPanel()
@@ -90,7 +98,7 @@ public class PageEditorData implements Serializable {
 
     public boolean validateID()
     {
-        // make sure entered ID is not taken. If so, automatically change
+        // TODO - make sure entered ID is not taken. If so, automatically change
         
         return true;
     }
@@ -128,7 +136,7 @@ public class PageEditorData implements Serializable {
     public void setOtherNodes(ArrayList<NodeRectangle> otherNodes) {
         this.otherNodes = otherNodes;
     }
-
+/*
     public Map<String, String> getLinks() {
         return links;
     }
@@ -136,7 +144,7 @@ public class PageEditorData implements Serializable {
     public void setLinks(Map<String, String> links) {
         this.links = links;
     }
-
+*/
     public ArrayList<LinkPanel> getLinkPanels() {
         return linkPanels;
     }

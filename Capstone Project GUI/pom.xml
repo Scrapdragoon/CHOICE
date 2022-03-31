@@ -22,5 +22,12 @@
     <artifactId>j2html</artifactId>
     <version>1.5.0</version>
 </dependency>
+
+<dependency>
+    <groupId>com.google.guava</groupId>
+    <artifactId>guava</artifactId>
+    <version>31.0.1-jre</version>
+</dependency>
+
     </dependencies>
 </project>

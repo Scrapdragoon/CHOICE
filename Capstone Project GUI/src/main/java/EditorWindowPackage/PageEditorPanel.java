@@ -4,12 +4,21 @@
  */
 package EditorWindowPackage;
 
+import InnerWorkings.ApplicationHandler;
 import InnerWorkings.NodeRectangle;
 import InnerWorkings.PageEditorData;
+import com.google.common.collect.Multimap;
+import java.awt.Component;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.InputVerifier;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -50,8 +59,8 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         IDLabel = new java.awt.Label();
         IDField = new javax.swing.JTextField();
         imagePanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        importImageButton = new javax.swing.JButton();
+        imageNameLabel = new javax.swing.JLabel();
         choicesPanel = new javax.swing.JPanel();
         choicesTitlePanel = new javax.swing.JPanel();
         choiceLabel = new java.awt.Label();
@@ -238,9 +247,9 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(nodeIDPanel, gridBagConstraints);
 
-        jButton1.setText("Import Image...");
+        importImageButton.setText("Import Image...");
 
-        jLabel1.setText("No Image Selected");
+        imageNameLabel.setText("No Image Selected");
 
         javax.swing.GroupLayout imagePanelLayout = new javax.swing.GroupLayout(imagePanel);
         imagePanel.setLayout(imagePanelLayout);
@@ -248,9 +257,9 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(imagePanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(importImageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imageNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(286, Short.MAX_VALUE))
         );
         imagePanelLayout.setVerticalGroup(
@@ -258,8 +267,8 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
             .addGroup(imagePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1))
+                    .addComponent(importImageButton)
+                    .addComponent(imageNameLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -385,13 +394,9 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
     }//GEN-LAST:event_IDFieldActionPerformed
 
     private void addChoiceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChoiceButtonActionPerformed
-        // TODO add your handling code here:
-       LinkPanel p = new LinkPanel();
-       pageEditorData.linkPanels.add(p);        
-       choicesPanel.add(p);
-       
-       this.revalidate();
-       this.repaint();
+
+        addChoice();
+
     }//GEN-LAST:event_addChoiceButtonActionPerformed
 
     private void removeChoiceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeChoiceButtonActionPerformed
@@ -442,17 +447,136 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
     }
 
     
+    public void addChoice()
+    {
+       LinkPanel p = new LinkPanel();
+       //p.setChoiceChooserBox(choiceBox);
+       pageEditorData.linkPanels.add(p);        
+       choicesPanel.add(p);
+       
+       this.revalidate();
+       this.repaint();
+    }
+    
+    public void addChoice(String ID, String text)
+    {
+        
+        // add choice and populate with info
+        LinkPanel p = new LinkPanel();
+        //p.getChoiceChooserBox().setSelectedItem(ID);
+        p.getChoiceTextField().setText(text);
+        
+        pageEditorData.linkPanels.add(p);   // replace with Data.addLinkPanel
+        choicesPanel.add(p);
+
+        System.out.println("Choice added. ID: " + ID + ". Text:" + text +  ".");
+        
+
+        
+        this.revalidate();
+        this.repaint();
+    }
+    
+    
+    
+    
+    public void removeAllLinkPanels()
+    {
+        pageEditorData.linkPanels.clear();
+        
+        for (Component c : choicesPanel.getComponents())
+        {
+            if (c instanceof LinkPanel)
+            {
+                choicesPanel.remove(c);
+            }
+        }
+        this.revalidate();
+        this.repaint();
+    }
+    
     // used to populate the choices portion of the panel
     public void addLinksToPanel(NodeRectangle n)
     {
+        System.out.println("Adding links to panel:");
+        
         // for each link in n
         // add a panel
         // assign ID value to combo box
         // set text to link text
+        
+        Multimap links = n.getNode().getLinks();
+        
+        Set<String> IDs = links.keySet();
+        
+        // iterates through set of keys.
+        for(String ID : IDs)
+        {
+            System.out.println("ID: " + ID);
+            // get associated text
+            Collection<String> linksText = links.get(ID);
+            
+            for (String text : linksText)
+            {
+                System.out.println("Link: " + text);
+                addChoice(ID, text);
+            }
+        }
+        System.out.println(""); // for reading clarity
     }
     
-    
+    // creates a comboboxmodel from the list of IDs passed from the Frame(who gets it from the AppHandler)
+        public void populateComboBoxModel(String[] IDsArray) {
+            
+            // creates model filled with ID (Strings)
+            model = new DefaultComboBoxModel(IDsArray);            
+            System.out.println("ComboBoxModel populated.");
+                        
+            //<editor-fold defaultstate="collapsed" desc="Previous(parameters: ApplicationHandler a)">
+            
 
+            /*
+            System.out.println("populateItemList called. This project's IDs are:");
+           ArrayList<String> IDs = a.getAllIDs();
+           for(String id : IDs)
+           {
+               System.out.println(id);
+           }
+            System.out.println("");
+            
+            
+          
+          // create new combobox with all of the IDs in it. LinkPanels will copy from this.
+          /*
+            choiceBox = new JComboBox(a.getAllIDs().toArray());
+            System.out.println("Item list populated.");
+            
+                    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            */
+          //</editor-fold>
+    }
+        
+        public void setComboBoxes(String[] IDsArray)
+        {
+            // iterates through LinkPanels and sets combo box models.
+            
+            for (Component c : choicesPanel.getComponents())
+            {
+                if (c instanceof LinkPanel)
+                {
+                    ((LinkPanel) c).setComboBoxModel(new DefaultComboBoxModel(IDsArray));
+                    // TODO - add code to set the selected choice of the combo box (i.e. the correct ID)
+                    System.out.println("Combo box model set.");
+                }
+            }
+            
+
+        }
+        
+        
+        
+        private DefaultComboBoxModel model;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField IDField;
     private java.awt.Label IDLabel;
@@ -467,9 +591,9 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
     private javax.swing.JPanel choicesTitlePanel;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
+    private javax.swing.JLabel imageNameLabel;
     private javax.swing.JPanel imagePanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton importImageButton;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel nodeIDPanel;
     private javax.swing.JPanel nodeTitlePanel;
@@ -482,4 +606,6 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
     private javax.swing.JButton removeChoiceButton;
     private javax.swing.JTextField titleField;
     // End of variables declaration//GEN-END:variables
+
+
 }

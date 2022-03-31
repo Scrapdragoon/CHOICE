@@ -5,6 +5,9 @@
 package InnerWorkings;
 
 import DataItems.Node;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multiset;
 import java.awt.Point;
 import java.io.Serializable;
 import java.nio.file.Path;
@@ -32,7 +35,8 @@ public class ProjectFile implements Serializable {
     
     
     ArrayList<NodeRectangle> nodes; // ArrayList of story nodes/pages
-    ArrayList<Link> links;    // ArrayList of links between pages. This is just for the View to use.
+    ArrayList<Link> visualLinks;    // ArrayList of links between pages. This is just for the View to use.
+
     
     
     public ProjectFile()
@@ -41,9 +45,9 @@ public class ProjectFile implements Serializable {
         authorName = "Author";
         nodes = new ArrayList<>();  // should I start with one node placed?
         
-        links = new ArrayList<>();
+        visualLinks = new ArrayList<Link>();
         
-        // for testing
+        // TODO -  for testing
         Node n = new Node("Title", "Content", "from");
         n.addLink("to", "Click here!");
         n.addLink("to2", "And click here too!");
@@ -63,7 +67,48 @@ public class ProjectFile implements Serializable {
         updateLinks();
     }
     
+    public void updateLinks()
+    {
+        // clear links
+        
+        // if nodes is not empty,
+        // for every node n in nodes
+        // and for every other node m in nodes
+        // iterate through n's links' keys and compare key to m's ID
+        // if they match, add Link(n.ID, m.ID) to visualLinks
+        
+        visualLinks.clear();
+        
+        if (!(nodes.isEmpty()))
+        {
+            
+            for (NodeRectangle n : nodes)
+            {
+               Multiset<String> nKeys = n.getNode().getLinks().keys();
+                for (NodeRectangle m : nodes)
+                {
+                    if (!(n.getNode().getLinks().isEmpty())) // if there are links from n to something else
+                    {
+                        for (String destination : nKeys)
+                        {
+                            if (destination.equals(m.getNode().getID())) // if n is linked to m
+                            {
+                                visualLinks.add(new Link(n.getNode().getID(), m.getNode().getID()));
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            
+        }
+    }
     
+    
+    //<editor-fold defaultstate="collapsed" desc="Old updateLinks()">
+    
+
+    /*
     // update list of visual links between nodes. This is for the View to use.
     public void updateLinks()
     {
@@ -108,7 +153,8 @@ public class ProjectFile implements Serializable {
         System.out.println("Links update finished.");
         System.out.println("");
     }
-    
+*/
+    //</editor-fold>
 
     public String getProjectTitle() {
         return projectTitle;
@@ -167,16 +213,12 @@ public class ProjectFile implements Serializable {
         nodes.remove(i);
     }
 
-    public ArrayList<Link> getLinks() {
-        return links;
+    public ArrayList<Link> getVisualLinks() {
+        return visualLinks;
     }
 
-    public void setLinks(ArrayList<Link> links) {
-        this.links = links;
+    public void setVisualLinks(ArrayList<Link> links) {
+        this.visualLinks = links;
     }
-    
-    
-    
-    
-       
+            
 }

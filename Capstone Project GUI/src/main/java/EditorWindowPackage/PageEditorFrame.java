@@ -4,7 +4,9 @@
  */
 package EditorWindowPackage;
 
+import InnerWorkings.ApplicationHandler;
 import InnerWorkings.NodeRectangle;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,7 +33,13 @@ public class PageEditorFrame extends javax.swing.JFrame {
         pageEditorPanel = new EditorWindowPackage.PageEditorPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Page Editor");
         setMinimumSize(new java.awt.Dimension(650, 500));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jScrollPane1.setHorizontalScrollBar(null);
         jScrollPane1.setViewportView(pageEditorPanel);
@@ -48,12 +56,39 @@ public class PageEditorFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        controller.enableFrame(true);
+        
+        // TODO - also add code to either submit data to main apphandler or not
+    }//GEN-LAST:event_formWindowClosing
+
     
-       public void setWindowData(NodeRectangle n)
+       public void setWindowData(NodeRectangle n, ApplicationHandler a)
     {
-        // add data to editor's object
+        this.controller = a; // in order to pass data back to the handler
+        
+        
+        
+        pageEditorPanel.removeAllLinkPanels();  // clear all link panels
+        
+        // code for creating Panel's ComboBoxModel (unused)
+        ArrayList<String> IDsArrayList = a.getAllIDs();
+        String[] IDsArray = IDsArrayList.toArray(new String[0]);    // convert ArrayList to String[]
+        pageEditorPanel.populateComboBoxModel(IDsArray);
+        
+        // add LinkPanels
+        pageEditorPanel.addLinksToPanel(n);
+        System.out.println("Added links to panel.");
+        
+        // set all LinkPanels combo boxes
+        pageEditorPanel.setComboBoxes(IDsArray);
+        
+        
+        
+        // add data to panel's PageEditorData object
         pageEditorPanel.getPageEditorData().setTitle(n.getNode().getTitle());
         pageEditorPanel.getPageEditorData().setParagraph(n.getNode().getParagraph());
         pageEditorPanel.getPageEditorData().setID(n.getNode().getID());
@@ -64,8 +99,25 @@ public class PageEditorFrame extends javax.swing.JFrame {
         pageEditorPanel.getIDField().setText(n.getNode().getID());
         
         
-        //pageEditorPanel.addLinksToPanel();
         
+        
+        
+        
+        /*pageEditorPanel.removeAllLinkPanels();
+        pageEditorPanel.populateComboBoxModel(a);
+        pageEditorPanel.addLinksToPanel(n);
+        
+        
+        // add data to editor's object
+        pageEditorPanel.getPageEditorData().setTitle(n.getNode().getTitle());
+        pageEditorPanel.getPageEditorData().setParagraph(n.getNode().getParagraph());
+        pageEditorPanel.getPageEditorData().setID(n.getNode().getID());
+               
+        // display data in panel
+        pageEditorPanel.getTitleField().setText(n.getNode().getTitle());
+        pageEditorPanel.getParagraphField().setText(n.getNode().getParagraph());
+        pageEditorPanel.getIDField().setText(n.getNode().getID());
+        */
     }
     
     
@@ -110,6 +162,8 @@ public class PageEditorFrame extends javax.swing.JFrame {
         });
     }
 
+    private ApplicationHandler controller;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private EditorWindowPackage.PageEditorPanel pageEditorPanel;

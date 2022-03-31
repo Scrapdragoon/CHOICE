@@ -6,6 +6,11 @@ package EditorWindowPackage;
 
 import InnerWorkings.NodeRectangle;
 import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -30,11 +35,11 @@ public class LinkPanel extends javax.swing.JPanel {
 
         choiceChooserBox = new javax.swing.JComboBox<>();
         choiceTextField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        linkLabel = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(500, 34));
 
-        choiceChooserBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item ahjdgjgadbjhasdgajd1", "Item 2", "Item 3", "Item 4" }));
+        choiceChooserBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[There are no available pages to link to.]" }));
 
         choiceTextField.setText("jTextField1");
         choiceTextField.setMinimumSize(new java.awt.Dimension(30, 22));
@@ -44,8 +49,8 @@ public class LinkPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Link to page with ID:");
+        linkLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        linkLabel.setText("Link to page with ID:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -53,11 +58,11 @@ public class LinkPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(linkLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(choiceChooserBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(choiceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
+                .addComponent(choiceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                 .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
@@ -67,7 +72,7 @@ public class LinkPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(choiceChooserBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(choiceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(linkLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -76,25 +81,71 @@ public class LinkPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_choiceTextFieldActionPerformed
 
+  
     
     
-    // Set model for combo boxes
-    public void setComboBox(ArrayList<NodeRectangle> otherNodes)
+    /*
+    // Set list of combo box items
+    public void setComboBox(ArrayList<String> IDs)
     {
-        // remove all before populating list
+        System.out.println("Setting combo box!");
         choiceChooserBox.removeAllItems();
         
-        // add all node IDs to list
-        for (NodeRectangle n : otherNodes)
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel();
+        
+        for (String ID : IDs)
         {
-            choiceChooserBox.addItem(n.getNode().getID());
+            model.addElement(ID);
         }
+        choiceChooserBox.setModel(model);
+        System.out.println("Model set.");
     }
+    */
+    
+    
+    
+    public void setComboBoxModel(ComboBoxModel m)
+    {
+        this.choiceChooserBox.setModel(m);
+        
+        this.revalidate();
+        this.repaint();
+    }
+    
+    
+    
+    
+    // Getters and Setters
+      public JComboBox<String> getChoiceChooserBox() {
+        return choiceChooserBox;
+    }
+
+    public void setChoiceChooserBox(JComboBox<String> choiceChooserBox) {
+        this.choiceChooserBox = choiceChooserBox;
+    }
+
+    public JTextField getChoiceTextField() {
+        return choiceTextField;
+    }
+
+    public void setChoiceTextField(JTextField choiceTextField) {
+        this.choiceTextField = choiceTextField;
+    }
+
+    public JLabel getLinkLabel() {
+        return linkLabel;
+    }
+
+    public void setLinkLabel(JLabel linkLabel) {
+        this.linkLabel = linkLabel;
+    }
+
+    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> choiceChooserBox;
     private javax.swing.JTextField choiceTextField;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel linkLabel;
     // End of variables declaration//GEN-END:variables
 }

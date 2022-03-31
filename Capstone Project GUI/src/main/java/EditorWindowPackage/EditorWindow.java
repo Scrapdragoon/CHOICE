@@ -4,26 +4,14 @@
  */
 package EditorWindowPackage;
 
-import InnerWorkings.ApplicationHandler;
 import javax.swing.JOptionPane;
 import InnerWorkings.DragAndDrop;
 import InnerWorkings.MyFileFilter;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.*;
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.JViewport;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -97,6 +85,11 @@ public class EditorWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NAME OF PROJECT");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 formKeyTyped(evt);
@@ -151,6 +144,7 @@ public class EditorWindow extends javax.swing.JFrame {
 
         dragAndDropPanel.setBackground(new java.awt.Color(204, 204, 255));
         dragAndDropPanel.setController(appHandler);
+        dragAndDropPanel.setFont(new java.awt.Font("DFPOP1-W9", 0, 18)); // NOI18N
         dragAndDropPanel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 dragAndDropPanelKeyTyped(evt);
@@ -292,6 +286,7 @@ public class EditorWindow extends javax.swing.JFrame {
                 System.out.println("Load approved!");
 
                 appHandler.loadProject(openFileDialog.getSelectedFile());
+                this.setTitle(appHandler.getProjectFile().getProjectTitle());
                 dragAndDropPanel.setNodes(appHandler.getNodes());
                 dragAndDropPanel.repaint();
             }
@@ -325,7 +320,7 @@ public class EditorWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_fileMenuExitActionPerformed
 
     private void createNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNodeButtonActionPerformed
-        System.out.println("JButton1 pressed! This is how the user will be able to add new nodes.");
+        System.out.println("Create Node button pressed! This is how the user will be able to add new nodes.");
         mainEditor.addNode(100, 100);
         mainEditor.revalidate();
         mainEditor.repaint();
@@ -359,8 +354,11 @@ public class EditorWindow extends javax.swing.JFrame {
                             }
                         }
             }
-                
+                String projectName = saveFile.getName().substring(0, saveFile.getName().length() - 7);  // remove extension
+                appHandler.getProjectFile().setProjectTitle(projectName);    // sets project name
                 appHandler.saveProject(saveFile);   // saves file!
+                
+                this.setTitle(appHandler.getProjectFile().getProjectTitle());
                 System.out.println("File saved!");
             }
                 else
@@ -376,6 +374,7 @@ public class EditorWindow extends javax.swing.JFrame {
             System.out.println("There was a problem saving the file.");
             Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.repaint();
     }//GEN-LAST:event_fileMenuSaveActionPerformed
 
     private void saveTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTestButtonActionPerformed
@@ -408,6 +407,11 @@ public class EditorWindow extends javax.swing.JFrame {
     private void fileMenuSaveActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuSaveActionPerformed1
         saveFileDialog.setVisible(true);
     }//GEN-LAST:event_fileMenuSaveActionPerformed1
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setTitle(appHandler.getProjectFile().getProjectTitle());
+        appHandler.setFrame(this);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

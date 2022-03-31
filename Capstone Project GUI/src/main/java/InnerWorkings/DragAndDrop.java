@@ -134,9 +134,11 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        
-       g.setColor(Color.RED);
-       ((Graphics2D)g).setStroke(new java.awt.BasicStroke(3));
+        g.setColor(Color.RED);
+       ((Graphics2D)g).setStroke(new java.awt.BasicStroke(4));
+       
+        // draw lines between connected passages
+        drawLines((Graphics2D)g);
         
        nodes = controller.getNodes();
         if (!(nodes.isEmpty()))
@@ -144,14 +146,12 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             // draw every node
             for (NodeRectangle n : nodes)
             {
-                ((Graphics2D)g).draw(n);
+                n.paintComponent((Graphics2D)g);
+                g.setColor(Color.BLACK);
                 ((Graphics2D)g).drawString(n.getNode().getTitle() + " " + nodes.indexOf(n), n.x, n.y);
             }
         }
-                // draw lines between connected passages
-        drawLines((Graphics2D)g);
-        
-
+        this.repaint();
     }
     
     // used to draw lines between connected pages
@@ -205,7 +205,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         if (!nodes.isEmpty())
         {
             // for each link in the project file
-            for (Link l : controller.getProjectFile().getLinks())
+            for (Link l : controller.getProjectFile().getVisualLinks())
             {
                  Point s = null, f = null;
                 // search the list of nodes for the points of the corresponding pair

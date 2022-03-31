@@ -5,8 +5,11 @@
 package InnerWorkings;
 
 import DataItems.Node;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -68,6 +71,27 @@ public class NodeRectangle extends Rectangle {
         this.node = new Node("New Page");
                // this.setSize(ApplicationHandler.nodeDimensions);
     }
+    
+    
+    
+    
+    public void paintComponent (Graphics2D g)
+    {
+        g.setColor(Color.BLACK);
+        g.drawRect(this.x, this.y, this.width, this.height);
+        g.setPaint(new GradientPaint(this.x, this.y, Color.WHITE, this.x + height, this.y + height, Color.DARK_GRAY));
+        g.fillRect(this.x, this.y, this.width, this.height);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     // getters and setters
         public Node getNode() {

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileSystemView;
 
 
@@ -41,6 +42,7 @@ public class ApplicationHandler {
     
     // DragAndDrop panel. View.
     private DragAndDrop view;
+    public JFrame frame;
     
     // Page editor.
      PageEditorFrame pageEditorFrame = new PageEditorFrame();
@@ -65,6 +67,7 @@ public class ApplicationHandler {
         project = p;
         view = d;
         // view.setNodes(project.getNodes());
+       //frame = (JFrame)SwingUtilities.getWindowAncestor(view);
     }
 
     public ApplicationHandler() {
@@ -166,18 +169,40 @@ public class ApplicationHandler {
    // ------------------------------------------------
     
     
+    // returns a list of all IDs in the project
+        public ArrayList<String> getAllIDs()
+    {
+        ArrayList<String> IDsArrayList = new ArrayList<>();
+        
+        for (NodeRectangle n : project.getNodes())
+        {
+            IDsArrayList.add(n.getNode().getID());
+        }
+        return IDsArrayList;
+    }
+        
+        
+    
     public void openPageEditor(NodeRectangle n)
     {
         
         pageEditorFrame.setVisible(true);
-        pageEditorFrame.setWindowData(n);
+        pageEditorFrame.setWindowData(n, this);
+        pageEditorFrame.revalidate();
+        pageEditorFrame.repaint();
         
         //while page frame is open, disable main frame
-        //frame.isEnabled(false)
-        
-        
-                
+        enableFrame(false);   
     }
+    
+    public void enableFrame(boolean e)
+    {
+        if (e == true) frame.setEnabled(true);
+        else frame.setEnabled(false);
+    }
+    
+    
+    
     
     //<editor-fold defaultstate="collapsed" desc="Node-Specific">
 
@@ -252,6 +277,32 @@ public class ApplicationHandler {
     {
         return project.getNode(index).getID();
     }   
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
+
+    public static Dimension getNodeDimensions() {
+        return nodeDimensions;
+    }
+
+    public static void setNodeDimensions(Dimension nodeDimensions) {
+        ApplicationHandler.nodeDimensions = nodeDimensions;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+    
+    
     
     //</editor-fold>
     

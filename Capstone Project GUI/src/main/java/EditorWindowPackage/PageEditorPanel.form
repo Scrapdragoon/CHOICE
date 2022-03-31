@@ -251,9 +251,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="130" max="-2" attributes="0"/>
+                  <Component id="importImageButton" min="-2" pref="130" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="102" max="-2" attributes="0"/>
+                  <Component id="imageNameLabel" min="-2" pref="102" max="-2" attributes="0"/>
                   <EmptySpace pref="286" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -263,8 +263,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="jButton1" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="importImageButton" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="imageNameLabel" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -272,12 +272,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="importImageButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Import Image..."/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="imageNameLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="No Image Selected"/>
           </Properties>

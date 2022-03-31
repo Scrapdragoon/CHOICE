@@ -23,11 +23,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="138" max="-2" attributes="0"/>
+              <Component id="linkLabel" min="-2" pref="138" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="choiceChooserBox" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Component id="choiceTextField" pref="563" max="32767" attributes="0"/>
+              <Component id="choiceTextField" pref="81" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -39,7 +39,7 @@
               <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="choiceChooserBox" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="choiceTextField" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="2" max="32767" attributes="0"/>
+                  <Component id="linkLabel" alignment="2" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -50,11 +50,8 @@
     <Component class="javax.swing.JComboBox" name="choiceChooserBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item ahjdgjgadbjhasdgajd1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="1">
+            <StringItem index="0" value="[There are no available pages to link to.]"/>
           </StringArray>
         </Property>
       </Properties>
@@ -73,7 +70,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="choiceTextFieldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="linkLabel">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="Link to page with ID:"/>
