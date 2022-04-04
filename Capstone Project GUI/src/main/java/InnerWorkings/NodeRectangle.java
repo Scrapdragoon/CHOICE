@@ -113,7 +113,7 @@ public class NodeRectangle extends Rectangle {
     @Override
     public String toString()
     {
-        String returnString = "Title: " + node.getTitle() + "\n Paragraph: " + node.getParagraph();
+        String returnString = "\n Title: " + node.getTitle() + "\n ID: " + node.getID();
         return returnString;
     }
    

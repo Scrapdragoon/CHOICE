@@ -115,14 +115,6 @@ public class LinkPanel extends javax.swing.JPanel {
         this.choiceTextField = choiceTextField;
     }
 
-    public JLabel getLinkLabel() {
-        return linkLabel;
-    }
-
-    public void setLinkLabel(JLabel linkLabel) {
-        this.linkLabel = linkLabel;
-    }
-
     
     
     

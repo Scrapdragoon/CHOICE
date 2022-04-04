@@ -7,6 +7,7 @@ package EditorWindowPackage;
 import DataItems.Node;
 import InnerWorkings.NodeRectangle;
 import InnerWorkings.PageEditorData;
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import java.awt.Component;
 import java.io.Serializable;
@@ -16,8 +17,10 @@ import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -408,6 +411,32 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
 
     private void OKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKButtonActionPerformed
         pageEditorData.save();
+        System.out.println("OK button pressed! Creating new node, and replacing the one in the file.");
+        
+        // create new node, pass to AppHandler. AppHandler will look for the ID of the node and replace it with the node passed to it.
+        Node n = new Node(this.titleField.getText(), this.paragraphField.getText(), this.IDField.getText());
+        System.out.println("ID: " + this.IDField.getText());
+        
+        // create list of links via iteration
+        Multimap<String, String> newNodeLinks = ArrayListMultimap.create();
+        for (Component c : choicesPanel.getComponents())
+        {
+            if (c instanceof LinkPanel)
+            {
+                // get combo box selection, get associated text, put in multimap
+                System.out.println("Link found. Adding hyperlink to node with ID: " + ((LinkPanel) c).getChoiceChooserBox().getSelectedItem().toString());
+                newNodeLinks.put(((LinkPanel) c).getChoiceChooserBox().getSelectedItem().toString(), ((LinkPanel) c).getChoiceTextField().getText());
+            }
+        }
+        
+        n.setLinks(newNodeLinks);
+        
+        // send data to Frame
+        JFrame parent = (JFrame)SwingUtilities.getWindowAncestor(this);
+        if (parent instanceof PageEditorFrame)
+        {
+            ((PageEditorFrame)parent).sendNewNodeToAppHandler(n, originalNode.getID());
+        }
     }//GEN-LAST:event_OKButtonActionPerformed
 
     public JTextField getIDField() {
@@ -449,13 +478,13 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
     {
         // Link panels are cleared before calling this method.
         System.out.println("AddChoices called.");
-
         
         // store IDsArray for use later, for things like adding a new, blank choice.
         panelIDsArray = IDsArray;
         //-----
         
         Node node = n.getNode();
+        originalNode = n.getNode(); // for use later, when replacing node even when ID is changed
         Multimap<String, String> links = node.getLinks();   // copies the links multimap from Node. Key = ID, Value = hyperlink text
         
         // for each link in this node, add a LinkPanel,
@@ -478,16 +507,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         System.out.println("");
         this.revalidate();
         this.repaint();
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    }   
     
     public void addChoice()
     {
@@ -548,6 +568,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         
         
         private String[] panelIDsArray;
+        private Node originalNode;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField IDField;

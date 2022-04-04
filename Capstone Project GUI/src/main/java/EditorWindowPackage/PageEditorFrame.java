@@ -4,6 +4,7 @@
  */
 package EditorWindowPackage;
 
+import DataItems.Node;
 import InnerWorkings.ApplicationHandler;
 import InnerWorkings.NodeRectangle;
 import java.util.ArrayList;
@@ -62,15 +63,13 @@ public class PageEditorFrame extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         controller.enableFrame(true);
         
-        // TODO - also add code to either submit data to main apphandler or not
+        // TODO - also add code to either submit data to main apphandler or not?
     }//GEN-LAST:event_formWindowClosing
 
     
        public void setWindowData(NodeRectangle n, ApplicationHandler a)
     {
         this.controller = a; // in order to pass data back to the handler
-        
-        
                 
         // add data to panel's PageEditorData object
         pageEditorPanel.getPageEditorData().setTitle(n.getNode().getTitle());
@@ -94,6 +93,31 @@ public class PageEditorFrame extends javax.swing.JFrame {
         pageEditorPanel.addChoices(n, IDsArray);
     }
     
+       
+       
+       public void sendNewNodeToAppHandler(Node n, String originalID)
+       {
+           // if ID is not updated, then just save
+           if (n.getID().equals(originalID))
+           {
+               controller.saveNode(n);
+               controller.enableFrame(true);
+               this.dispose();
+           }
+           else 
+           {
+               // have controller delete nodes with original ID
+               // update all links in other nodes that contain original ID
+               // replace with new node, with new ID
+               
+               controller.removeAndSaveNode(n, originalID);
+               controller.enableFrame(true);
+               this.dispose();
+               
+           }
+       }
+       
+       
     
     /**
      * @param args the command line arguments

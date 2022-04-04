@@ -30,8 +30,8 @@ public class ProjectFile implements Serializable {
     Path filePath;                // path to access file
     Path outputPath;          // path to output exported game (do you even need to store this separately?)
     
-    // used to auto-generate IDs
-    //int nodeID
+    // used to auto-generate IDs  
+    static int nodeNumber = 0;
     
     
     ArrayList<NodeRectangle> nodes; // ArrayList of story nodes/pages

@@ -55,9 +55,10 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             @Override
             public void mousePressed(MouseEvent event)
             {
-                // select the node the user click, assign to currentNode
+                // select the node the user clicks, assign to currentNode
                currentNode = getNodeClicked(event.getX(), event.getY());
                System.out.println("Pressed node " + currentNode);
+                // System.out.println("Node ID: " + nodes.get(currentNode).getNode().getID());
             }
             
             
@@ -216,7 +217,9 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                 }
                 if (s != null && f != null)
                     // connect centers
+                    // TODO - change to path/other thing that makes it easier to tell which node is going to which
                 g.drawLine(s.x + controller.nodeDimensions.width/2, s.y + controller.nodeDimensions.height/2, f.x+ controller.nodeDimensions.width/2, f.y + controller.nodeDimensions.height/2);
+                //g.drawLine(s.x + controller.nodeDimensions.width/2 + 10, s.y + controller.nodeDimensions.height/2 + 5, f.x+ controller.nodeDimensions.width/2, f.y + controller.nodeDimensions.height/2);
             }
         }
                 
@@ -291,8 +294,9 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         // if i is within nodes's range
         if (!(i < 0 || i >= nodes.size()))
         {
-            System.out.println("Removing rectangle at index : " + i);
-               nodes.remove(i); // remove rectangle at index
+            System.out.println("Removing rectangle at index  " + i + " with ID: " + nodes.get(i).getNode().getID());
+               controller.deleteNode(nodes.get(i).getNode().getID());
+               //nodes.remove(i); // remove rectangle at index
                
                if (currentNode == i)
                {
@@ -304,7 +308,10 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             return;
         }
         
-        controller.updateProject();
+        // get nodes from project
+        this.nodes = controller.getNodes();
+        //controller.updateProject();
+        System.out.println("");
         repaint();
     }
     
@@ -342,6 +349,10 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         }
     }
     
+    public void updateViewNodes(ArrayList<NodeRectangle> n)
+    {
+        nodes = n;
+    }
     
             /*
     public static void main(String[] args)

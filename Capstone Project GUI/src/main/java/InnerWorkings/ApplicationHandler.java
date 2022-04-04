@@ -4,8 +4,10 @@
  */
 package InnerWorkings;
 
+import DataItems.Node;
 import EditorWindowPackage.PageEditorFrame;
 import EditorWindowPackage.PageEditorPanel;
+import com.google.common.collect.Multimap;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -17,6 +19,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -185,7 +189,6 @@ public class ApplicationHandler {
     
     public void openPageEditor(NodeRectangle n)
     {
-        
         pageEditorFrame.setVisible(true);
         pageEditorFrame.setWindowData(n, this);
         pageEditorFrame.revalidate();
@@ -224,9 +227,166 @@ public class ApplicationHandler {
     
        
     
-    public void saveNode()
+    public void saveNode(Node n)
     {
         // takes input from editor window and saves the node with its new parameters.
+        
+        // Attempt 1: replaces node in projectFile entirely.
+        String replaceID = n.getID();
+        
+        for (NodeRectangle node : project.getNodes())
+        {
+            if (node.getNode().getID().equals(replaceID))
+            {
+                node.setNode(n);
+                //break;
+            }
+        }
+        
+        System.out.println("Node with ID " + replaceID + " replaced. Might need to update the view or something.");
+        ///updateView();
+        project.updateLinks();
+        
+        view.updateViewNodes(project.getNodes());
+        view.revalidate();
+        view.repaint();
+        
+
+    }
+    
+    // for removing a node entirely, using its ID.
+    // it then updates the other nodes, removing links if they would now lead to the "dead" ID.
+    public void deleteNode(String ID)
+    {
+        ArrayList<NodeRectangle> toRemove = new ArrayList<>();
+        
+        System.out.println("--");
+        System.out.println("Deleting node with ID: " + ID);
+        for (NodeRectangle n : project.getNodes())
+        {
+            // if this is the node to be deleted, add to list of nodes to delete.
+            if (n.getNode().getID().equals(ID))
+            {
+                toRemove.add(n);
+                System.out.println("Added a node to the list to be deleted.");
+            }
+            // else, if the current node contains links to the deleted node, then delete them.
+            else if (n.getNode().getLinks().containsKey(ID))
+            {
+                n.getNode().getLinks().removeAll(ID);
+                System.out.println("Removed all links to this node from node with ID: " + n.getNode().getID());
+            }
+        }    
+        
+        System.out.println("Removing all nodes in toRemove...");
+        project.getNodes().removeAll(toRemove);
+        System.out.println("Remaining nodes in file: " + project.getNodes().toString());
+        System.out.println("--");
+    }
+    
+    public void removeAndSaveNode(Node n, String originalID)
+    {
+        System.out.println("");
+        System.out.println("Removing and saving node...");
+        System.out.println("New node's ID: " + n.getID() + ". Original node's ID: " + originalID + ".");
+        System.out.println("Checking nodes....");
+        // replaces nodes that have had IDs that were edited.
+        String replaceID = originalID;
+        
+        for (NodeRectangle node : project.getNodes())
+        {
+            System.out.println("Current node ID: " + node.getNode().getID());
+            System.out.println("Replacement ID: " + replaceID);
+            if(node.getNode().getID().equals(replaceID))
+            {
+                System.out.println("Node will be replaced.");
+                node.setNode(n);
+                //break;
+            }
+        }
+        System.out.println("");
+        
+        
+        // iterate through all nodes and update links with new ID.
+        
+        // for each node
+        // if links contain originalID
+        // store all associated values, delete key
+        // putAll(newID, list/array of values)
+        System.out.println("Updating links...");
+        System.out.println("--");
+        for (NodeRectangle nodeRect : project.getNodes())
+        {
+
+            Node node = nodeRect.getNode();
+            Multimap<String, String> links = node.getLinks();   // copies the links multimap from Node. Key = ID, Value = hyperlink text
+            System.out.println("Node ID: " + node.getID());
+            System.out.println("Links: " + links.toString());
+            System.out.println("Looking for occurrences of ID " + replaceID + "...");
+            
+            if (links.containsKey(replaceID))
+            {
+                System.out.println("ID that needs to be replaced found!");
+                System.out.println("Replacing with ID: " + n.getID());
+                List<String> values = (List<String>) links.get(replaceID);
+                if (values.isEmpty())
+                {
+                    System.out.println("Values is empty. Returning function...");
+                    return;
+                }
+                
+                System.out.println("Values: " + values.toString());
+                links.putAll(n.getID(), values);
+                
+                /*
+                links.removeAll(replaceID);
+                System.out.println("Links after removing old ID:" + links.toString());
+                if (values.isEmpty())
+                {
+                    System.out.println("Values is empty.");
+                    break;
+                }
+                */
+                /*
+                for(String hyperlinkText : values)
+                {
+                    System.out.println("put: " + n.getID() + ", " + hyperlinkText);
+                    links.put(n.getID(), hyperlinkText);
+                }
+                */
+                
+                
+                System.out.println("-");
+                System.out.println("Links after inserting new ID:" + links.toString());
+                links.removeAll(replaceID);
+                System.out.println("Links after removing old ID:" + links.toString());
+                System.out.println("-");
+/*
+                boolean put = links.put(n.getID(), "testing put method");
+                System.out.println("Links after test put: " + links.toString());
+                boolean putAll = links.putAll(n.getID(), values);
+                
+                if (putAll != true)
+                {
+                    System.out.println("--putAll method did not change the multimap. Breaking...--");
+                    break;
+                }
+*/
+
+                nodeRect.getNode().setLinks(links);
+                System.out.println("Node " + node.getID() + "'s new links: ");
+                System.out.println(links.toString());
+            }
+            System.out.println("-");
+        }
+        
+        project.updateLinks();
+        System.out.println("Nodes in this file:" + project.getNodes().toString());
+    }
+    
+    public void updateProjectFileLinks()
+    {
+        project.updateLinks();
     }
     
     
