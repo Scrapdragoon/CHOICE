@@ -24,11 +24,11 @@ public class Node implements Serializable {
     public static int passageNumber = 100;    // used to determine the IDs of new passages
     
 
-    private String title = "New Node";    // name of node
+    private String title = "New Page";    // name of node
     private String paragraph; // paragraph of text
     
     
-    private String ID = "test";      // ID of node (used for searching and whatnot)
+    private String ID = "default_ID";      // ID of node (used for searching and whatnot)
     
     public Image image;                      // accompanying image
     

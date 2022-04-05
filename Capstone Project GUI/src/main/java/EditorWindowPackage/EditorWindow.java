@@ -321,7 +321,9 @@ public class EditorWindow extends javax.swing.JFrame {
 
     private void createNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNodeButtonActionPerformed
         System.out.println("Create Node button pressed! This is how the user will be able to add new nodes.");
-        mainEditor.addNode(100, 100);
+        //mainEditor.addNode(100, 100);
+        appHandler.openCreatePage();        
+        
         mainEditor.revalidate();
         mainEditor.repaint();
     }//GEN-LAST:event_createNodeButtonActionPerformed

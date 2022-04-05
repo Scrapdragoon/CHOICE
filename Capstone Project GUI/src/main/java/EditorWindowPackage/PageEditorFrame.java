@@ -117,6 +117,14 @@ public class PageEditorFrame extends javax.swing.JFrame {
            }
        }
        
+       // for when "Cancel" button is pressed.
+       public void cancel()
+       {
+           controller.enableFrame(true);
+           System.out.println("Node has not been changed.");
+           this.dispose();
+       }
+       
        
     
     /**

@@ -5,12 +5,11 @@
 package InnerWorkings;
 
 import DataItems.Node;
+import EditorWindowPackage.CreatePageFrame;
 import EditorWindowPackage.PageEditorFrame;
-import EditorWindowPackage.PageEditorPanel;
+import com.google.common.base.CharMatcher;
 import com.google.common.collect.Multimap;
 import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,11 +19,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileSystemView;
 
 
@@ -50,14 +47,13 @@ public class ApplicationHandler {
     
     // Page editor.
      PageEditorFrame pageEditorFrame = new PageEditorFrame();
-    private static PageEditorPanel pageEditor = new PageEditorPanel();
+     CreatePageFrame createPageFrame = new CreatePageFrame();
    
     // dimension for visual representation of nodes
     public static Dimension nodeDimensions = new Dimension(100, 50);
     
     // custom file extension
     public final String extension = ".choice";
-    
     
     public boolean enabled = true;
     
@@ -91,7 +87,7 @@ public class ApplicationHandler {
     
     //------------------------------------------------
 
-    //<editor-fold defaultstate="collapsed" desc="Entire Project Operations">
+    //<editor-fold defaultstate="collapsed" desc="Loading, Saving, Exporting, etc.">
     // Operations that affect the project as a whole.
     
     public void createProject()
@@ -174,7 +170,7 @@ public class ApplicationHandler {
     
     
     // returns a list of all IDs in the project
-        public ArrayList<String> getAllIDs()
+    public ArrayList<String> getAllIDs()
     {
         ArrayList<String> IDsArrayList = new ArrayList<>();
         
@@ -186,9 +182,23 @@ public class ApplicationHandler {
     }
         
         
-    
+     // open frame used to create new node
+    public void openCreatePage()
+    {
+        System.out.println("AppHandler's openCreatePage method called.");
+        createPageFrame = new CreatePageFrame();    // reset frame
+        createPageFrame.setVisible(true);
+        createPageFrame.setApplicationHandler(this);
+        enableFrame(false);
+        
+        createPageFrame.revalidate();
+        createPageFrame.repaint();
+    }
+        
+    // open frme used to edit nodes
     public void openPageEditor(NodeRectangle n)
     {
+        System.out.println("Opening page editor...");
         pageEditorFrame.setVisible(true);
         pageEditorFrame.setWindowData(n, this);
         pageEditorFrame.revalidate();
@@ -198,6 +208,62 @@ public class ApplicationHandler {
         enableFrame(false);   
     }
     
+    // for opening the page editor directly after creating a new page. 
+    // ID is created here?
+    public void createNewPage(String title)
+    {
+        String ID = autoGenerateID(title);
+        Node n = new Node(title, "", ID);
+        NodeRectangle newNode = new NodeRectangle(n);
+        project.getNodes().add(newNode);
+        openPageEditor(newNode);
+    }     
+    
+    // automatically generates a starting ID based on the entered title/phrase.
+    // uses Guava's CharMatcher.
+    public String autoGenerateID(String enteredID)
+    {
+        System.out.println("--");
+        System.out.println("AutoGenerateID called.");
+        
+        // first, clean string by removing unnecessary whitespace
+        // and non alphanumeric characters (except for underscores)
+        String newID = CharMatcher.breakingWhitespace().replaceFrom(enteredID, '_');
+        newID = CharMatcher.whitespace().trimFrom(newID);
+        newID = CharMatcher.javaLetterOrDigit().or(CharMatcher.is('_')).retainFrom(newID);
+        System.out.println("Cleaned string: " + newID);
+        
+        String originalReturnID = newID; // to use as a base
+        int i = 1;
+        
+        ArrayList<String> IDs = getAllIDs();
+        boolean taken;
+        
+        do
+        {
+            taken = false;
+            for (String ID : IDs)   // for each ID in the project
+            {
+               if (newID.equalsIgnoreCase(ID)) // if this ID already exists
+               {
+                   System.out.println("This ID is taken.");
+                   taken = true;
+                   newID = originalReturnID + "_" + i; // new ID is returnID_[number].
+                   i++;
+                   System.out.println("New ID: " + newID);
+                   System.out.println("Beginning search again.");
+                   break;
+               }
+            }
+        } while (taken == true);
+        
+        System.out.println("ID found!");
+        System.out.println("Auto-generated ID: " + newID);
+        System.out.println("--");
+        return newID;
+    }
+    
+    // for enabling/disabling frame when other windows are open.
     public void enableFrame(boolean e)
     {
         if (e == true) frame.setEnabled(true);
@@ -205,38 +271,22 @@ public class ApplicationHandler {
     }
     
     
+    // ------------------------------------------------
     
-    
-    //<editor-fold defaultstate="collapsed" desc="Node-Specific">
-
-    public void addNewNode(MouseEvent event)
-    {
-        // create new node and add to project's array. NOT for clicking on existing nodes.
-        //if (event.getButton() == MouseEvent.BUTTON1 && currentNode < 0)
-        {
-            
-        }
-        
-    }
-    
-    public void deleteLink(String ID1, String ID2)
-    {
-        // for deleting links between two nodes, i.e. when one node is deteted.
-        // 
-    }
-    
-       
+    //<editor-fold defaultstate="collapsed" desc="Node-Specific">  
     
     public void saveNode(Node n)
     {
         // takes input from editor window and saves the node with its new parameters.
         
         // Attempt 1: replaces node in projectFile entirely.
-        String replaceID = n.getID();
+        
+        
+        String replaceID = n.getID();   // ID that program needs to search for
         
         for (NodeRectangle node : project.getNodes())
         {
-            if (node.getNode().getID().equals(replaceID))
+            if (node.getNode().getID().equalsIgnoreCase(replaceID))
             {
                 node.setNode(n);
                 //break;
@@ -253,39 +303,16 @@ public class ApplicationHandler {
         
 
     }
-    
-    // for removing a node entirely, using its ID.
-    // it then updates the other nodes, removing links if they would now lead to the "dead" ID.
-    public void deleteNode(String ID)
-    {
-        ArrayList<NodeRectangle> toRemove = new ArrayList<>();
         
-        System.out.println("--");
-        System.out.println("Deleting node with ID: " + ID);
-        for (NodeRectangle n : project.getNodes())
-        {
-            // if this is the node to be deleted, add to list of nodes to delete.
-            if (n.getNode().getID().equals(ID))
-            {
-                toRemove.add(n);
-                System.out.println("Added a node to the list to be deleted.");
-            }
-            // else, if the current node contains links to the deleted node, then delete them.
-            else if (n.getNode().getLinks().containsKey(ID))
-            {
-                n.getNode().getLinks().removeAll(ID);
-                System.out.println("Removed all links to this node from node with ID: " + n.getNode().getID());
-            }
-        }    
-        
-        System.out.println("Removing all nodes in toRemove...");
-        project.getNodes().removeAll(toRemove);
-        System.out.println("Remaining nodes in file: " + project.getNodes().toString());
-        System.out.println("--");
-    }
-    
     public void removeAndSaveNode(Node n, String originalID)
     {
+        System.out.println("");
+        System.out.println("--");
+        System.out.println("Verifying new ID first...");
+        n.setID(autoGenerateID(n.getID()));
+        System.out.println("ID verified.");
+        
+        
         System.out.println("");
         System.out.println("Removing and saving node...");
         System.out.println("New node's ID: " + n.getID() + ". Original node's ID: " + originalID + ".");
@@ -297,7 +324,7 @@ public class ApplicationHandler {
         {
             System.out.println("Current node ID: " + node.getNode().getID());
             System.out.println("Replacement ID: " + replaceID);
-            if(node.getNode().getID().equals(replaceID))
+            if(node.getNode().getID().equalsIgnoreCase(replaceID))
             {
                 System.out.println("Node will be replaced.");
                 node.setNode(n);
@@ -384,16 +411,48 @@ public class ApplicationHandler {
         System.out.println("Nodes in this file:" + project.getNodes().toString());
     }
     
+    // for removing a node entirely, using its ID.
+    // it then updates the other nodes, removing links if they would now lead to the "dead" ID.
+    public void deleteNode(String ID)
+    {
+        ArrayList<NodeRectangle> toRemove = new ArrayList<>();
+        
+        System.out.println("--");
+        System.out.println("Deleting node with ID: " + ID);
+        for (NodeRectangle n : project.getNodes())
+        {
+            // if this is the node to be deleted, add to list of nodes to delete.
+            if (n.getNode().getID().equalsIgnoreCase(ID))
+            {
+                toRemove.add(n);
+                System.out.println("Added a node to the list to be deleted.");
+            }
+            // else, if the current node contains links to the deleted node, then delete them.
+            else if (n.getNode().getLinks().containsKey(ID))
+            {
+                n.getNode().getLinks().removeAll(ID);
+                System.out.println("Removed all links to this node from node with ID: " + n.getNode().getID());
+            }
+        }    
+        
+        System.out.println("Removing all nodes in toRemove...");
+        project.getNodes().removeAll(toRemove);
+        System.out.println("Remaining nodes in file: " + project.getNodes().toString());
+        System.out.println("--");
+    }
+    
     public void updateProjectFileLinks()
     {
         project.updateLinks();
     }
     
     
+    /*
     public void autoSetNodeID()
     {
         
     }
+*/
     
     //</editor-fold>
    
@@ -489,7 +548,7 @@ public class ApplicationHandler {
      // -----------------------------------------------
 
     
-    //<editor-fold defaultstate="collapsed" desc="Testing Methods">
+    //<editor-fold defaultstate="collapsed" desc="Methods for Testing">
     
 
     // tester metho
@@ -558,16 +617,39 @@ public class ApplicationHandler {
          fileOutStream.close();
         objectOutStream.close();
     }
-            
+    
+    public void testAutoGenerateID()
+    {
+       createNewPage("to!*&#&(*$;2,.,_*5)#@");
+    }
+    
+    public void testNodes()
+    {
+        System.out.println("Project's nodes:");
+        System.out.println(project.getNodes());
+        System.out.println("DragAndDrop's nodes:");
+        System.out.println(view.getNodes());
+        
+        System.out.println("Adding \"New\" NodeRectangle to DragAndDrop...");
+        view.getNodes().add(new NodeRectangle("New"));
+        System.out.println("Adding \"Genesis\" NodeRectangle to ProjectFile...");
+        project.getNodes().add(new NodeRectangle("Genesis"));
+        
+        
+        System.out.println("Project's new nodes:");
+        System.out.println(project.getNodes());
+        System.out.println("DragAndDrop's new nodes:");
+        System.out.println(view.getNodes());
+        
+        // So it is a one-time link, then. There's no need to update the other when one is changed. 
+    }
+    
     //</editor-fold>
     
     
     public static void main(String[] args) throws IOException, ClassNotFoundException
     {
-        // testMethod();
-        
-       
-        
+        // testMethod();    
         
         //System.out.println("Current directory: " + System.getProperty("user.home"));
     }

@@ -37,6 +37,9 @@ public class LinkPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(500, 34));
 
         choiceChooserBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[There are no available pages to link to.]" }));
+        choiceChooserBox.setToolTipText("What page should this one link to?");
+        choiceChooserBox.setMaximumSize(new java.awt.Dimension(243, 22));
+        choiceChooserBox.setPrototypeDisplayValue("eeeeeeeeeeeeeeeeeeeeeeee");
 
         choiceTextField.setText("jTextField1");
         choiceTextField.setMinimumSize(new java.awt.Dimension(30, 22));

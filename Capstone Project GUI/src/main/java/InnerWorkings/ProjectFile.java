@@ -5,14 +5,11 @@
 package InnerWorkings;
 
 import DataItems.Node;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import com.google.common.collect.Multiset;
 import java.awt.Point;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  *
@@ -45,7 +42,7 @@ public class ProjectFile implements Serializable {
         authorName = "Author";
         nodes = new ArrayList<>();  // should I start with one node placed?
         
-        visualLinks = new ArrayList<Link>();
+        visualLinks = new ArrayList<>();
         
         // TODO -  for testing
         Node n = new Node("Title", "Content", "from");
@@ -97,10 +94,8 @@ public class ProjectFile implements Serializable {
                             }
                         }
                     }
-                    
                 }
             }
-            
         }
     }
     

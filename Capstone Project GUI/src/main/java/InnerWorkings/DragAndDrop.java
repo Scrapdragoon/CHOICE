@@ -58,6 +58,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                 // select the node the user clicks, assign to currentNode
                currentNode = getNodeClicked(event.getX(), event.getY());
                System.out.println("Pressed node " + currentNode);
+               // controller.testNodes();
                 // System.out.println("Node ID: " + nodes.get(currentNode).getNode().getID());
             }
             
@@ -152,6 +153,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     // used to draw lines between connected pages
     public void drawLines(Graphics2D g)
     {
+        //<editor-fold defaultstate="collapsed" desc="Old">
         
         //System.out.println("Drawing lines...");
         
@@ -195,7 +197,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         
         System.out.println("Lines have been drawn.");
         */
-
+//</editor-fold>
         
         if (!nodes.isEmpty())
         {
@@ -223,6 +225,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             }
         }
                 
+        //<editor-fold defaultstate="collapsed" desc="For Testing">
         /*
         // Draws lines between consecutive nodes. For testing.
              if (!(nodes.isEmpty()))
@@ -237,7 +240,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
            }
         }
         */
-
+//</editor-fold>
     }
     
     

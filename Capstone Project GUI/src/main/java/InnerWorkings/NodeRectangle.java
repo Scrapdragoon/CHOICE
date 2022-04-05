@@ -44,7 +44,7 @@ public class NodeRectangle extends Rectangle {
         this.node = new Node(title);
                 // this.setSize(ApplicationHandler.nodeDimensions);
     }
-    
+        
     public NodeRectangle(Node n)
     {
         super(new Point(69, 69), ApplicationHandler.nodeDimensions);
