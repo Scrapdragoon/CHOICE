@@ -10,13 +10,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import InnerWorkings.ConnectionTriangle;
+import java.awt.RenderingHints;
 
 /**
  *
@@ -44,8 +51,8 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     
     public DragAndDrop() {
         
-        //nodes = new ArrayList<>();
-        //nodes = controller.getProjectFile().getNodes();
+        nodes = new ArrayList<>();
+        
         
         //<editor-fold defaultstate="collapsed" desc="Mouse Listeners">
 
@@ -127,10 +134,14 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     }
     
     @Override
-    public void paintComponent(Graphics g)
+    public void paintComponent(Graphics gr)
     {
-        super.paintComponent(g);
+        super.paintComponent(gr);
+        Graphics2D g = (Graphics2D)gr;
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
         g.setColor(Color.RED);
+        
        ((Graphics2D)g).setStroke(new java.awt.BasicStroke(4));
        
         // draw lines between connected passages
@@ -218,10 +229,40 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                     }
                 }
                 if (s != null && f != null)
+                {
+                    //<editor-fold defaultstate="collapsed" desc="Previous - Apr 6">
+                    
                     // connect centers
                     // TODO - change to path/other thing that makes it easier to tell which node is going to which
-                g.drawLine(s.x + controller.nodeDimensions.width/2, s.y + controller.nodeDimensions.height/2, f.x+ controller.nodeDimensions.width/2, f.y + controller.nodeDimensions.height/2);
+                //g.drawLine(s.x + controller.nodeDimensions.width/2, s.y + controller.nodeDimensions.height/2, f.x + controller.nodeDimensions.width/2, f.y + controller.nodeDimensions.height/2);
                 //g.drawLine(s.x + controller.nodeDimensions.width/2 + 10, s.y + controller.nodeDimensions.height/2 + 5, f.x+ controller.nodeDimensions.width/2, f.y + controller.nodeDimensions.height/2);
+                
+                // TODO - fillPoly triangle. Makes it easier to see which node is the "start" and which is the "end". 
+                    Point startCenter, finishCenter;
+                    startCenter = new Point(s.x + (ApplicationHandler.nodeDimensions.width/2), s.y + (ApplicationHandler.nodeDimensions.height/2));
+                    finishCenter = new Point(f.x + (ApplicationHandler.nodeDimensions.width/2), f.y + (ApplicationHandler.nodeDimensions.height/2));
+                    //g.drawLine(startCenter.x, startCenter.y, finishCenter.x, finishCenter.y);
+                    
+                  /*  
+                    int[] xCoords = new int[] {s.x + (controller.nodeDimensions.width/2), f.x + (controller.nodeDimensions.width/2), s.x + (controller.nodeDimensions.width/2)};
+                    int[] yCoords = new int[] {s.y +(controller.nodeDimensions.height/4), f.y + (controller.nodeDimensions.height/2), s.y + (controller.nodeDimensions.height * (3/4))};
+                */
+                    /*
+                    // Connection from start to finish
+                    int[] xCoords = new int[] {startCenter.x, finishCenter.x, startCenter.x};
+                    int[] yCoords = new int[] {startCenter.y-15, finishCenter.y, startCenter.y+15};
+                    Polygon connection = new Polygon(xCoords, yCoords, 3);
+
+                    g.setColor(Color.RED);
+                    g.fillPolygon(connection);
+                    g.setColor(Color.WHITE);
+                    g.drawPolygon(connection);
+                    */
+//</editor-fold>
+                    
+                    ConnectionTriangle t = new ConnectionTriangle(startCenter, finishCenter);
+                    g.fillPolygon(t);
+                }
             }
         }
                 
@@ -242,8 +283,6 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         */
 //</editor-fold>
     }
-    
-    
     
     
     // returns node clicked on, given position

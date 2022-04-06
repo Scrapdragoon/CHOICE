@@ -47,7 +47,6 @@ public class EditorWindow extends javax.swing.JFrame {
         createNodeButton = new javax.swing.JButton();
         loadTestButton = new javax.swing.JButton();
         saveTestButton = new javax.swing.JButton();
-        editorLayeredPane = new javax.swing.JLayeredPane();
         dragAndDropPanel = new InnerWorkings.DragAndDrop();
         editorMenu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
@@ -159,23 +158,10 @@ public class EditorWindow extends javax.swing.JFrame {
         );
         dragAndDropPanelLayout.setVerticalGroup(
             dragAndDropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 669, Short.MAX_VALUE)
+            .addGap(0, 663, Short.MAX_VALUE)
         );
 
         mainEditor = dragAndDropPanel;
-
-        editorLayeredPane.setLayer(dragAndDropPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout editorLayeredPaneLayout = new javax.swing.GroupLayout(editorLayeredPane);
-        editorLayeredPane.setLayout(editorLayeredPaneLayout);
-        editorLayeredPaneLayout.setHorizontalGroup(
-            editorLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dragAndDropPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        editorLayeredPaneLayout.setVerticalGroup(
-            editorLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dragAndDropPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         editorMenu.setName(""); // NOI18N
 
@@ -254,9 +240,10 @@ public class EditorWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dragAndDropPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(editorLayeredPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +251,8 @@ public class EditorWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(buttonMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editorLayeredPane))
+                .addComponent(dragAndDropPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -458,7 +446,6 @@ public class EditorWindow extends javax.swing.JFrame {
     private InnerWorkings.DragAndDrop dragAndDropPanel;
     private javax.swing.JMenuItem editMenuRedo;
     private javax.swing.JMenuItem editMenuUndo;
-    private javax.swing.JLayeredPane editorLayeredPane;
     private javax.swing.JMenuBar editorMenu;
     private javax.swing.JMenuItem fileMenuExit;
     private javax.swing.JMenuItem fileMenuNew;

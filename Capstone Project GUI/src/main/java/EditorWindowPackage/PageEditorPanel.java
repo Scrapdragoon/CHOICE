@@ -102,7 +102,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         nodeTitlePanelLayout.setVerticalGroup(
             nodeTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nodeTitlePanelLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(20, 20, 20)
                 .addGroup(nodeTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(pageEditorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -352,11 +352,6 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         OKPanel.setBackground(new java.awt.Color(204, 204, 204));
 
         cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
 
         OKButton.setText("OK");
         OKButton.addActionListener(new java.awt.event.ActionListener() {
@@ -443,14 +438,6 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
             ((PageEditorFrame)parent).sendNewNodeToAppHandler(n, originalNode.getID());
         }
     }//GEN-LAST:event_OKButtonActionPerformed
-
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-       JFrame parent = (JFrame)SwingUtilities.getWindowAncestor(this);
-       if (parent instanceof PageEditorFrame)
-       {
-            ((PageEditorFrame) parent).cancel();
-       }
-    }//GEN-LAST:event_cancelButtonActionPerformed
 
     public JTextField getIDField() {
         return IDField;

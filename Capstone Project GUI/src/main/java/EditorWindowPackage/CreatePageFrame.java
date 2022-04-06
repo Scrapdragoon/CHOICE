@@ -33,7 +33,7 @@ public class CreatePageFrame extends javax.swing.JFrame {
         titleField = new javax.swing.JTextField();
         createPageButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("New Page");
         setPreferredSize(new java.awt.Dimension(600, 400));
         setResizable(false);

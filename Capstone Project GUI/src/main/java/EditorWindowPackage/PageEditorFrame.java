@@ -44,6 +44,7 @@ public class PageEditorFrame extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBar(null);
         jScrollPane1.setViewportView(pageEditorPanel);
+        jScrollPane1.setViewportView(pageEditorPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -53,7 +54,7 @@ public class PageEditorFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE)
         );
 
         pack();

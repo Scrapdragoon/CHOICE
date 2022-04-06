@@ -47,19 +47,19 @@ public class ProjectFile implements Serializable {
         // TODO -  for testing
         Node n = new Node("Title", "Content", "from");
         n.addLink("to", "Click here!");
-        n.addLink("to2", "And click here too!");
+        //n.addLink("to2", "And click here too!");
         
         Node t = new Node("Title2", "Content2", "to");
         
-        Node t2 = new Node("to2", "Content", "to2");
+        //Node t2 = new Node("to2", "Content", "to2");
         
         NodeRectangle from = new NodeRectangle(n, new Point(300, 300));
         NodeRectangle to = new NodeRectangle(t, new Point(500, 500));
-        NodeRectangle to2 = new NodeRectangle(t2, new Point(300, 500));
+        //NodeRectangle to2 = new NodeRectangle(t2, new Point(300, 500));
         
         nodes.add(from);
         nodes.add(to);
-        nodes.add(to2);
+        //nodes.add(to2);
         
         updateLinks();
     }
