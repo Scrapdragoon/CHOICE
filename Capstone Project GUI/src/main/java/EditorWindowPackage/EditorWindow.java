@@ -54,6 +54,7 @@ public class EditorWindow extends javax.swing.JFrame {
         fileMenuNew = new javax.swing.JMenuItem();
         fileMenuOpen = new javax.swing.JMenuItem();
         fileMenuProjectSettings = new javax.swing.JMenuItem();
+        exportGameButton = new javax.swing.JMenuItem();
         fileMenuExit = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
         editMenuUndo = new javax.swing.JMenuItem();
@@ -95,7 +96,7 @@ public class EditorWindow extends javax.swing.JFrame {
             }
         });
 
-        buttonMenuPanel.setBackground(new java.awt.Color(255, 255, 102));
+        buttonMenuPanel.setBackground(new java.awt.Color(153, 102, 255));
 
         createNodeButton.setText("Create Node");
         createNodeButton.setFocusable(false);
@@ -199,6 +200,9 @@ public class EditorWindow extends javax.swing.JFrame {
             }
         });
         menuFile.add(fileMenuProjectSettings);
+
+        exportGameButton.setText("Export Game...");
+        menuFile.add(exportGameButton);
 
         fileMenuExit.setText("Exit");
         fileMenuExit.addActionListener(new java.awt.event.ActionListener() {
@@ -447,6 +451,7 @@ public class EditorWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem editMenuRedo;
     private javax.swing.JMenuItem editMenuUndo;
     private javax.swing.JMenuBar editorMenu;
+    private javax.swing.JMenuItem exportGameButton;
     private javax.swing.JMenuItem fileMenuExit;
     private javax.swing.JMenuItem fileMenuNew;
     private javax.swing.JMenuItem fileMenuOpen;

@@ -86,6 +86,11 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fileMenuProjectSettingsActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="exportGameButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Export Game..."/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="fileMenuExit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Exit"/>
@@ -188,7 +193,7 @@
     <Container class="javax.swing.JPanel" name="buttonMenuPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="ff" red="ff" type="rgb"/>
+          <Color blue="ff" green="66" red="99" type="rgb"/>
         </Property>
       </Properties>
 

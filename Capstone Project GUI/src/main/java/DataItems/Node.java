@@ -6,10 +6,7 @@ package DataItems;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import java.awt.Image;
 import java.io.Serializable;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  *
@@ -20,9 +17,6 @@ import java.util.TreeMap;
  *
  */
 public class Node implements Serializable {
-    
-    public static int passageNumber = 100;    // used to determine the IDs of new passages
-    
 
     private String title = "New Page";    // name of node
     private String paragraph; // paragraph of text
@@ -30,7 +24,7 @@ public class Node implements Serializable {
     
     private String ID = "default_ID";      // ID of node (used for searching and whatnot)
     
-    public Image image;                      // accompanying image
+    private String imagePath;               // path to image
     
     
     // List of links from this node to other nodes.
@@ -44,7 +38,6 @@ public class Node implements Serializable {
 
     
     public Node() {
-        title = "defaultTitle";
     }
     
     public Node(String title)
@@ -102,12 +95,12 @@ public class Node implements Serializable {
         ID = newID;
     }
 
-    public Image getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public Multimap<String, String> getLinks() {
@@ -130,33 +123,10 @@ public class Node implements Serializable {
         links.remove(ID, text);
     }
 
-    
-    
-   /* 
-    //get list of choices
-    public ArrayList<Node> getChoices() {
-        return choices;
-    }
-
-    
-    // add link to list of choices
-    public void addLink(Node choice) {
-        choices.add(choice);
-    }
-
-    */
-    
-    
-    public static void autoSetID()
-    {
-        
-    }
-    
     @Override
     public String toString()
     {
-        return "Page title: " + this.title 
-                + "\n Paragraph: " + this.paragraph
-                ;
+        return "Page title: " + this.title + ","
+                + "\n ID: " + this.ID;
     }
 }

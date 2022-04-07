@@ -4,11 +4,9 @@
  */
 package InnerWorkings;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.geom.Line2D;
 
 
 /**
@@ -22,7 +20,7 @@ public class ConnectionTriangle extends Polygon {
     Point origin, destination;
     
     // the distance in pixels between origin and its nearby points
-    int distance = 15;
+    int distance = 10;
     
     
     public ConnectionTriangle(Point start, Point finish)
@@ -59,12 +57,11 @@ public class ConnectionTriangle extends Polygon {
         Point p2 = destination.getLocation();
         Point p3 = new Point(origin.x - pVX, origin.y - pVY);
        
-        
+        // shorten the perpendicular lines to a fixed length
         p1 = calculateNewPoint(p1);
         p3 = calculateNewPoint(p3);
         
-       
-        
+        // assign points
         xpoints = new int[] {p1.x, p2.x, p3.x};
         ypoints = new int[] {p1.y, p2.y, p3.y};
     }
@@ -89,7 +86,5 @@ public class ConnectionTriangle extends Polygon {
     public void paintComponent(Graphics2D g)
     {
         setPoints();
-        g.setColor(Color.CYAN);
-        g.fillPolygon(this);
     }
 }

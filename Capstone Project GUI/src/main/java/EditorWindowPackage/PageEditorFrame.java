@@ -71,7 +71,7 @@ public class PageEditorFrame extends javax.swing.JFrame {
        public void setWindowData(NodeRectangle n, ApplicationHandler a)
     {
         this.controller = a; // in order to pass data back to the handler
-                
+                        
         // add data to panel's PageEditorData object
         pageEditorPanel.getPageEditorData().setTitle(n.getNode().getTitle());
         pageEditorPanel.getPageEditorData().setParagraph(n.getNode().getParagraph());
@@ -92,6 +92,9 @@ public class PageEditorFrame extends javax.swing.JFrame {
         // pageEditorPanel.populateComboBoxModel(IDsArray);
         
         pageEditorPanel.addChoices(n, IDsArray);
+        
+        // also, set up speed of scroll bars
+        this.jScrollPane1.getVerticalScrollBar().setUnitIncrement(15);
     }
     
        

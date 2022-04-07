@@ -4,6 +4,8 @@
  */
 package InnerWorkings;
 
+import DataItems.Node;
+import com.google.common.collect.Multimap;
 import static j2html.TagCreator.*;
 import j2html.rendering.HtmlBuilder;
 
@@ -12,7 +14,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,36 +26,142 @@ import java.util.logging.Logger;
 /**
  *
  * @author Victor Malone (vm19171)
+ * 
+ * This class is used to export the user's inputs into individual HTML pages with links. 
  */
-public class CreatePage {
+public class ExportGame {
     
     
     // ProjectFile from the... well, project file.
     ProjectFile project;
     
+    // folder to save all of these pages in. This will be changed later
+    static String outputFolder = "src/main/java/InnerWorkings/output";
     
-    // class to create page based on inputs
-    public static void CreatePage()
+            
+        
+    // IF YOU CHANGE THE NAMES OF THESE, YOU'LL HAVE TO CHANGE THE NAMES IN THE CSS AS WELL.
+    static String titleClass = "pageTitle";
+    static String contentClass = "content";
+    static String projectName; // appended to the output folder to store the game's pages.
+    static String imgSrc = "../resources/UofE.jpg";    
+        
+    
+    
+    
+    
+    public ExportGame(ProjectFile project)
     {
+        this.project = project;
+        export();
+    }
+    
+    
+    public void export()
+    {
+        // iterate through each node in the file, creating HTML for each one. Save all of them in a folder named after project's name.
+        
+        
         
     }
     
+    // for processing one page at a time.
+    public static String processPage(Node n)
+    {
+        String title, ID, imagePath, paragraph;
+        Map<String, Collection<String>> choices;
+        
+        // conditionals for showing/hiding elements of a page
+        boolean showTitle, showImage, showParagraph, showChoices;
+        
+        // title
+        title = n.getTitle();
+        
+        // ID
+        ID = n.getID();
+        
+        // image
+        imagePath = n.getImagePath();
+        // paragraph
+        paragraph = n.getParagraph();
+        
+        // choices
+        choices = n.getLinks().asMap();
+        
+        
+        
+        // TODO - implement system that creates differrent HTML based on what and what should not be shown.
+        // and possibly, change in stylesheet link.
+        String stylesheet = "../pageStylesheetv2.css";
+        
+
+        // create HTML
+        String HTML;
+        
+        HTML = html(
+                // header of page; contains title and link to CSS
+                head(
+                        title(title),
+                        link().withRel("stylesheet").withHref(stylesheet)
+                ),
+                
+                body(
+                        
+                        div(
+                                // title
+                                h1(title).withClass(titleClass),
+                                
+                                // image
+                                img().withSrc(imagePath).withClass("user-image"),
+                                
+                                // paragraph div
+                                div(
+                                        p(paragraph).withClass("paragraph"),
+                                        
+                                        // choices div
+                                        div(
+                                                p("What will you do?"),
+                                                // for each choice, make hyperlink.
+                                                each(choices, choice ->
+                                                        div(attrs(".choices"),
+                                                                
+                                                                // choice = entry. Key = URL, Value = Collection<String>.
+                                                                // for each String 'text' in getValue()
+                                                                // make hyperlink(key, text)
+                                                                each(choice.getValue(), text ->
+                                                                        p(a(choice.getKey()).withHref(text))
+                                                                        
+                                                                       ) // end of inner each loop
+                                                                
+                                                                ) // end of inner choices div
+                                                        
+                                                ) // end of outer each loop
+                                                
+                                        ) // end of outer choices div
+                                        
+                                ) // end of paragraph div
+                                
+                        ).withClass(contentClass) // end of body main div </div>
+                
+                ) // end of bady tag </body>
+                
+        ).renderFormatted();   // end of HTML tag </html>
+        
+        System.out.println(HTML);
+        
+        
+        return HTML;        
+    }
     
     
     
     
     public static void main(String[] args)
     {
+        //<editor-fold defaultstate="collapsed" desc="Old test">
+        /*
         
-        
-        // IF YOU CHANGE THESE, YOU'LL HAVE TO CHANGE THE NAMES IN THE CSS AS WELL.
-        String titleClass = "pageTitle";
-        String contentClass = "content";
-        String outputFolderURI;
-        String projectName;
-        String imgSrc = "../resources/UofE.jpg";    
-        
-        
+
         // for testing purposes. Use j2html's "each" function to iterate through the list when generating HTML.
         Map<String, String> choices = new TreeMap<>();
         choices.put("Choice 1", "choice1.html");
@@ -212,7 +323,7 @@ public class CreatePage {
             w.close();
         }
         catch (FileNotFoundException ex) {
-            Logger.getLogger(CreatePage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(0);
         }
         
@@ -223,7 +334,7 @@ public class CreatePage {
 
         }
         catch (IOException ex) {
-            Logger.getLogger(CreatePage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
         }
         
                     /*
@@ -237,7 +348,59 @@ public class CreatePage {
             fr.setVisible(true);
             fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             fr.setSize(500, 500);
-            */        
+        
+                    /*
+            JFrame fr = new JFrame();
+            JPanel contentPanel = new JPanel();
+            contentPanel.setLayout(new BorderLayout());
+            JLabel e = new JLabel(html);
+            
+            contentPanel.add(e, BorderLayout.NORTH);
+            fr.add(contentPanel);
+            fr.setVisible(true);
+            fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            fr.setSize(500, 500);
+            */    
+                       
+//</editor-fold>
+        
+        //<editor-fold defaultstate="collapsed" desc="New Test (Apr 7)">
+        
+        Node n = new Node();
+        n.addLink("testLink", "Link 1");
+        n.addLink("secondTestLink", "Link 2");
+        n.setImagePath("../resources/UofE.jpg");
+        
+        String HTML = ExportGame.processPage(n);
+
+                
+      new File(outputFolder).mkdir();
+      File result = new File("src/main/java/InnerWorkings/output/index.html");
+      
+      PrintWriter w;
+      try {
+          w = new PrintWriter(result);
+          w.write(HTML);    // write HTML to file
+          w.flush();
+          w.close();
+          
+      }
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(0);
+        }
+      
+      try {
+          //try to open file
+          Desktop.getDesktop().browse(result.toURI());
+      }
+        catch (IOException ex) {
+            Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+//</editor-fold>
+        
     }
     
 }

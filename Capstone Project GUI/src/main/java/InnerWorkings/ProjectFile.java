@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * 
  * 
  * This file is intended to hold all of the data used in a project. User-input data, settings, all of that.
- * I believe this is the Model in the MVC pattern.
+ * This is essentially the Model in the MVC pattern.
  */
 public class ProjectFile implements Serializable {
     
@@ -25,11 +25,7 @@ public class ProjectFile implements Serializable {
     String authorName;      // author's name
     
     Path filePath;                // path to access file
-    Path outputPath;          // path to output exported game (do you even need to store this separately?)
-    
-    // used to auto-generate IDs  
-    static int nodeNumber = 0;
-    
+    Path outputPath;          // path to output exported game (do you even need to store this separately?)    
     
     ArrayList<NodeRectangle> nodes; // ArrayList of story nodes/pages
     ArrayList<Link> visualLinks;    // ArrayList of links between pages. This is just for the View to use.

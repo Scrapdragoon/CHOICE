@@ -10,19 +10,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Line2D;
-import java.awt.geom.Path2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-import InnerWorkings.ConnectionTriangle;
 import java.awt.RenderingHints;
 
 /**
@@ -41,12 +35,8 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     // ArrayList of all nodes on screen. Should be linked to list from controller
    private ArrayList<NodeRectangle> nodes = new ArrayList<>();
     
-    // size of rectangle used to represent nodes
-   // private Dimension nodeDimensions = new Dimension(100, 50);
-   
    // current selected node
     private int currentNode = -1;
-    
     
     
     public DragAndDrop() {
@@ -261,11 +251,11 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
 //</editor-fold>
                     
                     ConnectionTriangle t = new ConnectionTriangle(startCenter, finishCenter);
+                    g.setColor(new Color(66, 135, 245, 150));
                     g.fillPolygon(t);
                 }
             }
-        }
-                
+        }                
         //<editor-fold defaultstate="collapsed" desc="For Testing">
         /*
         // Draws lines between consecutive nodes. For testing.
