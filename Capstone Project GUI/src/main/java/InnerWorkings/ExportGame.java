@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -35,8 +36,8 @@ public class ExportGame {
     // ProjectFile from the... well, project file.
     ProjectFile project;
     
-    // folder to save all of these pages in. This will be changed later
-    static String outputFolder = "src/main/java/InnerWorkings/output";
+    // TODO - folder to save all of these pages in. This will be changed later
+    static String outputFolder = "src/main/java/InnerWorkings/Apr_7_Test";
     
             
         
@@ -61,8 +62,33 @@ public class ExportGame {
     {
         // iterate through each node in the file, creating HTML for each one. Save all of them in a folder named after project's name.
         
+        // create folder
+        new File(outputFolder).mkdir();
         
+        // for each node, process the page.
+        for (NodeRectangle n : project.getNodes())
+        {
+            // name of file is based off of ID
+            String filename = n.getNode().getID() + ".html";
+            String HTML = processPage(n.getNode());      
+            
+            File page = new File("src/main/java/InnerWorkings/" + "Apr_7_Test/" + filename);
+            PrintWriter w;
+            
+            try {
+                w = new PrintWriter(page);
+                w.write(HTML);    // write HTML to file
+                w.flush();
+                w.close();
+            }
+              catch (FileNotFoundException ex) {
+                  System.out.println("Something went wrong with exporting your game.");
+                  Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
+                  System.exit(0);
+              }        
+          }
         
+        System.out.println("Game successfully exported! I hope...!");
     }
     
     // for processing one page at a time.
@@ -129,7 +155,7 @@ public class ExportGame {
                                                                 // for each String 'text' in getValue()
                                                                 // make hyperlink(key, text)
                                                                 each(choice.getValue(), text ->
-                                                                        p(a(choice.getKey()).withHref(text))
+                                                                        p(a(text).withHref(choice.getKey() + ".html"))
                                                                         
                                                                        ) // end of inner each loop
                                                                 
@@ -365,7 +391,7 @@ public class ExportGame {
 //</editor-fold>
         
         //<editor-fold defaultstate="collapsed" desc="New Test (Apr 7)">
-        
+        /*
         Node n = new Node();
         n.addLink("testLink", "Link 1");
         n.addLink("secondTestLink", "Link 2");
@@ -397,10 +423,49 @@ public class ExportGame {
         catch (IOException ex) {
             Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        */
         
 //</editor-fold>
         
+        //Even newer test (Apr 7 again)
+        ProjectFile p = new ProjectFile();
+        Node n1 = new Node();
+        Node n2 = new Node();
+        Node n3 = new Node();
+        
+        n1.setID("n1");
+        n2.setID("n2");
+        n3.setID("n3");
+        
+        n1.setTitle("This is Node 1!");
+        n2.setTitle("This is Node 2!");
+        n3.setTitle("This is Node 3!");
+        
+        n1.addLink("n2", "To Node 2");
+        n1.addLink("n3", "To Node 3");
+        
+        n2.addLink("n1", "To Node 1");
+        n2.addLink("n3", "To Node 3");
+        
+        n3.addLink("n1", "To Node 1");
+        n3.addLink("n2", "To Node 2");
+        
+        
+        NodeRectangle nr1 = new NodeRectangle(n1);
+        NodeRectangle nr2 = new NodeRectangle(n2);
+        NodeRectangle nr3 = new NodeRectangle(n3);
+        
+        ArrayList<NodeRectangle> nodes = p.getNodes();
+        
+        nodes.add(nr1);
+        nodes.add(nr2);
+        nodes.add(nr3);
+        
+        p.setNodes(nodes);
+        
+        ExportGame e = new ExportGame(p);
+        
+       
     }
     
 }

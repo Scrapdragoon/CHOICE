@@ -96,13 +96,6 @@ public class PageEditorData implements Serializable {
     }
     
 
-    public boolean validateID()
-    {
-        // TODO - make sure entered ID is not taken. If so, automatically change
-        
-        return true;
-    }
-
     
  // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public String getTitle() {

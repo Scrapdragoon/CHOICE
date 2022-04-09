@@ -96,7 +96,6 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="DFPOP1-W9" size="60" style="0"/>
             </Property>
-            <Property name="mnemonic" type="int" value="110"/>
             <Property name="text" type="java.lang.String" value="&lt;html&gt; New &lt;br&gt; Project"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
@@ -182,7 +181,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="DFPOP1-W9" size="60" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="4th Button"/>
+            <Property name="text" type="java.lang.String" value="Credits"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
                 <CompoundBorder>

@@ -7,6 +7,7 @@ package EditorWindowPackage;
 import DataItems.Node;
 import InnerWorkings.ApplicationHandler;
 import InnerWorkings.NodeRectangle;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -44,6 +45,8 @@ public class PageEditorFrame extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBar(null);
         jScrollPane1.setViewportView(pageEditorPanel);
+        // change speed of scroll bar
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(15);
         jScrollPane1.setViewportView(pageEditorPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -54,7 +57,7 @@ public class PageEditorFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
         );
 
         pack();
@@ -62,9 +65,11 @@ public class PageEditorFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        controller.enableFrame(true);
-        
-        // TODO - also add code to either submit data to main apphandler or not?
+        if (controller != null)
+        {
+           controller.enableFrame(true);
+        }
+        else System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
     
@@ -82,6 +87,20 @@ public class PageEditorFrame extends javax.swing.JFrame {
         pageEditorPanel.getParagraphField().setText(n.getNode().getParagraph());
         pageEditorPanel.getIDField().setText(n.getNode().getID());
         
+        // image data
+        pageEditorPanel.setImagePath(n.getNode().getImagePath());    // set image path variable
+        // if null or image no longer exists, just set visual to "No Image Selected." if not, show file name
+        if (n.getNode().getImagePath() != null && new File(n.getNode().getImagePath()).isFile())
+        {
+            pageEditorPanel.getImageNameLabel().setText(new File(n.getNode().getImagePath()).getName());
+            pageEditorPanel.getRemoveImageButton().setEnabled(true);
+        }
+        else
+        {
+            pageEditorPanel.getImageNameLabel().setText("No Image Selected");
+            pageEditorPanel.getRemoveImageButton().setEnabled(false);
+        }
+        
         
         // FOR LINK PANELS: 
         pageEditorPanel.removeAllLinkPanels();  // clear all link panels
@@ -89,18 +108,21 @@ public class PageEditorFrame extends javax.swing.JFrame {
          // gets list of all IDs in the project, creates array for use by combo box models.
         ArrayList<String> IDsArrayList = a.getAllIDs();
         String[] IDsArray = IDsArrayList.toArray(new String[0]);    // convert ArrayList to String[]
-        // pageEditorPanel.populateComboBoxModel(IDsArray);
         
         pageEditorPanel.addChoices(n, IDsArray);
-        
-        // also, set up speed of scroll bars
-        this.jScrollPane1.getVerticalScrollBar().setUnitIncrement(15);
     }
     
        
        
        public void sendNewNodeToAppHandler(Node n, String originalID)
        {
+           // If the proper image no longer exists at where it's set to, just set the imagePath to null.
+           if (!(new File(n.getImagePath()).isFile()))
+           {
+               n.setImagePath(null);
+               System.out.println("Image no longer exists at specified location. Setting this node's imagePath to null...");
+           }
+           
            // if ID is not updated, then just save
            if (n.getID().equals(originalID))
            {
@@ -124,9 +146,13 @@ public class PageEditorFrame extends javax.swing.JFrame {
        // for when "Cancel" button is pressed.
        public void cancel()
        {
-           controller.enableFrame(true);
-           System.out.println("Node has not been changed.");
-           this.dispose();
+           if (controller != null)
+           {
+                controller.enableFrame(true);
+                System.out.println("Node has not been changed.");
+                this.dispose();
+           }
+           else System.exit(0);
        }
        
        

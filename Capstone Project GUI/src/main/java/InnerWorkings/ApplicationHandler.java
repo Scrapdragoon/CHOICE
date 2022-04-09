@@ -551,7 +551,7 @@ public class ApplicationHandler {
     //<editor-fold defaultstate="collapsed" desc="Methods for Testing">
     
 
-    // tester metho
+    // tester method
     public static void testMethod() throws FileNotFoundException, IOException, ClassNotFoundException
     {
         project = new ProjectFile();

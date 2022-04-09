@@ -5,19 +5,26 @@
 package EditorWindowPackage;
 
 import DataItems.Node;
+import InnerWorkings.ImageFileFilter;
 import InnerWorkings.NodeRectangle;
 import InnerWorkings.PageEditorData;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import java.awt.Component;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.InputVerifier;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -45,11 +52,10 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         java.awt.GridBagConstraints gridBagConstraints;
 
         pageEditorData = new InnerWorkings.PageEditorData();
+        imageChooser = new javax.swing.JFileChooser(System.getProperty("user.dir"));
         nodeTitlePanel = new javax.swing.JPanel();
         pageEditorLabel = new java.awt.Label();
         titleField = new javax.swing.JTextField();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0));
         paragraphPanel = new javax.swing.JPanel();
         paragraphTextLabel = new javax.swing.JLabel();
         paragraphScrollPane = new javax.swing.JScrollPane();
@@ -60,6 +66,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         imagePanel = new javax.swing.JPanel();
         importImageButton = new javax.swing.JButton();
         imageNameLabel = new javax.swing.JLabel();
+        removeImageButton = new javax.swing.JButton();
         choicesPanel = new javax.swing.JPanel();
         choicesTitlePanel = new javax.swing.JPanel();
         choiceLabel = new java.awt.Label();
@@ -72,6 +79,9 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         cancelButton = new javax.swing.JButton();
         OKButton = new javax.swing.JButton();
 
+        imageChooser.setDialogTitle("Choose Image");
+        imageChooser.setFileFilter(new ImageFileFilter());
+
         setBackground(new java.awt.Color(255, 153, 153));
         setLayout(new java.awt.GridBagLayout());
 
@@ -80,6 +90,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
 
         pageEditorLabel.setAlignment(java.awt.Label.CENTER);
         pageEditorLabel.setFont(new java.awt.Font("DFPOP1-W9", 0, 36)); // NOI18N
+        pageEditorLabel.setForeground(new java.awt.Color(187, 187, 187));
         pageEditorLabel.setText("Page Editor");
 
         titleField.setFont(new java.awt.Font("DFPOP1-W9", 0, 18)); // NOI18N
@@ -91,24 +102,19 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         nodeTitlePanel.setLayout(nodeTitlePanelLayout);
         nodeTitlePanelLayout.setHorizontalGroup(
             nodeTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(nodeTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(pageEditorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(nodeTitlePanelLayout.createSequentialGroup()
-                    .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(222, 222, 222)
-                    .addComponent(filler1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
-                .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(nodeTitlePanelLayout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addComponent(titleField, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                .addGap(123, 123, 123))
+            .addComponent(pageEditorLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         nodeTitlePanelLayout.setVerticalGroup(
             nodeTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nodeTitlePanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(nodeTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(pageEditorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(pageEditorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
 
@@ -150,13 +156,13 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
                 .addGap(11, 11, 11)
                 .addComponent(paragraphTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(paragraphScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+                .addComponent(paragraphScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                 .addGap(14, 14, 14))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.7;
         gridBagConstraints.weighty = 0.7;
@@ -235,20 +241,38 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
             .addGroup(nodeIDPanelLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(nodeIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(IDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(IDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(IDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IDField))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(nodeIDPanel, gridBagConstraints);
 
         importImageButton.setText("Import Image...");
+        importImageButton.setNextFocusableComponent(paragraphField);
+        importImageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importImageButtonActionPerformed(evt);
+            }
+        });
 
         imageNameLabel.setText("No Image Selected");
+
+        removeImageButton.setText("X");
+        removeImageButton.setEnabled(false);
+        removeImageButton.setMaximumSize(new java.awt.Dimension(54, 28));
+        removeImageButton.setMinimumSize(new java.awt.Dimension(54, 28));
+        removeImageButton.setNextFocusableComponent(importImageButton);
+        removeImageButton.setPreferredSize(new java.awt.Dimension(54, 28));
+        removeImageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeImageButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout imagePanelLayout = new javax.swing.GroupLayout(imagePanel);
         imagePanel.setLayout(imagePanelLayout);
@@ -258,22 +282,25 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
                 .addGap(32, 32, 32)
                 .addComponent(importImageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(imageNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(286, Short.MAX_VALUE))
+                .addComponent(imageNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removeImageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         imagePanelLayout.setVerticalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(imagePanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(9, 9, 9)
                 .addGroup(imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(importImageButton)
+                    .addComponent(removeImageButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(importImageButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(imageNameLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(imagePanel, gridBagConstraints);
 
@@ -281,7 +308,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
 
         choiceLabel.setFont(new java.awt.Font("DFPOP1-W9", 0, 18)); // NOI18N
         choiceLabel.setForeground(new java.awt.Color(187, 187, 187));
-        choiceLabel.setText("Choices:");
+        choiceLabel.setText("Where shall we go from here?");
 
         javax.swing.GroupLayout choicesTitlePanelLayout = new javax.swing.GroupLayout(choicesTitlePanel);
         choicesTitlePanel.setLayout(choicesTitlePanelLayout);
@@ -289,8 +316,8 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
             choicesTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(choicesTitlePanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(choiceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(460, Short.MAX_VALUE))
+                .addComponent(choiceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(280, Short.MAX_VALUE))
         );
         choicesTitlePanelLayout.setVerticalGroup(
             choicesTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,9 +425,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
     }//GEN-LAST:event_IDFieldActionPerformed
 
     private void addChoiceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChoiceButtonActionPerformed
-
         addChoice();
-
     }//GEN-LAST:event_addChoiceButtonActionPerformed
 
     private void removeChoiceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeChoiceButtonActionPerformed
@@ -420,6 +445,13 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         
         // create new node, pass to AppHandler. AppHandler will look for the ID of the node and replace it with the node passed to it.
         Node n = new Node(this.titleField.getText(), this.paragraphField.getText(), this.IDField.getText());
+        // if there is an image, set the image path.
+        if (imagePath != null)
+        {
+            System.out.println("Image path set. Path: " + imagePath);
+            n.setImagePath(imagePath);
+        }
+        
         System.out.println("ID: " + this.IDField.getText());
         
         // create list of links via iteration
@@ -453,6 +485,40 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    private void importImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importImageButtonActionPerformed
+        int returnValue = imageChooser.showOpenDialog(this);
+            
+        try {
+                // if image file is accepted
+                if (returnValue == JFileChooser.APPROVE_OPTION)
+                {           
+                     System.out.println("Image approved!");
+                     System.out.println("Path: " + imageChooser.getSelectedFile().getPath());
+                     System.out.println("Absolute Path: " + imageChooser.getSelectedFile().getAbsolutePath());
+                     System.out.println("Canonical Path: " + imageChooser.getSelectedFile().getCanonicalPath());
+                     
+                     imagePath = imageChooser.getSelectedFile().getAbsolutePath();
+                     
+                     this.imageNameLabel.setText(imageChooser.getName(imageChooser.getSelectedFile()));
+                     
+                     // set removeimage button to enabled
+                     removeImageButton.setEnabled(true);
+                }
+        }
+        catch (IOException ex) {
+            System.out.println("Something went wrong.");
+            Logger.getLogger(PageEditorPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_importImageButtonActionPerformed
+
+    private void removeImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeImageButtonActionPerformed
+        
+        // set image to null, reset everything
+        imagePath = null;
+        imageNameLabel.setText("No Image Selected");
+        removeImageButton.setEnabled(false);
+    }//GEN-LAST:event_removeImageButtonActionPerformed
+
     public JTextField getIDField() {
         return IDField;
     }
@@ -485,7 +551,13 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         this.titleField = titleField;
     }
 
-    
+    public JLabel getImageNameLabel() {
+        return imageNameLabel;
+    }
+
+    public void setImageNameLabel(JLabel imageNameLabel) {
+        this.imageNameLabel = imageNameLabel;
+    }
     
     // Used for adding the LinkPanels to the display. Sets the combo boxes and text fields as well.
     public void addChoices(NodeRectangle n, String[] IDsArray)
@@ -560,27 +632,42 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         this.revalidate();
         this.repaint();
     }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public JButton getRemoveImageButton() {
+        return removeImageButton;
+    }
+
+    public void setRemoveImageButton(JButton removeImageButton) {
+        this.removeImageButton = removeImageButton;
+    }
+
     
-   
     
         /*
-        public void setComboBoxes(String[] IDsArray)
+    public void setComboBoxes(String[] IDsArray)
+    {
+        // iterates through LinkPanels and sets combo box models.
+        for (Component c : choicesPanel.getComponents())
         {
-            // iterates through LinkPanels and sets combo box models.
-            
-            for (Component c : choicesPanel.getComponents())
+            if (c instanceof LinkPanel)
             {
-                if (c instanceof LinkPanel)
-                {
-                    ((LinkPanel) c).setComboBoxModel(new DefaultComboBoxModel(IDsArray));
-                    // TODO - add code to set the selected choice of the combo box (i.e. the correct ID)
-                    System.out.println("Combo box model set.");
-                }
+                ((LinkPanel) c).setComboBoxModel(new DefaultComboBoxModel(IDsArray));
+                // TODO - add code to set the selected choice of the combo box (i.e. the correct ID)
+                System.out.println("Combo box model set.");
             }
         }
-        */
+    }
+     */
         
-        
+        private String imagePath;
         private String[] panelIDsArray;
         private Node originalNode;
     
@@ -596,8 +683,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
     private java.awt.Label choiceLabel;
     private javax.swing.JPanel choicesPanel;
     private javax.swing.JPanel choicesTitlePanel;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
+    private javax.swing.JFileChooser imageChooser;
     private javax.swing.JLabel imageNameLabel;
     private javax.swing.JPanel imagePanel;
     private javax.swing.JButton importImageButton;
@@ -611,6 +697,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
     private javax.swing.JScrollPane paragraphScrollPane;
     private javax.swing.JLabel paragraphTextLabel;
     private javax.swing.JButton removeChoiceButton;
+    private javax.swing.JButton removeImageButton;
     private javax.swing.JTextField titleField;
     // End of variables declaration//GEN-END:variables
 

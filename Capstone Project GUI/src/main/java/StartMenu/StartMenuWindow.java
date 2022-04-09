@@ -58,7 +58,6 @@ public class StartMenuWindow extends javax.swing.JFrame {
         buttonPanel.setLayout(new java.awt.GridLayout(2, 2, 15, 15));
 
         newProjectButton.setFont(new java.awt.Font("DFPOP1-W9", 0, 60)); // NOI18N
-        newProjectButton.setMnemonic('n');
         newProjectButton.setText("<html> New <br> Project");
         newProjectButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         newProjectButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -99,7 +98,7 @@ public class StartMenuWindow extends javax.swing.JFrame {
         buttonPanel.add(settingsButton);
 
         jButton4.setFont(new java.awt.Font("DFPOP1-W9", 0, 60)); // NOI18N
-        jButton4.setText("4th Button");
+        jButton4.setText("Credits");
         jButton4.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         jButton4.setFocusPainted(false);
         jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);

@@ -32,7 +32,6 @@ public class MyFileFilter extends FileFilter {
          }
         
         return ok;
-
     }
 
     @Override
