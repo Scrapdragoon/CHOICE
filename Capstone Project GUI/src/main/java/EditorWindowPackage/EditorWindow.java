@@ -42,7 +42,7 @@ public class EditorWindow extends javax.swing.JFrame {
         openFileDialog = new javax.swing.JFileChooser(System.getProperty("user.dir"));
         saveFileDialog = new javax.swing.JFileChooser(System.getProperty("user.dir"));
         appHandler = new InnerWorkings.ApplicationHandler();
-        pageEditorPanel = new EditorWindowPackage.PageEditorPanel();
+        exportWindow = new EditorWindowPackage.ExportWindow();
         buttonMenuPanel = new javax.swing.JPanel();
         createNodeButton = new javax.swing.JButton();
         loadTestButton = new javax.swing.JButton();
@@ -50,12 +50,12 @@ public class EditorWindow extends javax.swing.JFrame {
         dragAndDropPanel = new InnerWorkings.DragAndDrop();
         editorMenu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
-        fileMenuSave = new javax.swing.JMenuItem();
-        fileMenuNew = new javax.swing.JMenuItem();
-        fileMenuOpen = new javax.swing.JMenuItem();
-        fileMenuProjectSettings = new javax.swing.JMenuItem();
-        exportGameButton = new javax.swing.JMenuItem();
-        fileMenuExit = new javax.swing.JMenuItem();
+        saveMenuItem = new javax.swing.JMenuItem();
+        newMenuItem = new javax.swing.JMenuItem();
+        openMenuItem = new javax.swing.JMenuItem();
+        projectSettingsMenuItem = new javax.swing.JMenuItem();
+        exportGameMenuItem = new javax.swing.JMenuItem();
+        exitMenuItem = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
         editMenuUndo = new javax.swing.JMenuItem();
         editMenuRedo = new javax.swing.JMenuItem();
@@ -96,7 +96,7 @@ public class EditorWindow extends javax.swing.JFrame {
             }
         });
 
-        buttonMenuPanel.setBackground(new java.awt.Color(153, 102, 255));
+        buttonMenuPanel.setBackground(new java.awt.Color(153, 153, 255));
 
         createNodeButton.setText("Create Node");
         createNodeButton.setFocusable(false);
@@ -168,49 +168,54 @@ public class EditorWindow extends javax.swing.JFrame {
 
         menuFile.setText("File");
 
-        fileMenuSave.setText("Save...");
-        fileMenuSave.addActionListener(new java.awt.event.ActionListener() {
+        saveMenuItem.setText("Save...");
+        saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fileMenuSaveActionPerformed(evt);
-                fileMenuSaveActionPerformed1(evt);
+                saveMenuItemActionPerformed(evt);
+                saveMenuItemActionPerformed1(evt);
             }
         });
-        menuFile.add(fileMenuSave);
+        menuFile.add(saveMenuItem);
 
-        fileMenuNew.setText("New...");
-        fileMenuNew.addActionListener(new java.awt.event.ActionListener() {
+        newMenuItem.setText("New...");
+        newMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fileMenuNewActionPerformed(evt);
+                newMenuItemActionPerformed(evt);
             }
         });
-        menuFile.add(fileMenuNew);
+        menuFile.add(newMenuItem);
 
-        fileMenuOpen.setText("Open...");
-        fileMenuOpen.addActionListener(new java.awt.event.ActionListener() {
+        openMenuItem.setText("Open...");
+        openMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fileMenuOpenActionPerformed(evt);
+                openMenuItemActionPerformed(evt);
             }
         });
-        menuFile.add(fileMenuOpen);
+        menuFile.add(openMenuItem);
 
-        fileMenuProjectSettings.setText("Project Settings");
-        fileMenuProjectSettings.addActionListener(new java.awt.event.ActionListener() {
+        projectSettingsMenuItem.setText("Project Settings");
+        projectSettingsMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fileMenuProjectSettingsActionPerformed(evt);
+                projectSettingsMenuItemActionPerformed(evt);
             }
         });
-        menuFile.add(fileMenuProjectSettings);
+        menuFile.add(projectSettingsMenuItem);
 
-        exportGameButton.setText("Export Game...");
-        menuFile.add(exportGameButton);
-
-        fileMenuExit.setText("Exit");
-        fileMenuExit.addActionListener(new java.awt.event.ActionListener() {
+        exportGameMenuItem.setText("Export Game...");
+        exportGameMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fileMenuExitActionPerformed(evt);
+                exportGameMenuItemActionPerformed(evt);
             }
         });
-        menuFile.add(fileMenuExit);
+        menuFile.add(exportGameMenuItem);
+
+        exitMenuItem.setText("Exit");
+        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuItemActionPerformed(evt);
+            }
+        });
+        menuFile.add(exitMenuItem);
 
         editorMenu.add(menuFile);
 
@@ -263,12 +268,12 @@ public class EditorWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fileMenuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuNewActionPerformed
+    private void newMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newMenuItemActionPerformed
         System.out.println("File menu: New button pressed.");
         // JOptionPane.showMessageDialog(editorPanel, "You pressed the New menu option!");
-    }//GEN-LAST:event_fileMenuNewActionPerformed
+    }//GEN-LAST:event_newMenuItemActionPerformed
 
-    private void fileMenuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuOpenActionPerformed
+    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
 
         try {
             int returnValue = openFileDialog.showOpenDialog(this);
@@ -297,19 +302,19 @@ public class EditorWindow extends javax.swing.JFrame {
         catch (ClassNotFoundException ex) {
             Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_fileMenuOpenActionPerformed
+    }//GEN-LAST:event_openMenuItemActionPerformed
 
     private void editMenuUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuUndoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editMenuUndoActionPerformed
 
-    private void fileMenuProjectSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuProjectSettingsActionPerformed
+    private void projectSettingsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projectSettingsMenuItemActionPerformed
         new ProjectSettingsMenu().setVisible(true);
-    }//GEN-LAST:event_fileMenuProjectSettingsActionPerformed
+    }//GEN-LAST:event_projectSettingsMenuItemActionPerformed
 
-    private void fileMenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuExitActionPerformed
+    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_fileMenuExitActionPerformed
+    }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void createNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNodeButtonActionPerformed
         System.out.println("Create Node button pressed! This is how the user will be able to add new nodes.");
@@ -320,7 +325,7 @@ public class EditorWindow extends javax.swing.JFrame {
         mainEditor.repaint();
     }//GEN-LAST:event_createNodeButtonActionPerformed
 
-    private void fileMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuSaveActionPerformed
+    private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
         
         // for saving files
         try {
@@ -369,7 +374,7 @@ public class EditorWindow extends javax.swing.JFrame {
             Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.repaint();
-    }//GEN-LAST:event_fileMenuSaveActionPerformed
+    }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void saveTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTestButtonActionPerformed
         try {
@@ -398,14 +403,21 @@ public class EditorWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_openFileDialogActionPerformed
 
-    private void fileMenuSaveActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuSaveActionPerformed1
+    private void saveMenuItemActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed1
         saveFileDialog.setVisible(true);
-    }//GEN-LAST:event_fileMenuSaveActionPerformed1
+    }//GEN-LAST:event_saveMenuItemActionPerformed1
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.setTitle(appHandler.getProjectFile().getProjectTitle());
         appHandler.setFrame(this);
     }//GEN-LAST:event_formWindowOpened
+
+    private void exportGameMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportGameMenuItemActionPerformed
+        // TODO - Export game.
+        exportWindow.setProject(appHandler.getProjectFile());
+        exportWindow.setVisible(true);
+        //exp.export(appHandler.getProjectFile());
+    }//GEN-LAST:event_exportGameMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -451,19 +463,19 @@ public class EditorWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem editMenuRedo;
     private javax.swing.JMenuItem editMenuUndo;
     private javax.swing.JMenuBar editorMenu;
-    private javax.swing.JMenuItem exportGameButton;
-    private javax.swing.JMenuItem fileMenuExit;
-    private javax.swing.JMenuItem fileMenuNew;
-    private javax.swing.JMenuItem fileMenuOpen;
-    private javax.swing.JMenuItem fileMenuProjectSettings;
-    private javax.swing.JMenuItem fileMenuSave;
+    private javax.swing.JMenuItem exitMenuItem;
+    private javax.swing.JMenuItem exportGameMenuItem;
+    private EditorWindowPackage.ExportWindow exportWindow;
     private javax.swing.JButton loadTestButton;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuView;
+    private javax.swing.JMenuItem newMenuItem;
     private javax.swing.JFileChooser openFileDialog;
-    private EditorWindowPackage.PageEditorPanel pageEditorPanel;
+    private javax.swing.JMenuItem openMenuItem;
+    private javax.swing.JMenuItem projectSettingsMenuItem;
     private javax.swing.JFileChooser saveFileDialog;
+    private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JButton saveTestButton;
     private javax.swing.JMenuItem viewMenuReturnToStart;
     // End of variables declaration//GEN-END:variables

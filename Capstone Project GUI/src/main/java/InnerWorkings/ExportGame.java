@@ -5,21 +5,18 @@
 package InnerWorkings;
 
 import DataItems.Node;
-import com.google.common.collect.Multimap;
+import com.google.common.base.CharMatcher;
 import static j2html.TagCreator.*;
-import j2html.rendering.HtmlBuilder;
-
-import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +34,8 @@ public class ExportGame {
     ProjectFile project;
     
     // TODO - folder to save all of these pages in. This will be changed later
-    static String outputFolder = "src/main/java/InnerWorkings/Apr_7_Test";
+    String outputFolder = "NO OUTPUT FOLDER SET";
+    String resourcesFolder = "NO RESOURCE FOLDER SET";
     
             
         
@@ -49,12 +47,14 @@ public class ExportGame {
         
     
     
-    
+    public ExportGame()
+    {
+        //e. for instantiation via netbeans' gui builder
+    }
     
     public ExportGame(ProjectFile project)
     {
         this.project = project;
-        export();
     }
     
     
@@ -62,17 +62,28 @@ public class ExportGame {
     {
         // iterate through each node in the file, creating HTML for each one. Save all of them in a folder named after project's name.
         
-        // create folder
+        // create output folder and resource folder
         new File(outputFolder).mkdir();
+        System.out.println("Made folder at: " + outputFolder);
         
+        // for user resources
+        String userResourcesFolderPathString = outputFolder + "\\resources";
+        File userResourcesFolderPathFile = new File(userResourcesFolderPathString);
+        boolean madeResourceFolder = userResourcesFolderPathFile.mkdir();
+        if (madeResourceFolder)
+        {
+            System.out.println("Made folder at:" + userResourcesFolderPathString);
+        }
+        
+       
         // for each node, process the page.
         for (NodeRectangle n : project.getNodes())
         {
-            // name of file is based off of ID
+            // name of page file is based off of ID
             String filename = n.getNode().getID() + ".html";
             String HTML = processPage(n.getNode());      
             
-            File page = new File("src/main/java/InnerWorkings/" + "Apr_7_Test/" + filename);
+            File page = new File(outputFolder + "\\" + filename);
             PrintWriter w;
             
             try {
@@ -88,13 +99,52 @@ public class ExportGame {
               }        
           }
         
-        System.out.println("Game successfully exported! I hope...!");
+        
+        // TODO - copy images and whatnot into resource folder.
+        // "Master" resource folder will be in install location. Locate stylesheet, make path to it.
+        // 
+        // Either that, or keep the data for the basic stylesheet as a variable or whatever somewhere within the program. Write to an actual file in the resource location.
+        
+                
+        File masterStylesheetFile = new File("master_resources\\pageStylesheetv2.css");
+        System.out.println("Stylesheet file at: " + masterStylesheetFile.getAbsolutePath());
+        
+        // if the stylesheet is still in the master_resources folder, copy to new destination.
+        if (masterStylesheetFile.exists())
+                {
+                    
+                    System.out.println("Stylesheet does exist.");
+                    // make path from master stylesheet
+                    Path masterStylesheetPath = Path.of(masterStylesheetFile.getAbsolutePath());
+                    System.out.println("Stylesheet path: " + masterStylesheetPath);
+                    
+                    // create path to new stylesheet
+                    String userStylesheetPathString = userResourcesFolderPathString + "\\pageStylesheetv2.css";
+                    Path userStylesheetPath = Path.of(userStylesheetPathString);
+                    
+                    // try to copy master stylesheet to user's folder
+                    try {
+                            // copy master stylesheet to user's folder
+                            Files.copy(masterStylesheetPath, userStylesheetPath, StandardCopyOption.REPLACE_EXISTING);
+                    }
+                    catch (IOException ex) {
+                            Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+        
+                }
+        else
+        {
+            System.out.println("Master stylesheet not found at: " + masterStylesheetFile.getAbsolutePath());
+        }
+        
+        //System.out.println("Game successfully exported! I hope...!");
     }
     
     // for processing one page at a time.
     public static String processPage(Node n)
     {
-        String title, ID, imagePath, paragraph;
+        String title, ID, imagePathString, paragraph;
         Map<String, Collection<String>> choices;
         
         // conditionals for showing/hiding elements of a page
@@ -107,7 +157,7 @@ public class ExportGame {
         ID = n.getID();
         
         // image
-        imagePath = n.getImagePath();
+        imagePathString = n.getImagePath();
         // paragraph
         paragraph = n.getParagraph();
         
@@ -118,7 +168,7 @@ public class ExportGame {
         
         // TODO - implement system that creates differrent HTML based on what and what should not be shown.
         // and possibly, change in stylesheet link.
-        String stylesheet = "../pageStylesheetv2.css";
+        String stylesheet = "./resources/pageStylesheetv2.css";
         
 
         // create HTML
@@ -138,7 +188,7 @@ public class ExportGame {
                                 h1(title).withClass(titleClass),
                                 
                                 // image
-                                img().withSrc(imagePath).withClass("user-image"),
+                                img().withSrc(imagePathString).withClass("user-image"),
                                 
                                 // paragraph div
                                 div(
@@ -178,9 +228,79 @@ public class ExportGame {
         
         return HTML;        
     }
+
+    /*
+    // used for copying images to resources folder
+    public boolean copyToLocation(Path source, Path dest)
+    {
+        
+        
+        return 
+    }
+    */
     
     
     
+    
+    
+    // make project's name 
+    public String cleanProjectName(String projectName)
+    {             
+        String cleaned = CharMatcher.breakingWhitespace().replaceFrom(projectName, '_') ;
+        cleaned = CharMatcher.whitespace().trimFrom(cleaned);
+        cleaned = CharMatcher.javaLetterOrDigit().or(CharMatcher.is('_')).retainFrom(cleaned);
+        cleaned += " - CHOICE";
+        System.out.println("Output folder name: " + cleaned);
+        
+        return cleaned;
+    }
+    
+    public ProjectFile getProject() {
+        return project;
+    }
+
+    public void setProject(ProjectFile project) {
+        this.project = project;
+    }
+
+    public String getOutputFolder() {
+        return outputFolder;
+    }
+
+    public void setOutputFolder(String outputFolder) {
+        this.outputFolder = outputFolder;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public static void setProjectName(String projectName) {
+        ExportGame.projectName = projectName;
+    }
+    
+//<editor-fold defaultstate="collapsed" desc="CSS as String">
+    
+    String css = "html {\n    \n    /* background-image: url(\"resources/bgImageEDIT.png\"); "
+                + "*/\n    /* background-repeat: repeat; */\n   \n    min-width: 100%;\n\n    margin: 0;\n    "
+                + "position: relative;\n\n    background-image: url(\"resources/bgImage_fade2.png\"), "
+                + "url(\"resources/bgImage_fade2.png\");\n    background-position: left top, left top;\n   "
+                + " background-repeat: repeat-y; \n    background-attachment: scroll;\n    background-origin: border-box;\n    "
+                + "background-size: 100% auto;\n    background-position-y: 0px, 1100px;\n\n"
+                + "/* CURRENTLY CONTAINS A VISUAL GLITCH WHEN THE WINDOW IS NOT FULL SIZE.*/\n   "
+                + " \n    \n\n    \n    \n \n    margin-left: auto;\n    margin-right: auto;\n    padding-top: 100px;\n    "
+                + "\n    font-family: sans-serif;\n    \n}\n\nbody {\n  max-width: 65%;\n  margin: auto;\n    \n}\n\n\n\n"
+                + ".background-image {\n\n\n}\n\n\n.user-Image {\n    display: block;\n    \n    "
+                + "max-width: 90%; /* 90% of the div it's in  */\n    height: auto;\n    margin-left: auto;\n    "
+                + "margin-right: auto;\n    border-style: solid;\n    border-width: 3px;\n}\n\n.pageTitle {\n   "
+                + " text-align: center;\n    text-decoration: underline;\n    font-family: DFPOP1-W9, sans-serif;\n   "
+                + " font-size: 40px;\n\n}\n\n.content {\n\n}\n\n\n.paragraph {\n    display: block;\n    "
+                + "width: 95%;\n    margin-left: auto;\n    margin-right: auto;\n    \n    "
+                + "font-size: 20px;\n}\n\n.choices {\n    display: block;\n    width: 90%;\n    "
+                + "margin-left: auto;\n    margin-right: auto;\n    \n    font-size: 20px;\n}\n\n"
+                + "a:link {\n    color: #9999ff\n}\n\na:visited {\n    color: #9999ff\n}";    
+                
+    //</editor-fold>
     
     public static void main(String[] args)
     {

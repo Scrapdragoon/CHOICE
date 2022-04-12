@@ -49,7 +49,7 @@ public class ApplicationHandler {
      PageEditorFrame pageEditorFrame = new PageEditorFrame();
      CreatePageFrame createPageFrame = new CreatePageFrame();
    
-    // dimension for visual representation of nodes
+    // dimension for NodeRectangles
     public static Dimension nodeDimensions = new Dimension(100, 50);
     
     // custom file extension
