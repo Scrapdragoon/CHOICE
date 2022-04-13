@@ -295,11 +295,8 @@ public class EditorWindow extends javax.swing.JFrame {
         catch (java.awt.HeadlessException e1) {
             e1.printStackTrace();
         }
-        catch (IOException ex) {
+        catch (IOException | ClassNotFoundException ex) {
             System.out.println("There was a problem loading the file.");
-            Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (ClassNotFoundException ex) {
             Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_openMenuItemActionPerformed

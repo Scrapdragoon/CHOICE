@@ -19,7 +19,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileSystemView;
@@ -39,7 +38,7 @@ import javax.swing.filechooser.FileSystemView;
 public class ApplicationHandler {
     
     // Project file containing all project-specific data. Model.
-    private static ProjectFile project;
+    private ProjectFile project;
     
     // DragAndDrop panel. View.
     private DragAndDrop view;
@@ -232,6 +231,12 @@ public class ApplicationHandler {
         newID = CharMatcher.whitespace().trimFrom(newID);
         newID = CharMatcher.javaLetterOrDigit().or(CharMatcher.is('_')).retainFrom(newID);
         System.out.println("Cleaned string: " + newID);
+        
+        // if ID is empty or null, replace with "default_ID"
+        if (newID == null || newID.equals(""))
+        {
+            newID = "default_ID";
+        }
         
         String originalReturnID = newID; // to use as a base
         int i = 1;
@@ -550,7 +555,7 @@ public class ApplicationHandler {
     
     //<editor-fold defaultstate="collapsed" desc="Methods for Testing">
     
-
+/*
     // tester method
     public static void testMethod() throws FileNotFoundException, IOException, ClassNotFoundException
     {
@@ -599,7 +604,9 @@ public class ApplicationHandler {
             
         }
     }
+    */
     
+    /*
     // tester method for saving in documents folder.
     public static void testSavingInDocuments() throws FileNotFoundException, IOException
     {
@@ -617,6 +624,7 @@ public class ApplicationHandler {
          fileOutStream.close();
         objectOutStream.close();
     }
+*/
     
     public void testAutoGenerateID()
     {

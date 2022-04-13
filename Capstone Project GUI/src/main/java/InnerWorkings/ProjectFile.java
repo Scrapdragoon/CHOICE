@@ -43,7 +43,7 @@ public class ProjectFile implements Serializable {
         // TODO -  for testing
         Node n = new Node("Title", "Content", "from");
         n.addLink("to", "Click here!");
-        n.setImagePath("C:\\Users\\rolep\\Desktop\\BEST FRIENDS AA.png");
+        n.setImagePath("C:/Users/rolep/Desktop/BEST FRIENDS AA.png");
         //n.addLink("to2", "And click here too!");
         
         Node t = new Node("Title2", "Content2", "to");

@@ -85,7 +85,7 @@ public class ExportWindow extends javax.swing.JFrame {
         secondaryPanel.add(exportButton);
 
         infoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        infoLabel.setText("<html> Include info here! Things like how to play(and let others play), what the game is comprised of, how to edit, etc. <br> The program will create a folder, export pages into said folder, and copy image files into a 'resource' folder within that folder.  </html> ");
+        infoLabel.setText("<html> Include info here! Things like how to play(and let others play), what the game is comprised of, how to edit, etc. <br> The program will create a folder, export pages into said folder, and copy image files into a 'resource' folder within that folder.  Any preexisting materials will be replaced. </html> ");
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -179,7 +179,7 @@ public class ExportWindow extends javax.swing.JFrame {
         // System.out.println("Sending project file and output location to ExportGame object...");
         String outputFolder = exportLocationChooser.getSelectedFile().getAbsolutePath();
         System.out.println("Output Folder: " + outputFolder);
-        outputFolder += "\\" + exportGame.cleanProjectName(project.getProjectTitle());  // add generated folder extension to path
+        outputFolder += "/" + exportGame.cleanProjectName(project.getProjectTitle());  // add generated folder extension to path
         System.out.println("New Location: " + outputFolder);
         exportGame.setOutputFolder(outputFolder);
         exportGame.setProject(project);

@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Level;
@@ -31,15 +31,17 @@ public class ExportGame {
     
     
     // ProjectFile from the... well, project file.
-    ProjectFile project;
+    ProjectFile project = new ProjectFile();
     
     // TODO - folder to save all of these pages in. This will be changed later
-    String outputFolder = "NO OUTPUT FOLDER SET";
-    String resourcesFolder = "NO RESOURCE FOLDER SET";
+    String outputFolder = "!ERROR - NO OUTPUT FOLDER SET!";
+    Path pathToUserResources = null;
     
             
         
     // IF YOU CHANGE THE NAMES OF THESE, YOU'LL HAVE TO CHANGE THE NAMES IN THE CSS AS WELL.
+    static String cssName = "StandardPageStylesheet.css";
+    static String backgroundImageName = "bgImage_fade2.png";
     static String titleClass = "pageTitle";
     static String contentClass = "content";
     static String projectName; // appended to the output folder to store the game's pages.
@@ -64,26 +66,77 @@ public class ExportGame {
         
         // create output folder and resource folder
         new File(outputFolder).mkdir();
-        System.out.println("Made folder at: " + outputFolder);
+        System.out.println("Made output folder at: " + outputFolder);
         
         // for user resources
-        String userResourcesFolderPathString = outputFolder + "\\resources";
+        String userResourcesFolderPathString = outputFolder + "/resources";
         File userResourcesFolderPathFile = new File(userResourcesFolderPathString);
         boolean madeResourceFolder = userResourcesFolderPathFile.mkdir();
         if (madeResourceFolder)
         {
-            System.out.println("Made folder at:" + userResourcesFolderPathString);
+            System.out.println("Successfully made user resources folder at:" + userResourcesFolderPathString);
+        }
+        this.pathToUserResources = Path.of(userResourcesFolderPathFile.getAbsolutePath());  // assign variable so it can be used in other methods
+
+        // copy images and whatnot into resource folder.
+        // "Master" resource folder will be in install location. Locate stylesheet, make path to it.
+        // Either that, or keep the data for the basic stylesheet as a variable or whatever somewhere within the program. Write to an actual file in the resource location.
+        
+        File masterStylesheetFile = new File("master_resources/" + cssName);
+        System.out.println("Stylesheet file at: " + masterStylesheetFile.getAbsolutePath());
+        
+        // if the stylesheet is still in the master_resources folder, copy to new destination.
+        if (masterStylesheetFile.exists())
+                {
+                    
+                    System.out.println("Stylesheet does exist.");
+                    // make path from master stylesheet
+                    Path masterStylesheetPath = Path.of(masterStylesheetFile.getAbsolutePath());
+                    System.out.println("Stylesheet path: " + masterStylesheetPath);
+                    
+                    // create path to new stylesheet
+                    String userStylesheetPathString = userResourcesFolderPathString + "/" + cssName;
+                    Path userStylesheetPath = Path.of(userStylesheetPathString);
+                    
+                    // try to copy master stylesheet to user's folder
+                    try {
+                            Files.copy(masterStylesheetPath, userStylesheetPath, StandardCopyOption.REPLACE_EXISTING);
+                    }
+                    catch (IOException ex) {
+                        System.out.println("There was an issue with copying the master stylesheet to the user's resource folder.");
+                            Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    // try to copy other required files as well
+                    try {
+                            System.out.println("Attempting to copy " + backgroundImageName + "...");
+                            // get path of master BG, user BG, copy
+                            Path masterBGImagePath = Path.of(new File("master_resources/" + backgroundImageName).getAbsolutePath());
+                            Path userBGPath = Path.of(pathToUserResources.toString() + "/" + backgroundImageName);
+                            Files.copy(masterBGImagePath, userBGPath, StandardCopyOption.REPLACE_EXISTING);
+                            
+                    }
+                        catch (IOException ex) {
+                            System.out.println("There was an issue with copying the BG image to the user's resource folder.");
+                            Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                }
+        else
+        {
+            System.out.println("Master stylesheet not found at: " + masterStylesheetFile.getAbsolutePath());
         }
         
-       
-        // for each node, process the page.
+        //Add code to copy bg image files and whatnot here.
+        
+               
+        // for each node, process the page and write to a file.
         for (NodeRectangle n : project.getNodes())
         {
             // name of page file is based off of ID
             String filename = n.getNode().getID() + ".html";
             String HTML = processPage(n.getNode());      
             
-            File page = new File(outputFolder + "\\" + filename);
+            File page = new File(outputFolder + "/" + filename);
             PrintWriter w;
             
             try {
@@ -99,78 +152,68 @@ public class ExportGame {
               }        
           }
         
-        
-        // TODO - copy images and whatnot into resource folder.
-        // "Master" resource folder will be in install location. Locate stylesheet, make path to it.
-        // 
-        // Either that, or keep the data for the basic stylesheet as a variable or whatever somewhere within the program. Write to an actual file in the resource location.
-        
-                
-        File masterStylesheetFile = new File("master_resources\\pageStylesheetv2.css");
-        System.out.println("Stylesheet file at: " + masterStylesheetFile.getAbsolutePath());
-        
-        // if the stylesheet is still in the master_resources folder, copy to new destination.
-        if (masterStylesheetFile.exists())
-                {
-                    
-                    System.out.println("Stylesheet does exist.");
-                    // make path from master stylesheet
-                    Path masterStylesheetPath = Path.of(masterStylesheetFile.getAbsolutePath());
-                    System.out.println("Stylesheet path: " + masterStylesheetPath);
-                    
-                    // create path to new stylesheet
-                    String userStylesheetPathString = userResourcesFolderPathString + "\\pageStylesheetv2.css";
-                    Path userStylesheetPath = Path.of(userStylesheetPathString);
-                    
-                    // try to copy master stylesheet to user's folder
-                    try {
-                            // copy master stylesheet to user's folder
-                            Files.copy(masterStylesheetPath, userStylesheetPath, StandardCopyOption.REPLACE_EXISTING);
-                    }
-                    catch (IOException ex) {
-                            Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-        
-                }
-        else
-        {
-            System.out.println("Master stylesheet not found at: " + masterStylesheetFile.getAbsolutePath());
-        }
-        
-        //System.out.println("Game successfully exported! I hope...!");
+        System.out.println("Game successfully exported! I hope...!");
     }
     
     // for processing one page at a time.
-    public static String processPage(Node n)
+    public String processPage(Node n)
     {
         String title, ID, imagePathString, paragraph;
         Map<String, Collection<String>> choices;
         
+        
         // conditionals for showing/hiding elements of a page
-        boolean showTitle, showImage, showParagraph, showChoices;
+        boolean showTitle = false, showImage = false, showParagraph = false, showChoices = false;
         
         // title
         title = n.getTitle();
+        if (title != null)
+        {
+            showTitle = true;
+        }
         
         // ID
         ID = n.getID();
         
-        // image
+        // image- if not null, copy to resources folder
         imagePathString = n.getImagePath();
+         if (imagePathString != null)
+        {
+            try {
+                imagePathString = copyToResources(imagePathString);
+                if (imagePathString != null)
+                {
+                    showImage = true;
+                }
+            }
+            catch (IOException ex) {
+                System.out.println("Could not copy image to user resource folder.");
+                Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
         // paragraph
         paragraph = n.getParagraph();
+        if (paragraph != null)
+        {
+            showParagraph = true;
+        }
         
         // choices
         choices = n.getLinks().asMap();
+        if (choices != null)
+        {
+            showChoices = true;
+        }
         
         
         
         // TODO - implement system that creates differrent HTML based on what and what should not be shown.
         // and possibly, change in stylesheet link.
-        String stylesheet = "./resources/pageStylesheetv2.css";
+        String stylesheet = "./resources/" + cssName;
         
-
+         
+        
         // create HTML
         String HTML;
         
@@ -188,8 +231,10 @@ public class ExportGame {
                                 h1(title).withClass(titleClass),
                                 
                                 // image
-                                img().withSrc(imagePathString).withClass("user-image"),
-                                
+                                div(
+                                img().withSrc(imagePathString).withClass(iffElse(showImage, "user-image", "no-image"))
+                                ),
+                                        
                                 // paragraph div
                                 div(
                                         p(paragraph).withClass("paragraph"),
@@ -202,7 +247,7 @@ public class ExportGame {
                                                         div(attrs(".choices"),
                                                                 
                                                                 // choice = entry. Key = URL, Value = Collection<String>.
-                                                                // for each String 'text' in getValue()
+                                                                // for each String 'text' in getValue(),
                                                                 // make hyperlink(key, text)
                                                                 each(choice.getValue(), text ->
                                                                         p(a(text).withHref(choice.getKey() + ".html"))
@@ -219,7 +264,7 @@ public class ExportGame {
                                 
                         ).withClass(contentClass) // end of body main div </div>
                 
-                ) // end of bady tag </body>
+                ) // end of body tag </body>
                 
         ).renderFormatted();   // end of HTML tag </html>
         
@@ -229,15 +274,34 @@ public class ExportGame {
         return HTML;        
     }
 
-    /*
-    // used for copying images to resources folder
-    public boolean copyToLocation(Path source, Path dest)
+
+    // used for copying images to resources folder. Returns relative(?) path of new image
+    public String copyToResources(String source) throws IOException
     {
+        System.out.println("Copying image at " + source + " to user resource folder...");
+        // if image exists at location, copy to resources folder and return true. Else, return false
+        File img = new File(source);
         
+        if (img.exists())
+        {
+            Path copyTo = Path.of(pathToUserResources.toString() + "/"+ img.getName());  // create path to resources/imagename.png
+            
+            Files.copy(Path.of(source), copyTo, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Copied image to: " + copyTo);
+            img = copyTo.toFile();
+        }
+        else
+        {
+            System.out.println("Image no longer exists at designated path. Image was not copied.");
+            return null;
+        }
         
-        return 
+        String relativePath = "./resources/" + img.getName();
+        
+        return relativePath;
+                // ?? - use URI relativize method to get relative path to image inside resources folder instead. This allows the game to be properly played on systems other than the one it was created on.
     }
-    */
+
     
     
     
@@ -340,7 +404,7 @@ public class ExportGame {
             }
             
             //String styleSheetLink = "../pageStylesheet.css";
-            String styleSheetLink = "../pageStylesheetv2.css";
+            String styleSheetLink = "../" + cssName;
             
     
         String html;  
@@ -546,6 +610,8 @@ public class ExportGame {
         */
         
 //</editor-fold>
+        /*
+        //<editor-fold defaultstate="collapsed" desc="Apr 7 Test 2">
         
         //Even newer test (Apr 7 again)
         ProjectFile p = new ProjectFile();
@@ -584,8 +650,22 @@ public class ExportGame {
         p.setNodes(nodes);
         
         ExportGame e = new ExportGame(p);
+      //</editor-fold>  
+       */
         
-       
+        
+        String absolutePathToResourceString = "C:/Users/rolep/Documents/Apr_13_Test - CHOICE/resources/bigfeel.png";
+        String baseString = "C:/Users/rolep/Documents/Apr_13_Test - CHOICE";
+        String relative = new File(baseString).toURI().relativize(new File(absolutePathToResourceString).toURI()).getPath();
+        
+        System.out.println("Relative using URI: " + relative);
+        
+        Path absPath = Paths.get("C:/Users/rolep/Documents/Apr_13_Test - CHOICE/resources/bigfeel.png");
+        Path basePath = Paths.get("C:/Users/rolep/Documents/Apr_13_Test - CHOICE");
+        relative = basePath.relativize(absPath).toString();
+        System.out.println("Relative using Path: " + relative);
+        
+        
     }
     
 }

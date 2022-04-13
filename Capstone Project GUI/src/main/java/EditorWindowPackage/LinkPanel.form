@@ -68,7 +68,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="choiceTextField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
+        <Property name="text" type="java.lang.String" value="Enter text here..."/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[30, 22]"/>
         </Property>

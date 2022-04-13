@@ -116,8 +116,9 @@ public class PageEditorFrame extends javax.swing.JFrame {
        
        public void sendNewNodeToAppHandler(Node n, String originalID)
        {
+           // if image is not null,
            // If the proper image no longer exists at where it's set to, just set the imagePath to null.
-           if (!(new File(n.getImagePath()).isFile()))
+           if (n.getImagePath() != null && !(new File(n.getImagePath()).isFile()))
            {
                n.setImagePath(null);
                System.out.println("Image no longer exists at specified location. Setting this node's imagePath to null...");

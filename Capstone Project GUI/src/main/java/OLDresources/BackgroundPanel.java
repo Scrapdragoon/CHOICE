@@ -36,7 +36,7 @@ public class BackgroundPanel extends JPanel {
         
         BufferedImage b = null;
         try {
-            b = ImageIO.read(new File("C:\\Users\\rolep\\Documents\\NetBeansProjects\\Capstone Project GUI\\src\\main\\java\\resources\\sunset.jpg")); // TODO - change to relative path
+            b = ImageIO.read(new File("C:/Users/rolep/Documents/NetBeansProjects/Capstone Project GUI/src/main/java/resources/sunset.jpg")); // TODO - change to relative path
         }
         catch (IOException e)
         {

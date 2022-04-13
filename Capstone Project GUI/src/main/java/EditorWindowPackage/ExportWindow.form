@@ -160,7 +160,7 @@
         <Component class="javax.swing.JLabel" name="infoLabel">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt; Include info here! Things like how to play(and let others play), what the game is comprised of, how to edit, etc. &lt;br&gt; The program will create a folder, export pages into said folder, and copy image files into a &apos;resource&apos; folder within that folder.  &lt;/html&gt; "/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt; Include info here! Things like how to play(and let others play), what the game is comprised of, how to edit, etc. &lt;br&gt; The program will create a folder, export pages into said folder, and copy image files into a &apos;resource&apos; folder within that folder.  Any preexisting materials will be replaced. &lt;/html&gt; "/>
           </Properties>
         </Component>
       </SubComponents>

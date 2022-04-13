@@ -41,7 +41,7 @@ public class LinkPanel extends javax.swing.JPanel {
         choiceChooserBox.setMaximumSize(new java.awt.Dimension(243, 22));
         choiceChooserBox.setPrototypeDisplayValue("eeeeeeeeeeeeeeeeeeeeeeee");
 
-        choiceTextField.setText("jTextField1");
+        choiceTextField.setText("Enter text here...");
         choiceTextField.setMinimumSize(new java.awt.Dimension(30, 22));
         choiceTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
