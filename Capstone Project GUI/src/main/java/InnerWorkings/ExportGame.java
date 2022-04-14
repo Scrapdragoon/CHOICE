@@ -241,7 +241,7 @@ public class ExportGame {
                                         
                                         // choices div
                                         div(
-                                                p("What will you do?"),
+
                                                 // for each choice, make hyperlink.
                                                 each(choices, choice ->
                                                         div(attrs(".choices"),

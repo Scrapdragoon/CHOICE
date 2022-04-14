@@ -10,7 +10,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-    <name>Capstone Project GUI</name>
+    <name>CHOICE - Hypertext Game Tool</name>
     <dependencies>
         <dependency>
             <groupId>org.netbeans.external</groupId>
