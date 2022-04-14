@@ -4,38 +4,40 @@
  */
 package DataItems;
 
-import java.awt.Image;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Map;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import java.io.Serializable;
 
 /**
  *
  * @author Victor Malone (vm19171)
  *
  * This is a class representing a user-created passage. 
- * It includes a name, ID, image, and list of links. This will be used to store the data used to create HTML pages based on user input.
+ * It includes a title, paragraph, ID, image, and list of links. This will be used to store the data used to create HTML pages based on user input.
  *
  */
-public class Node {
-    
-    public static int passageNumber = 100;    // used to determine the IDs of new passages
-    
+public class Node implements Serializable {
 
-    private String title;    // name of node
+    private String title = "New Page";    // name of node
     private String paragraph; // paragraph of text
     
     
-    private String ID;      // ID of node (used for searching and whatnot)
-    private URL url;        // URL used to access node
+    private String ID = "default_ID";      // ID of node (used for searching and whatnot)
     
-    public Image image;                      // accompanying image
-    // public ArrayList<Node> choices;  // list of choices, that connect to other passages/nodes
+    private String imagePath;               // path to image
     
-    public Map<String, URL> choices;
+    
+    // List of links from this node to other nodes.
+    // Key is the ID, value is the hyperlink text. This may be changed later.
+    //public Map<String, String> links = new TreeMap();
+    
+    
+    // Multimap to hold links to other nodes.
+    // Key is the ID, value is the hyperlink text.
+    Multimap<String, String> links = ArrayListMultimap.create();
 
+    
     public Node() {
-        title = "defaultTitle";
     }
     
     public Node(String title)
@@ -49,6 +51,22 @@ public class Node {
         this.title = title;
         this.paragraph = paragraph;
     }
+    
+    public Node(String title, String paragraph, String ID)
+    {
+        this.title = title;
+        this.paragraph = paragraph;
+        this.ID = ID;
+    }
+    
+    public Node(String title, String paragraph, String ID, Multimap<String, String> links)
+    {
+        this.title = title;
+        this.paragraph = paragraph;
+        this.ID = ID;
+        this.links = links;
+    }
+    
 
     // get/set methods for title
     public String getTitle() {
@@ -67,13 +85,6 @@ public class Node {
         this.paragraph = paragraph;
     }
 
-    public URL getUrl() {
-        return url;
-    }
-
-    public void setUrl(URL url) {
-        this.url = url;
-    }
 
     // get/set methods for ID
     public String getID() {
@@ -84,31 +95,38 @@ public class Node {
         ID = newID;
     }
 
-   /* 
-    //get list of choices
-    public ArrayList<Node> getChoices() {
-        return choices;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    
-    // add link to list of choices
-    public void addLink(Node choice) {
-        choices.add(choice);
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
-    */
+    public Multimap<String, String> getLinks() {
+        return links;
+    }
+
+    public void setLinks(Multimap<String, String> links) {
+        this.links = links;
+    }
     
     
-    public static void autoSetID()
+    
+    public void addLink(String ID, String text)
     {
-        
+        links.put(ID, text);
     }
     
+    public void removeLink(String ID, String text)
+    {
+        links.remove(ID, text);
+    }
+
     @Override
     public String toString()
     {
-        return "Page title: " + this.title 
-                + "\n Paragraph: " + this.paragraph
-                ;
+        return "Page title: " + this.title + ","
+                + "\n ID: " + this.ID;
     }
 }

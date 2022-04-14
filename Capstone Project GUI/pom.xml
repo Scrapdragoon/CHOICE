@@ -10,7 +10,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-    <name>Capstone Project GUI</name>
+    <name>CHOICE - Hypertext Game Tool</name>
     <dependencies>
         <dependency>
             <groupId>org.netbeans.external</groupId>
@@ -22,5 +22,12 @@
     <artifactId>j2html</artifactId>
     <version>1.5.0</version>
 </dependency>
+
+<dependency>
+    <groupId>com.google.guava</groupId>
+    <artifactId>guava</artifactId>
+    <version>31.0.1-jre</version>
+</dependency>
+
     </dependencies>
 </project>
