@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package EditorWindowPackage;
+package WindowsAndPanels;
 
 import InnerWorkings.ApplicationHandler;
 
@@ -35,7 +35,6 @@ public class CreatePageFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("New Page");
-        setPreferredSize(new java.awt.Dimension(600, 400));
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 

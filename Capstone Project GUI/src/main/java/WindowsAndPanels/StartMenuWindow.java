@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package StartMenu;
+package WindowsAndPanels;
 
-import EditorWindowPackage.EditorWindow;
+import WindowsAndPanels.EditorWindow;
 import javax.swing.*;
 
 /**
@@ -35,7 +35,7 @@ public class StartMenuWindow extends javax.swing.JFrame {
         newProjectButton = new javax.swing.JButton();
         openProjectButton = new javax.swing.JButton();
         settingsButton = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        creditsButton = new javax.swing.JButton();
 
         openProjectChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,18 +97,18 @@ public class StartMenuWindow extends javax.swing.JFrame {
         });
         buttonPanel.add(settingsButton);
 
-        jButton4.setFont(new java.awt.Font("DFPOP1-W9", 0, 60)); // NOI18N
-        jButton4.setText("Credits");
-        jButton4.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        jButton4.setFocusPainted(false);
-        jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton4.setMargin(new java.awt.Insets(2, 14, 2, 2));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        creditsButton.setFont(new java.awt.Font("DFPOP1-W9", 0, 60)); // NOI18N
+        creditsButton.setText("Credits");
+        creditsButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        creditsButton.setFocusPainted(false);
+        creditsButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        creditsButton.setMargin(new java.awt.Insets(2, 14, 2, 2));
+        creditsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                creditsButtonActionPerformed(evt);
             }
         });
-        buttonPanel.add(jButton4);
+        buttonPanel.add(creditsButton);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,10 +137,10 @@ public class StartMenuWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void creditsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditsButtonActionPerformed
         System.out.println("4th button pressed.");
         JOptionPane.showMessageDialog(buttonPanel, "You pressed the 4th button! I haven't decided what this one's going to do yet.");
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_creditsButtonActionPerformed
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
         System.out.println("Settings button pressed.");
@@ -205,7 +205,7 @@ public class StartMenuWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JPanel buttonPanel;
-    javax.swing.JButton jButton4;
+    javax.swing.JButton creditsButton;
     javax.swing.JButton newProjectButton;
     javax.swing.JButton openProjectButton;
     javax.swing.JFileChooser openProjectChooser;

@@ -5,7 +5,7 @@
 package InnerWorkings;
 
 import DataItems.Node;
-import EditorWindowPackage.LinkPanel;
+import WindowsAndPanels.LinkPanel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;

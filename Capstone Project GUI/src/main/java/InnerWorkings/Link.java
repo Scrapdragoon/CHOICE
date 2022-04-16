@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class Link implements Serializable {
     
     // IDs of connected nodes
-    String from, to;
+    public String from, to;
     
     public Link(String from, String to)
     {

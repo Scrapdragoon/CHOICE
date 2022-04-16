@@ -4,9 +4,10 @@
  */
 package InnerWorkings;
 
+import WindowsAndPanels.DragAndDrop;
 import DataItems.Node;
-import EditorWindowPackage.CreatePageFrame;
-import EditorWindowPackage.PageEditorFrame;
+import WindowsAndPanels.CreatePageFrame;
+import WindowsAndPanels.PageEditorFrame;
 import com.google.common.base.CharMatcher;
 import com.google.common.collect.Multimap;
 import java.awt.Dimension;
@@ -49,7 +50,7 @@ public class ApplicationHandler {
      CreatePageFrame createPageFrame = new CreatePageFrame();
    
     // dimension for NodeRectangles
-    public static Dimension nodeDimensions = new Dimension(100, 50);
+    public static Dimension nodeDimensions = new Dimension(75, 100);
     
     // custom file extension
     public final String extension = ".choice";

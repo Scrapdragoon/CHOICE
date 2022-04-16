@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package EditorWindowPackage;
+package WindowsAndPanels;
 
 import javax.swing.JOptionPane;
-import InnerWorkings.DragAndDrop;
 import InnerWorkings.MyFileFilter;
 import java.io.File;
 import java.io.IOException;
@@ -42,12 +41,12 @@ public class EditorWindow extends javax.swing.JFrame {
         openFileDialog = new javax.swing.JFileChooser(System.getProperty("user.dir"));
         saveFileDialog = new javax.swing.JFileChooser(System.getProperty("user.dir"));
         appHandler = new InnerWorkings.ApplicationHandler();
-        exportWindow = new EditorWindowPackage.ExportWindow();
+        exportWindow = new WindowsAndPanels.ExportWindow();
         buttonMenuPanel = new javax.swing.JPanel();
         createNodeButton = new javax.swing.JButton();
         loadTestButton = new javax.swing.JButton();
         saveTestButton = new javax.swing.JButton();
-        dragAndDropPanel = new InnerWorkings.DragAndDrop();
+        dragAndDropPanel = new WindowsAndPanels.DragAndDrop();
         editorMenu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         saveMenuItem = new javax.swing.JMenuItem();
@@ -456,13 +455,13 @@ public class EditorWindow extends javax.swing.JFrame {
     private InnerWorkings.ApplicationHandler appHandler;
     private javax.swing.JPanel buttonMenuPanel;
     private javax.swing.JButton createNodeButton;
-    private InnerWorkings.DragAndDrop dragAndDropPanel;
+    private WindowsAndPanels.DragAndDrop dragAndDropPanel;
     private javax.swing.JMenuItem editMenuRedo;
     private javax.swing.JMenuItem editMenuUndo;
     private javax.swing.JMenuBar editorMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuItem exportGameMenuItem;
-    private EditorWindowPackage.ExportWindow exportWindow;
+    private WindowsAndPanels.ExportWindow exportWindow;
     private javax.swing.JButton loadTestButton;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;

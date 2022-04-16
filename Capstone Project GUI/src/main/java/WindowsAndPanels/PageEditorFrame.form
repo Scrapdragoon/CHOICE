@@ -55,7 +55,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="EditorWindowPackage.PageEditorPanel" name="pageEditorPanel">
+        <Component class="WindowsAndPanels.PageEditorPanel" name="pageEditorPanel">
         </Component>
       </SubComponents>
     </Container>

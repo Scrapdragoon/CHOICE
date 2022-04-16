@@ -77,10 +77,11 @@ public class NodeRectangle extends Rectangle {
     
     public void paintComponent (Graphics2D g)
     {
+        //g.setPaint(new GradientPaint(this.x, this.y, Color.WHITE, this.x + height, this.y + height, Color.DARK_GRAY));
+        g.setColor(Color.WHITE);
+        g.fillRect(this.x, this.y, this.width, this.height);
         g.setColor(Color.BLACK);
         g.drawRect(this.x, this.y, this.width, this.height);
-        g.setPaint(new GradientPaint(this.x, this.y, Color.WHITE, this.x + height, this.y + height, Color.DARK_GRAY));
-        g.fillRect(this.x, this.y, this.width, this.height);
     }   
     
     

@@ -34,7 +34,7 @@
     </Component>
     <Component class="InnerWorkings.ApplicationHandler" name="appHandler">
       <Properties>
-        <Property name="view" type="InnerWorkings.DragAndDrop" editor="org.netbeans.modules.form.ComponentChooserEditor">
+        <Property name="view" type="WindowsAndPanels.DragAndDrop" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="dragAndDropPanel"/>
         </Property>
       </Properties>
@@ -42,7 +42,7 @@
         <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="EditorWindow_appHandler"/>
       </AuxValues>
     </Component>
-    <Component class="EditorWindowPackage.ExportWindow" name="exportWindow">
+    <Component class="WindowsAndPanels.ExportWindow" name="exportWindow">
     </Component>
     <Menu class="javax.swing.JMenuBar" name="editorMenu">
       <Properties>
@@ -256,7 +256,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="InnerWorkings.DragAndDrop" name="dragAndDropPanel">
+    <Container class="WindowsAndPanels.DragAndDrop" name="dragAndDropPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="cc" type="rgb"/>

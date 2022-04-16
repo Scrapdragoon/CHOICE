@@ -4,8 +4,12 @@
  
 
 */
-package InnerWorkings;
+package WindowsAndPanels;
 
+import InnerWorkings.ApplicationHandler;
+import InnerWorkings.ConnectionTriangle;
+import InnerWorkings.Link;
+import InnerWorkings.NodeRectangle;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

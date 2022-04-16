@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package EditorWindowPackage;
+package WindowsAndPanels;
 
 import DataItems.Node;
 import InnerWorkings.ApplicationHandler;
@@ -32,7 +32,7 @@ public class PageEditorFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        pageEditorPanel = new EditorWindowPackage.PageEditorPanel();
+        pageEditorPanel = new WindowsAndPanels.PageEditorPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Page Editor");
@@ -203,6 +203,6 @@ public class PageEditorFrame extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private EditorWindowPackage.PageEditorPanel pageEditorPanel;
+    private WindowsAndPanels.PageEditorPanel pageEditorPanel;
     // End of variables declaration//GEN-END:variables
 }
