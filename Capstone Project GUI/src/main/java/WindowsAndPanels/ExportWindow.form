@@ -13,6 +13,8 @@
         <Property name="fileSelectionMode" type="int" value="1"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="themeButtonGroup">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -54,13 +56,23 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="exportLabel" alignment="1" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="chooseLocationButton" min="-2" max="-2" attributes="0"/>
-                      <Component id="titlePageCheckbox" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="authorNameField" alignment="1" min="-2" pref="115" max="-2" attributes="0"/>
-                          <Component id="authorNameCheckbox" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="chooseLocationButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="titlePageCheckbox" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Component id="authorNameField" alignment="1" min="-2" pref="115" max="-2" attributes="0"/>
+                                  <Component id="authorNameCheckbox" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="darkThemeButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="bookThemeButton" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -78,21 +90,27 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="titlePageCheckbox" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="authorNameCheckbox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="authorNameField" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Component id="bookThemeButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="darkThemeButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Component id="chooseLocationButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                           <Component id="infoLabel" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="secondaryPanel" min="-2" pref="72" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <Component id="secondaryPanel" min="-2" pref="63" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -133,6 +151,29 @@
             <Property name="text" type="java.lang.String" value="Display Author Name"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JRadioButton" name="bookThemeButton">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="themeButtonGroup"/>
+            </Property>
+            <Property name="selected" type="boolean" value="true"/>
+            <Property name="text" type="java.lang.String" value="Storybook Theme"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="darkThemeButton">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="themeButtonGroup"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Dark Theme"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="infoLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt; Include info here! Things like how to play(and let others play), what the game is comprised of, how to edit, etc. &lt;br&gt; The program will create a folder, export pages into said folder, and copy image files into a &apos;resource&apos; folder within that folder.  Any preexisting materials will be replaced. &lt;/html&gt; "/>
+          </Properties>
+        </Component>
         <Container class="javax.swing.JPanel" name="secondaryPanel">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
@@ -157,10 +198,9 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="infoLabel">
+        <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt; Include info here! Things like how to play(and let others play), what the game is comprised of, how to edit, etc. &lt;br&gt; The program will create a folder, export pages into said folder, and copy image files into a &apos;resource&apos; folder within that folder.  Any preexisting materials will be replaced. &lt;/html&gt; "/>
+            <Property name="text" type="java.lang.String" value="Theme:"/>
           </Properties>
         </Component>
       </SubComponents>

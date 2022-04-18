@@ -319,6 +319,24 @@ public class ExportGame {
         return cleaned;
     }
     
+    
+    public void setTheme(String theme) {
+        if (theme.equalsIgnoreCase("book"))
+        {
+           cssName =  "StandardPageStylesheet.css";
+        }
+        else if (theme.equalsIgnoreCase("dark"))
+        {
+            cssName = "DarkPageStylesheet.css";
+        }
+        else
+        {
+            System.out.println("Something went wrong. The theme will be \"book\".");
+        }
+    }
+    
+    
+    
     public ProjectFile getProject() {
         return project;
     }

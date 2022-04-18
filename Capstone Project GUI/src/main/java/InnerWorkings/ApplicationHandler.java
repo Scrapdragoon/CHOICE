@@ -255,7 +255,7 @@ public class ApplicationHandler {
                    System.out.println("This ID is taken.");
                    taken = true;
                    newID = originalReturnID + "_" + i; // new ID is returnID_[number].
-                   i++;
+                    i++;
                    System.out.println("New ID: " + newID);
                    System.out.println("Beginning search again.");
                    break;

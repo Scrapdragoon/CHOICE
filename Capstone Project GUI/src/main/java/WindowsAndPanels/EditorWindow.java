@@ -52,32 +52,21 @@ public class EditorWindow extends javax.swing.JFrame {
         saveMenuItem = new javax.swing.JMenuItem();
         newMenuItem = new javax.swing.JMenuItem();
         openMenuItem = new javax.swing.JMenuItem();
-        projectSettingsMenuItem = new javax.swing.JMenuItem();
         exportGameMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
         editMenuUndo = new javax.swing.JMenuItem();
         editMenuRedo = new javax.swing.JMenuItem();
-        menuView = new javax.swing.JMenu();
-        viewMenuReturnToStart = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenu();
+        helpMenuItem = new javax.swing.JMenuItem();
 
         openFileDialog.setDialogTitle("Open Project");
         openFileDialog.setFileFilter(new InnerWorkings.CHOICEFileFilter());
-        openFileDialog.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openFileDialogActionPerformed(evt);
-            }
-        });
 
         saveFileDialog.setAcceptAllFileFilterUsed(false);
         saveFileDialog.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         saveFileDialog.setDialogTitle("Save Project");
         saveFileDialog.setFileFilter(new InnerWorkings.CHOICEFileFilter());
-        saveFileDialog.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveFileDialogActionPerformed(evt);
-            }
-        });
 
         appHandler.setView(dragAndDropPanel);
 
@@ -126,11 +115,6 @@ public class EditorWindow extends javax.swing.JFrame {
         dragAndDropPanel.setBackground(new java.awt.Color(204, 204, 255));
         dragAndDropPanel.setController(appHandler);
         dragAndDropPanel.setFont(new java.awt.Font("DFPOP1-W9", 0, 18)); // NOI18N
-        dragAndDropPanel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                dragAndDropPanelKeyTyped(evt);
-            }
-        });
 
         javax.swing.GroupLayout dragAndDropPanelLayout = new javax.swing.GroupLayout(dragAndDropPanel);
         dragAndDropPanel.setLayout(dragAndDropPanelLayout);
@@ -153,7 +137,6 @@ public class EditorWindow extends javax.swing.JFrame {
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveMenuItemActionPerformed(evt);
-                saveMenuItemActionPerformed1(evt);
             }
         });
         menuFile.add(saveMenuItem);
@@ -173,14 +156,6 @@ public class EditorWindow extends javax.swing.JFrame {
             }
         });
         menuFile.add(openMenuItem);
-
-        projectSettingsMenuItem.setText("Project Settings");
-        projectSettingsMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                projectSettingsMenuItemActionPerformed(evt);
-            }
-        });
-        menuFile.add(projectSettingsMenuItem);
 
         exportGameMenuItem.setText("Export Game...");
         exportGameMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -211,16 +186,26 @@ public class EditorWindow extends javax.swing.JFrame {
         menuEdit.add(editMenuUndo);
 
         editMenuRedo.setText("Redo");
+        editMenuRedo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editMenuRedoActionPerformed(evt);
+            }
+        });
         menuEdit.add(editMenuRedo);
 
         editorMenu.add(menuEdit);
 
-        menuView.setText("View");
+        helpMenu.setText("Help");
 
-        viewMenuReturnToStart.setText("Return to Start");
-        menuView.add(viewMenuReturnToStart);
+        helpMenuItem.setText("Quick Guide");
+        helpMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpMenuItemActionPerformed(evt);
+            }
+        });
+        helpMenu.add(helpMenuItem);
 
-        editorMenu.add(menuView);
+        editorMenu.add(helpMenu);
 
         setJMenuBar(editorMenu);
 
@@ -284,12 +269,8 @@ public class EditorWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     private void editMenuUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuUndoActionPerformed
-        // TODO add your handling code here:
+       JOptionPane.showMessageDialog(this, "The Undo and Redo functions have not yet been implemented. Please look forward to the 2.0 release!");
     }//GEN-LAST:event_editMenuUndoActionPerformed
-
-    private void projectSettingsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projectSettingsMenuItemActionPerformed
-        new ProjectSettingsMenu().setVisible(true);
-    }//GEN-LAST:event_projectSettingsMenuItemActionPerformed
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         System.exit(0);
@@ -297,7 +278,6 @@ public class EditorWindow extends javax.swing.JFrame {
 
     private void createNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNodeButtonActionPerformed
         System.out.println("Create Node button pressed! This is how the user will be able to add new nodes.");
-        //mainEditor.addNode(100, 100);
         appHandler.openCreatePage();        
         
         mainEditor.revalidate();
@@ -355,28 +335,13 @@ public class EditorWindow extends javax.swing.JFrame {
         this.repaint();
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
-    private void dragAndDropPanelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dragAndDropPanelKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dragAndDropPanelKeyTyped
-
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
-        
+        /*
         System.out.println("Key Pressed!");
         // appHandler.updateView();
         dragAndDropPanel.showControllerNodeStats();
+        */
     }//GEN-LAST:event_formKeyTyped
-
-    private void saveFileDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFileDialogActionPerformed
-
-    }//GEN-LAST:event_saveFileDialogActionPerformed
-
-    private void openFileDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileDialogActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_openFileDialogActionPerformed
-
-    private void saveMenuItemActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed1
-        saveFileDialog.setVisible(true);
-    }//GEN-LAST:event_saveMenuItemActionPerformed1
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.setTitle(appHandler.getProjectFile().getProjectTitle());
@@ -384,11 +349,30 @@ public class EditorWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void exportGameMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportGameMenuItemActionPerformed
-        // TODO - Export game.
+
         exportWindow.setProject(appHandler.getProjectFile());
         exportWindow.setVisible(true);
-        //exp.export(appHandler.getProjectFile());
     }//GEN-LAST:event_exportGameMenuItemActionPerformed
+
+    private void editMenuRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuRedoActionPerformed
+        JOptionPane.showMessageDialog(this, "The Undo and Redo functions have not yet been implemented. Please look forward to the 2.0 release!");
+    }//GEN-LAST:event_editMenuRedoActionPerformed
+
+    private void helpMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpMenuItemActionPerformed
+         JOptionPane.showMessageDialog(this, "<html> <font size= \"+1\">"
+                 + "<strong>Welcome, and thank you for using CHOICE!</strong><br><br>"
+                 + ""
+                 + "Use the <strong>\"Create Page\"</strong> button to your left to... well, create a page! You'll then give it a <strong>name</strong>, and from there, you'll be allowed to edit it freely in the <strong>Page Editor</strong>.<br>"
+                 + "Write whatever you want in the <strong>\"Paragraph\"</strong> section, and then come up with an <strong>ID</strong> that suits it well. You'll use this for creating your <strong>links</strong>.<br>"
+                 + "To create a link from one page to another, click the \"+\" button, and <strong>choose the destination page's ID</strong> from the drop-down box. <br>"
+                 + "To the right of your choice, write the text that goes along with it. \"Turn left\" or \"Enter the strange door\", for example. (A page may link back to itself.)<br>"
+                 + "To remove a link, click the \"-\" button. This will remove the link closest to the bottom of the page.<br>"
+                 + "After you're all done, click the OK button to save your changes! <br><br>"
+                 + ""
+                 + "Once you're done writing all the pages of your story, go to the File menu at the top left, and click <strong>\"Export Game\"</strong>. <br>"
+                 + "Play with the settings, choose a location to save in, and then <strong>Make your CHOICE</strong>!"
+                 + "</font></html>");
+    }//GEN-LAST:event_helpMenuItemActionPerformed
 
     public ApplicationHandler getAppHandler() {
         return appHandler;
@@ -453,15 +437,14 @@ public class EditorWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuItem exportGameMenuItem;
     private WindowsAndPanels.ExportWindow exportWindow;
+    private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuItem helpMenuItem;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
-    private javax.swing.JMenu menuView;
     private javax.swing.JMenuItem newMenuItem;
     private javax.swing.JFileChooser openFileDialog;
     private javax.swing.JMenuItem openMenuItem;
-    private javax.swing.JMenuItem projectSettingsMenuItem;
     private javax.swing.JFileChooser saveFileDialog;
     private javax.swing.JMenuItem saveMenuItem;
-    private javax.swing.JMenuItem viewMenuReturnToStart;
     // End of variables declaration//GEN-END:variables
 }

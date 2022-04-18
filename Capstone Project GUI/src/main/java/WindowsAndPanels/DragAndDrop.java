@@ -35,7 +35,6 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     // Controller.
     ApplicationHandler controller;
     
-    
     // ArrayList of all nodes on screen. Should be linked to list from controller
    private ArrayList<NodeRectangle> nodes = new ArrayList<>();
     
@@ -59,23 +58,14 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                 // select the node the user clicks, assign to currentNode
                currentNode = getNodeClicked(event.getX(), event.getY());
                System.out.println("Pressed node " + currentNode);
-               // controller.testNodes();
-                // System.out.println("Node ID: " + nodes.get(currentNode).getNode().getID());
             }
-            
             
             @Override
             public void mouseClicked(MouseEvent event)
             {
-                // if empty space clicked, add new node
-                if (event.getButton() == MouseEvent.BUTTON1 && currentNode < 0)
-                {
-                    addNode(event.getX(), event.getY());
-                    return;
-                }
                  if (event.getButton() == MouseEvent.BUTTON3)   // if node is right clicked
                 {
-                     System.out.println("Right click detected. Current node: " + currentNode);
+                    System.out.println("Right click detected! Current node: " + currentNode);
                     removeNode(currentNode);
                     return;
                 }
@@ -106,21 +96,15 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     {
         if (currentNode >= 0)
         {
-            NodeRectangle n = nodes.get(currentNode);
             Graphics g = getGraphics();
             
             // set up graphics
             g.setColor(Color.RED);
             ((Graphics2D)g).setStroke(new java.awt.BasicStroke(3));
             
-            
             nodes.get(currentNode).x = event.getX() - (controller.nodeDimensions.width/2);
             nodes.get(currentNode).y = event.getY() - (controller.nodeDimensions.height/2);
             
-           //((Graphics2D)g).draw(n);
-           //((Graphics2D)g).drawString(n.getNode().getTitle(), n.x, n.y);
-           
-            // g.dispose(); // get rid of graphics object after using
             repaint();
         }
  
@@ -133,7 +117,6 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         super.paintComponent(gr);
         Graphics2D g = (Graphics2D)gr;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        //g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
         g.setColor(Color.RED);
         
        ((Graphics2D)g).setStroke(new java.awt.BasicStroke(4));
@@ -166,52 +149,6 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     // used to draw lines between connected pages
     public void drawLines(Graphics2D g)
     {
-        //<editor-fold defaultstate="collapsed" desc="Old">
-        
-        //System.out.println("Drawing lines...");
-        
-        /*
-        if (!(controller.getProjectFile().links.isEmpty()) && !(nodes.isEmpty()))
-        {
-            for(Link l : controller.getProjectFile().links)
-            {
-                System.out.println("Link: ID " + l.from + " to ID " + l.to);
-                Point start = null, finish = null;
-                
-                for (NodeRectangle r : nodes)
-                {
-                    System.out.println("Current r: " + r.getNode().getID());
-                    if (r.getNode().getID().equals(l.getFrom()))
-                    {
-                        System.out.println("Start assigned!");
-                        start = new Point(r.getUpperLeft().x + controller.nodeDimensions.width/2, r.getUpperLeft().y + controller.nodeDimensions.height/2);
-                    }
-                    else if(r.getNode().getID().equals(l.getTo()))
-                    {
-                        System.out.println("Finish assigned!");
-                        finish = new Point(r.getUpperLeft().x + controller.nodeDimensions.width/2, r.getUpperLeft().y + controller.nodeDimensions.height/2);
-                    }
-                }
-                
-                if (start != null && finish != null)
-                {
-                    g.drawLine(start.x, start.y, finish.x, finish.y);
-                }
-                else
-                {
-                    System.out.println("Start and/or finish are null.");
-                }
-            }
-        }
-        else
-        {
-            System.out.println("'Links' is empty!");
-        }
-        
-        System.out.println("Lines have been drawn.");
-        */
-//</editor-fold>
-        
         if (!nodes.isEmpty())
         {
             // for each link in the project file
@@ -232,58 +169,18 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                 }
                 if (s != null && f != null)
                 {
-                    //<editor-fold defaultstate="collapsed" desc="Previous - Apr 6">
                     
-                    // connect centers
-                    // TODO - change to path/other thing that makes it easier to tell which node is going to which
-                //g.drawLine(s.x + controller.nodeDimensions.width/2, s.y + controller.nodeDimensions.height/2, f.x + controller.nodeDimensions.width/2, f.y + controller.nodeDimensions.height/2);
-                //g.drawLine(s.x + controller.nodeDimensions.width/2 + 10, s.y + controller.nodeDimensions.height/2 + 5, f.x+ controller.nodeDimensions.width/2, f.y + controller.nodeDimensions.height/2);
-                
-                // TODO - fillPoly triangle. Makes it easier to see which node is the "start" and which is the "end". 
+                // fillPoly triangle. Makes it easier to see which node is the "start" and which is the "end". 
                     Point startCenter, finishCenter;
                     startCenter = new Point(s.x + (ApplicationHandler.nodeDimensions.width/2), s.y + (ApplicationHandler.nodeDimensions.height/2));
                     finishCenter = new Point(f.x + (ApplicationHandler.nodeDimensions.width/2), f.y + (ApplicationHandler.nodeDimensions.height/2));
-                    //g.drawLine(startCenter.x, startCenter.y, finishCenter.x, finishCenter.y);
-                    
-                  /*  
-                    int[] xCoords = new int[] {s.x + (controller.nodeDimensions.width/2), f.x + (controller.nodeDimensions.width/2), s.x + (controller.nodeDimensions.width/2)};
-                    int[] yCoords = new int[] {s.y +(controller.nodeDimensions.height/4), f.y + (controller.nodeDimensions.height/2), s.y + (controller.nodeDimensions.height * (3/4))};
-                */
-                    /*
-                    // Connection from start to finish
-                    int[] xCoords = new int[] {startCenter.x, finishCenter.x, startCenter.x};
-                    int[] yCoords = new int[] {startCenter.y-15, finishCenter.y, startCenter.y+15};
-                    Polygon connection = new Polygon(xCoords, yCoords, 3);
 
-                    g.setColor(Color.RED);
-                    g.fillPolygon(connection);
-                    g.setColor(Color.WHITE);
-                    g.drawPolygon(connection);
-                    */
-//</editor-fold>
-                    
                     ConnectionTriangle t = new ConnectionTriangle(startCenter, finishCenter);
                     g.setColor(new Color(66, 135, 245, 150));
                     g.fillPolygon(t);
                 }
             }
         }                
-        //<editor-fold defaultstate="collapsed" desc="For Testing">
-        /*
-        // Draws lines between consecutive nodes. For testing.
-             if (!(nodes.isEmpty()))
-        {
-            for (int index = 0; index < nodes.size() -1; index++)
-            {
-                // draw lines from middle of nodes
-               ((Graphics2D)g).drawLine(nodes.get(index).x + controller.nodeDimensions.width/2, nodes.get(index).y + controller.nodeDimensions.height/2, nodes.get(index + 1).x 
-                       + controller.nodeDimensions.width/2, nodes.get(index + 1).y + controller.nodeDimensions.height/2);
-               
-               
-           }
-        }
-        */
-//</editor-fold>
     }
     
     
@@ -324,23 +221,14 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         
         repaint();
     }
-    
-    public void addNode(int x, int y, String title)
-    {
-        // for adding nodes with a title. see above
-        
-        controller.updateProject();
-    }
-    
-   
+       
     public void removeNode(int i)
     {
         // if i is within nodes's range
         if (!(i < 0 || i >= nodes.size()))
-        {
+        {            
             System.out.println("Removing rectangle at index  " + i + " with ID: " + nodes.get(i).getNode().getID());
                controller.deleteNode(nodes.get(i).getNode().getID());
-               //nodes.remove(i); // remove rectangle at index
                
                if (currentNode == i)
                {
@@ -351,11 +239,6 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         {
             return;
         }
-        
-        // get nodes from project
-        this.nodes = controller.getNodes();
-        //controller.updateProject();
-        System.out.println("");
         repaint();
     }
     
@@ -397,22 +280,5 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     {
         nodes = n;
     }
-    
-            /*
-    public static void main(String[] args)
-    {
-
-        JFrame frame = new JFrame();
-        frame.setSize(1000, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        frame.getContentPane().add(new DragAndDrop());
-        frame.setVisible(true);
-     
-        
-        
-    }
-       */
-    
 }

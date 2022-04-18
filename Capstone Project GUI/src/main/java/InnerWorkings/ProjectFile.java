@@ -6,7 +6,6 @@ package InnerWorkings;
 
 import DataItems.Node;
 import com.google.common.collect.Multiset;
-import java.awt.Point;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.ArrayList;

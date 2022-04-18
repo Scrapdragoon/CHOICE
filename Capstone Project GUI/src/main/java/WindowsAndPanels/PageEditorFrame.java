@@ -110,6 +110,9 @@ public class PageEditorFrame extends javax.swing.JFrame {
         String[] IDsArray = IDsArrayList.toArray(new String[0]);    // convert ArrayList to String[]
         
         pageEditorPanel.addChoices(n, IDsArray);
+        
+        this.revalidate();
+        this.repaint();
     }
     
        
@@ -123,7 +126,7 @@ public class PageEditorFrame extends javax.swing.JFrame {
                n.setImagePath(null);
                System.out.println("Image no longer exists at specified location. Setting this node's imagePath to null...");
            }
-           
+                      
            // if ID is not updated, then just save
            if (n.getID().equals(originalID))
            {

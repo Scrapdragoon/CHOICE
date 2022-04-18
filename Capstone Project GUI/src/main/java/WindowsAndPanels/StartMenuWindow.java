@@ -43,11 +43,6 @@ public class StartMenuWindow extends javax.swing.JFrame {
 
         openFileDialog.setDialogTitle("Open Project");
         openFileDialog.setFileFilter(new InnerWorkings.CHOICEFileFilter());
-        openFileDialog.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openFileDialogActionPerformed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CHOICE (Working title)");
@@ -194,12 +189,6 @@ public class StartMenuWindow extends javax.swing.JFrame {
         editorWindow.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_newProjectButtonActionPerformed
-
-    private void openFileDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileDialogActionPerformed
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_openFileDialogActionPerformed
 
     /**
      * @param args the command line arguments

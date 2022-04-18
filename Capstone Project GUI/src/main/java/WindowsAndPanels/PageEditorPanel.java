@@ -461,6 +461,12 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
             if (c instanceof LinkPanel)
             {
                 // get combo box selection, get associated text, put in multimap
+                
+                // add placeholder text if none entered
+                if (((LinkPanel) c).getChoiceTextField().getText().equals(""))
+                {
+                    ((LinkPanel) c).getChoiceTextField().setText("Link...");
+                }               
                 System.out.println("Link found. Adding hyperlink to node with ID: " + ((LinkPanel) c).getChoiceChooserBox().getSelectedItem().toString());
                 newNodeLinks.put(((LinkPanel) c).getChoiceChooserBox().getSelectedItem().toString(), ((LinkPanel) c).getChoiceTextField().getText());
             }

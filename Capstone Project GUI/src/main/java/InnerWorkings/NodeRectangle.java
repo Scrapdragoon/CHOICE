@@ -7,6 +7,7 @@ package InnerWorkings;
 import DataItems.Node;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -75,8 +76,8 @@ public class NodeRectangle extends Rectangle {
     
     public void paintComponent (Graphics2D g)
     {
-        //g.setPaint(new GradientPaint(this.x, this.y, Color.WHITE, this.x + height, this.y + height, Color.DARK_GRAY));
-        g.setColor(Color.WHITE);
+        g.setPaint(new GradientPaint(this.x+ width/2, this.y, Color.WHITE, this.x + width + 15, this.y + height, Color.LIGHT_GRAY));
+        //g.setColor(Color.WHITE);
         g.fillRect(this.x, this.y, this.width, this.height);
         g.setColor(Color.BLACK);
         g.drawRect(this.x, this.y, this.width, this.height);
