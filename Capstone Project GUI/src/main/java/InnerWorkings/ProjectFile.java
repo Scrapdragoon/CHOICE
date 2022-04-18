@@ -40,7 +40,8 @@ public class ProjectFile implements Serializable {
         
         visualLinks = new ArrayList<>();
         
-        // TODO -  for testing
+        //  for testing
+        /*
         Node n = new Node("Title", "Content", "from");
         n.addLink("to", "Click here!");
         n.setImagePath("C:/Users/rolep/Desktop/BEST FRIENDS AA.png");
@@ -59,6 +60,7 @@ public class ProjectFile implements Serializable {
         //nodes.add(to2);
         
         updateLinks();
+        */
     }
     
     public void updateLinks()

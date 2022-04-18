@@ -4,8 +4,10 @@
  */
 package WindowsAndPanels;
 
+import InnerWorkings.ApplicationHandler;
 import javax.swing.JOptionPane;
-import InnerWorkings.MyFileFilter;
+import InnerWorkings.CHOICEFileFilter;
+import InnerWorkings.ProjectFile;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
@@ -44,8 +46,6 @@ public class EditorWindow extends javax.swing.JFrame {
         exportWindow = new WindowsAndPanels.ExportWindow();
         buttonMenuPanel = new javax.swing.JPanel();
         createNodeButton = new javax.swing.JButton();
-        loadTestButton = new javax.swing.JButton();
-        saveTestButton = new javax.swing.JButton();
         dragAndDropPanel = new WindowsAndPanels.DragAndDrop();
         editorMenu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
@@ -62,7 +62,7 @@ public class EditorWindow extends javax.swing.JFrame {
         viewMenuReturnToStart = new javax.swing.JMenuItem();
 
         openFileDialog.setDialogTitle("Open Project");
-        openFileDialog.setFileFilter(new MyFileFilter());
+        openFileDialog.setFileFilter(new InnerWorkings.CHOICEFileFilter());
         openFileDialog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openFileDialogActionPerformed(evt);
@@ -72,7 +72,7 @@ public class EditorWindow extends javax.swing.JFrame {
         saveFileDialog.setAcceptAllFileFilterUsed(false);
         saveFileDialog.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         saveFileDialog.setDialogTitle("Save Project");
-        saveFileDialog.setFileFilter(new MyFileFilter());
+        saveFileDialog.setFileFilter(new InnerWorkings.CHOICEFileFilter());
         saveFileDialog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveFileDialogActionPerformed(evt);
@@ -106,17 +106,6 @@ public class EditorWindow extends javax.swing.JFrame {
             }
         });
 
-        loadTestButton.setText("Load");
-        loadTestButton.setFocusable(false);
-
-        saveTestButton.setText("Save As...");
-        saveTestButton.setFocusable(false);
-        saveTestButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveTestButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout buttonMenuPanelLayout = new javax.swing.GroupLayout(buttonMenuPanel);
         buttonMenuPanel.setLayout(buttonMenuPanelLayout);
         buttonMenuPanelLayout.setHorizontalGroup(
@@ -124,20 +113,13 @@ public class EditorWindow extends javax.swing.JFrame {
             .addGroup(buttonMenuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(createNodeButton)
-                .addGap(18, 18, 18)
-                .addComponent(loadTestButton)
-                .addGap(18, 18, 18)
-                .addComponent(saveTestButton)
-                .addContainerGap(762, Short.MAX_VALUE))
+                .addContainerGap(949, Short.MAX_VALUE))
         );
         buttonMenuPanelLayout.setVerticalGroup(
             buttonMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonMenuPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(buttonMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(createNodeButton)
-                    .addComponent(loadTestButton)
-                    .addComponent(saveTestButton))
+                .addComponent(createNodeButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -269,6 +251,8 @@ public class EditorWindow extends javax.swing.JFrame {
 
     private void newMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newMenuItemActionPerformed
         System.out.println("File menu: New button pressed.");
+        appHandler.setProjectFile(new ProjectFile());
+        this.repaint();
         // JOptionPane.showMessageDialog(editorPanel, "You pressed the New menu option!");
     }//GEN-LAST:event_newMenuItemActionPerformed
 
@@ -289,7 +273,6 @@ public class EditorWindow extends javax.swing.JFrame {
             else {
                 System.out.println("Load not approved...");
             }
-
         }
         catch (java.awt.HeadlessException e1) {
             e1.printStackTrace();
@@ -372,14 +355,6 @@ public class EditorWindow extends javax.swing.JFrame {
         this.repaint();
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
-    private void saveTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTestButtonActionPerformed
-        try {
-            saveFileDialog.showSaveDialog(this);
-        } catch (java.awt.HeadlessException e1) {
-            e1.printStackTrace();
-        }
-    }//GEN-LAST:event_saveTestButtonActionPerformed
-
     private void dragAndDropPanelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dragAndDropPanelKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_dragAndDropPanelKeyTyped
@@ -414,6 +389,22 @@ public class EditorWindow extends javax.swing.JFrame {
         exportWindow.setVisible(true);
         //exp.export(appHandler.getProjectFile());
     }//GEN-LAST:event_exportGameMenuItemActionPerformed
+
+    public ApplicationHandler getAppHandler() {
+        return appHandler;
+    }
+
+    public void setAppHandler(ApplicationHandler appHandler) {
+        this.appHandler = appHandler;
+    }
+
+    public DragAndDrop getDragAndDropPanel() {
+        return dragAndDropPanel;
+    }
+
+    public void setDragAndDropPanel(DragAndDrop dragAndDropPanel) {
+        this.dragAndDropPanel = dragAndDropPanel;
+    }
 
     /**
      * @param args the command line arguments
@@ -462,7 +453,6 @@ public class EditorWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuItem exportGameMenuItem;
     private WindowsAndPanels.ExportWindow exportWindow;
-    private javax.swing.JButton loadTestButton;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuView;
@@ -472,7 +462,6 @@ public class EditorWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem projectSettingsMenuItem;
     private javax.swing.JFileChooser saveFileDialog;
     private javax.swing.JMenuItem saveMenuItem;
-    private javax.swing.JButton saveTestButton;
     private javax.swing.JMenuItem viewMenuReturnToStart;
     // End of variables declaration//GEN-END:variables
 }

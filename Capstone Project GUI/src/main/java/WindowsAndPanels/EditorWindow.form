@@ -6,7 +6,7 @@
       <Properties>
         <Property name="dialogTitle" type="java.lang.String" value="Open Project"/>
         <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new MyFileFilter()" type="code"/>
+          <Connection code="new InnerWorkings.CHOICEFileFilter()" type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -22,7 +22,7 @@
         <Property name="dialogType" type="int" value="1"/>
         <Property name="dialogTitle" type="java.lang.String" value="Save Project"/>
         <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new MyFileFilter()" type="code"/>
+          <Connection code="new InnerWorkings.CHOICEFileFilter()" type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -206,11 +206,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="createNodeButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="loadTestButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="saveTestButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="762" max="32767" attributes="0"/>
+                  <EmptySpace pref="949" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -218,11 +214,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="createNodeButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="loadTestButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="saveTestButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="createNodeButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -237,21 +229,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createNodeButtonActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="loadTestButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Load"/>
-            <Property name="focusable" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="saveTestButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Save As..."/>
-            <Property name="focusable" type="boolean" value="false"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveTestButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

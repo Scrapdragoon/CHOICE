@@ -119,7 +119,7 @@ public class CreatePageFrame extends javax.swing.JFrame {
             controller.createNewPage(this.titleField.getText());
         }
         
-        controller.enableFrame(true);
+        controller.enableFrame(false);
         this.dispose();
     }//GEN-LAST:event_createPageButtonActionPerformed
 

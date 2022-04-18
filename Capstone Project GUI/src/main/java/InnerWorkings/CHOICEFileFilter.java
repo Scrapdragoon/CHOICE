@@ -11,7 +11,7 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author Victor Malone (vm19171)
  */
-public class MyFileFilter extends FileFilter {
+public class CHOICEFileFilter extends FileFilter {
 
     private final String extension = ".choice";
     

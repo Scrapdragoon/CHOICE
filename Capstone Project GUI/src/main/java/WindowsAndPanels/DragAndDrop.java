@@ -149,7 +149,15 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             {
                 n.paintComponent((Graphics2D)g);
                 g.setColor(Color.BLACK);
-                ((Graphics2D)g).drawString(n.getNode().getTitle(), n.x, n.y);
+                
+                // if title is long, abbreviate
+                String title = n.getNode().getTitle();
+                if (title.length() > 10)
+                {
+                    title = title.substring(0, 10);
+                    title += "...";
+                }
+                ((Graphics2D)g).drawString(title, n.x, n.y - 3);
             }
         }
         this.repaint();

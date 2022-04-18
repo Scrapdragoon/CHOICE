@@ -54,8 +54,8 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         pageEditorData = new InnerWorkings.PageEditorData();
         imageChooser = new javax.swing.JFileChooser(System.getProperty("user.dir"));
         nodeTitlePanel = new javax.swing.JPanel();
-        pageEditorLabel = new java.awt.Label();
         titleField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         paragraphPanel = new javax.swing.JPanel();
         paragraphTextLabel = new javax.swing.JLabel();
         paragraphScrollPane = new javax.swing.JScrollPane();
@@ -83,20 +83,20 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         imageChooser.setFileFilter(new ImageFileFilter());
 
         setBackground(new java.awt.Color(255, 153, 153));
+        setFont(new java.awt.Font("DFPOP1-W9", 0, 12)); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
         nodeTitlePanel.setForeground(new java.awt.Color(0, 0, 0));
         nodeTitlePanel.setFont(new java.awt.Font("DFPOP1-W9", 0, 12)); // NOI18N
 
-        pageEditorLabel.setAlignment(java.awt.Label.CENTER);
-        pageEditorLabel.setFont(new java.awt.Font("DFPOP1-W9", 0, 36)); // NOI18N
-        pageEditorLabel.setForeground(new java.awt.Color(187, 187, 187));
-        pageEditorLabel.setText("Page Editor");
-
         titleField.setFont(new java.awt.Font("DFPOP1-W9", 0, 18)); // NOI18N
         titleField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         titleField.setText("Page Title");
         titleField.setPreferredSize(new java.awt.Dimension(97, 26));
+
+        jLabel1.setFont(new java.awt.Font("DFPOP1-W9", 0, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Page Editor");
 
         javax.swing.GroupLayout nodeTitlePanelLayout = new javax.swing.GroupLayout(nodeTitlePanel);
         nodeTitlePanel.setLayout(nodeTitlePanelLayout);
@@ -106,14 +106,14 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
                 .addGap(123, 123, 123)
                 .addComponent(titleField, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addGap(123, 123, 123))
-            .addComponent(pageEditorLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         nodeTitlePanelLayout.setVerticalGroup(
             nodeTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nodeTitlePanelLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(pageEditorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
@@ -156,7 +156,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
                 .addGap(11, 11, 11)
                 .addComponent(paragraphTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(paragraphScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                .addComponent(paragraphScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
                 .addGap(14, 14, 14))
         );
 
@@ -687,11 +687,11 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
     private javax.swing.JLabel imageNameLabel;
     private javax.swing.JPanel imagePanel;
     private javax.swing.JButton importImageButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel nodeIDPanel;
     private javax.swing.JPanel nodeTitlePanel;
     private InnerWorkings.PageEditorData pageEditorData;
-    private java.awt.Label pageEditorLabel;
     private javax.swing.JTextArea paragraphField;
     private javax.swing.JPanel paragraphPanel;
     private javax.swing.JScrollPane paragraphScrollPane;

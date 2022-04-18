@@ -5,6 +5,10 @@
 package WindowsAndPanels;
 
 import WindowsAndPanels.EditorWindow;
+import com.formdev.flatlaf.FlatDarkLaf;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -29,7 +33,7 @@ public class StartMenuWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        openProjectChooser = new javax.swing.JFileChooser();
+        openFileDialog = new javax.swing.JFileChooser(System.getProperty("user.dir"));
         welcomeLabel = new javax.swing.JLabel();
         buttonPanel = new javax.swing.JPanel();
         newProjectButton = new javax.swing.JButton();
@@ -37,9 +41,11 @@ public class StartMenuWindow extends javax.swing.JFrame {
         settingsButton = new javax.swing.JButton();
         creditsButton = new javax.swing.JButton();
 
-        openProjectChooser.addActionListener(new java.awt.event.ActionListener() {
+        openFileDialog.setDialogTitle("Open Project");
+        openFileDialog.setFileFilter(new InnerWorkings.CHOICEFileFilter());
+        openFileDialog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openProjectChooserActionPerformed(evt);
+                openFileDialogActionPerformed(evt);
             }
         });
 
@@ -47,6 +53,7 @@ public class StartMenuWindow extends javax.swing.JFrame {
         setTitle("CHOICE (Working title)");
         setBackground(new java.awt.Color(61, 70, 77));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
+        setFont(new java.awt.Font("DFPOP1-W9", 0, 10)); // NOI18N
         setMinimumSize(new java.awt.Dimension(770, 540));
         setResizable(false);
         setSize(new java.awt.Dimension(770, 540));
@@ -139,19 +146,43 @@ public class StartMenuWindow extends javax.swing.JFrame {
 
     private void creditsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditsButtonActionPerformed
         System.out.println("4th button pressed.");
-        JOptionPane.showMessageDialog(buttonPanel, "You pressed the 4th button! I haven't decided what this one's going to do yet.");
+        JOptionPane.showMessageDialog(buttonPanel, "Here's where the credits will go!");
     }//GEN-LAST:event_creditsButtonActionPerformed
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
         System.out.println("Settings button pressed.");
-        JOptionPane.showMessageDialog(buttonPanel, "You pressed the Settings button!");
+        JOptionPane.showMessageDialog(buttonPanel, "You pressed the Settings button! Unfortunately, this feature has not yet been implemented. Please look forward to the 2.0 release!");
     }//GEN-LAST:event_settingsButtonActionPerformed
 
     private void openProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectButtonActionPerformed
         try {
-            openProjectChooser.showOpenDialog(this);
-        } catch (java.awt.HeadlessException e1) {
+            int returnValue = openFileDialog.showOpenDialog(this);
+            System.out.println(""); // for clarity
+
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                System.out.println("Load approved!");
+                
+                EditorWindow editorWindow = new EditorWindow();
+                editorWindow.getAppHandler().loadProject(openFileDialog.getSelectedFile());
+                editorWindow.setTitle(editorWindow.getAppHandler().getProjectFile().getProjectTitle());
+                editorWindow.getDragAndDropPanel().setNodes(editorWindow.getAppHandler().getNodes());
+                editorWindow.getDragAndDropPanel().repaint();
+                editorWindow.setVisible(true);
+                
+                // dispose of start window
+                this.dispose();
+            }
+            else {
+                System.out.println("Load not approved...");
+            }
+
+        }
+        catch (java.awt.HeadlessException e1) {
             e1.printStackTrace();
+        }
+        catch (IOException | ClassNotFoundException ex) {
+            System.out.println("There was a problem loading the file.");
+            Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_openProjectButtonActionPerformed
 
@@ -159,28 +190,46 @@ public class StartMenuWindow extends javax.swing.JFrame {
         System.out.println("New Project button pressed.");
         // JOptionPane.showMessageDialog(buttonPanel, "You pressed the New Project button!");
 
-        new EditorWindow().setVisible(true);
+        EditorWindow editorWindow = new EditorWindow();
+        editorWindow.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_newProjectButtonActionPerformed
 
-    private void openProjectChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectChooserActionPerformed
+    private void openFileDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileDialogActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_openProjectChooserActionPerformed
+        
+        
+    }//GEN-LAST:event_openFileDialogActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /* Set theFlatLaf Dark look and feel. Then, try Nimbus if not found. If not, then just stick with default. */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+            boolean darkFound = false;
+            
+            try {
+                        UIManager.setLookAndFeel( new FlatDarkLaf() );
+                        darkFound = true;
+                        
+                    } catch( Exception ex ) {
+                        darkFound = false;
+                        System.err.println( "Failed to initialize FlatLaF." );
+                    }
+            
+            if (darkFound != true)
+            {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        System.out.println("Nimbus set as LaF.");
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -207,8 +256,8 @@ public class StartMenuWindow extends javax.swing.JFrame {
     javax.swing.JPanel buttonPanel;
     javax.swing.JButton creditsButton;
     javax.swing.JButton newProjectButton;
+    javax.swing.JFileChooser openFileDialog;
     javax.swing.JButton openProjectButton;
-    javax.swing.JFileChooser openProjectChooser;
     javax.swing.JButton settingsButton;
     javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
