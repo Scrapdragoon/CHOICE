@@ -1,9 +1,23 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Copyright 2022 Victor Malone (vm19171).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 package InnerWorkings;
 
+import DataItems.ProjectFile;
+import DataItems.NodeRectangle;
 import DataItems.Node;
 import com.google.common.base.CharMatcher;
 import static j2html.TagCreator.*;
@@ -37,6 +51,8 @@ public class ExportGame {
     String outputFolder = "!ERROR - NO OUTPUT FOLDER SET!";
     Path pathToUserResources = null;
     
+    public boolean copyBGImage = true;
+    
             
         
     // IF YOU CHANGE THE NAMES OF THESE, YOU'LL HAVE TO CHANGE THE NAMES IN THE CSS AS WELL.
@@ -48,10 +64,12 @@ public class ExportGame {
     static String imgSrc = "../resources/UofE.jpg";    
         
     
-    
+    /**
+     * For instantiation via NetBeans' GUI Builder
+     */
     public ExportGame()
     {
-        //e. for instantiation via netbeans' gui builder
+        
     }
     
     public ExportGame(ProjectFile project)
@@ -108,26 +126,26 @@ public class ExportGame {
                     }
 
                     // try to copy other required files as well
-                    try {
-                            System.out.println("Attempting to copy " + backgroundImageName + "...");
-                            // get path of master BG, user BG, copy
-                            Path masterBGImagePath = Path.of(new File("master_resources/" + backgroundImageName).getAbsolutePath());
-                            Path userBGPath = Path.of(pathToUserResources.toString() + "/" + backgroundImageName);
-                            Files.copy(masterBGImagePath, userBGPath, StandardCopyOption.REPLACE_EXISTING);
-                            
-                    }
-                        catch (IOException ex) {
-                            System.out.println("There was an issue with copying the BG image to the user's resource folder.");
-                            Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
+                    if(copyBGImage == true)
+                    {
+                        try {
+                                System.out.println("Attempting to copy " + backgroundImageName + "...");
+                                // get path of master BG, user BG, copy
+                                Path masterBGImagePath = Path.of(new File("master_resources/" + backgroundImageName).getAbsolutePath());
+                                Path userBGPath = Path.of(pathToUserResources.toString() + "/" + backgroundImageName);
+                                Files.copy(masterBGImagePath, userBGPath, StandardCopyOption.REPLACE_EXISTING);
+
                         }
+                            catch (IOException ex) {
+                                System.out.println("There was an issue with copying the BG image to the user's resource folder.");
+                                Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                    }
                 }
         else
         {
             System.out.println("Master stylesheet not found at: " + masterStylesheetFile.getAbsolutePath());
-        }
-        
-        //Add code to copy bg image files and whatnot here.
-        
+        }        
                
         // for each node, process the page and write to a file.
         for (NodeRectangle n : project.getNodes())
@@ -320,18 +338,21 @@ public class ExportGame {
     }
     
     
-    public void setTheme(String theme) {
+   public void setTheme(String theme) {
         if (theme.equalsIgnoreCase("book"))
         {
            cssName =  "StandardPageStylesheet.css";
+           copyBGImage = true;
         }
         else if (theme.equalsIgnoreCase("dark"))
         {
             cssName = "DarkPageStylesheet.css";
+            copyBGImage = false;
         }
         else
         {
             System.out.println("Something went wrong. The theme will be \"book\".");
+            copyBGImage = true;
         }
     }
     

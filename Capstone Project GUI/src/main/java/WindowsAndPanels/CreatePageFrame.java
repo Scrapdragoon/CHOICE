@@ -1,7 +1,19 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Copyright 2022 Victor Malone (vm19171).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 package WindowsAndPanels;
 
 import InnerWorkings.ApplicationHandler;
@@ -37,6 +49,11 @@ public class CreatePageFrame extends javax.swing.JFrame {
         setTitle("New Page");
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         mainPanel.setLayout(new java.awt.GridBagLayout());
 
@@ -122,6 +139,10 @@ public class CreatePageFrame extends javax.swing.JFrame {
         controller.enableFrame(false);
         this.dispose();
     }//GEN-LAST:event_createPageButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        controller.enableFrame(true);
+    }//GEN-LAST:event_formWindowClosing
 
     public void setApplicationHandler(ApplicationHandler a)
     {

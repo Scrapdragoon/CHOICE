@@ -1,48 +1,58 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Copyright 2022 Victor Malone (vm19171).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package InnerWorkings;
 
-import DataItems.Node;
+package DataItems;
+
 import WindowsAndPanels.LinkPanel;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
- *
+ * This class is meant to hold the data from the page editor popup in a central location for easy access. <p>
+ * The data will remain here until the user has selected 'OK', at which point the main project file will be updated. <p>
+ * If 'Cancel' is chosen, the main project file will not be updated.
+ * 
  * @author Victor Malone (vm19171)
  * 
- * This class is meant to hold the data from the page editor popup in a central location for easy access. 
- * The data will remain here until the user has selected 'OK', at which point the main project file will be updated.
- * If 'Cancel' is chosen, the main project file will not be updated.
  */
 public class PageEditorData implements Serializable {
     
-    
+    /**
+     * Fields for the title, ID, and paragraph of the node.
+     */
     private String title, ID, paragraph;
     
     // NOTE: if ID is edited, the rest of the project file will need to be updated in order to avoid dead links.
     // Only do this if data is successfully integrated into main program (i.e., the user chooses "OK").
-    
-    
-    // List of other nodes that can be connected to from this node Should be just about any node in the project file.
-    // Links from a node to itself are allowed.
+
+    /**
+     * List of other nodes that can be connected to from this node Should be just about any node in the project file. <p>
+     * Links from a node to itself are allowed.
+     */
     private ArrayList<NodeRectangle> otherNodes = new ArrayList<>(); 
     
-    
-    // Map of the user's created links.
-    // Key is the page's ID/URL, and value is the hyperlink text that will be displayed on the page. Change this if you need to.
-    // use this to create a combo box model??
-   // private Map<String, String> links = new TreeMap()
-    
-    // and a record of the panels added, so the last one can be removed when you hit the '-' button.
+    /**
+     * Record of the panels added, so the last one may be removed with the user presses the '-' button in the editor.
+     */
     public ArrayList<LinkPanel> linkPanels = new ArrayList<>();
 
     
-    // no-arg constructor
+/**
+ * No-arg constructor.
+ */
     public PageEditorData()
     {
         title = "Page Title";
@@ -50,33 +60,25 @@ public class PageEditorData implements Serializable {
        paragraph = "Write your story here...";
     }
     
-    // Constructor.
+/**
+ * Constructor that sets the title, ID, and paragraph of the node.
+ * 
+ * @param title title of the node
+ * @param ID ID of the node
+ * @param paragraph main body of the node
+ */
     public PageEditorData(String title, String ID, String paragraph) {
         this.title = title;
         this.ID = ID;
         this.paragraph = paragraph;
     }
-
     
     
-    public Node save()
-    {
-        // TODO 
-        Node n = new Node();
-        // a method to "export" the data to the main program? This is only used when the user hits "OK". Else, just discard the data.
-        
-        // create node from data and return.
-        return n;
-    }
-    
-    public void addLinkPanel()
-    {
-        // TODO - nothing yet!
-    }
-    
-    
-    
-    // used to remove link panels from the editor. 
+    /**
+     * Used to remove LinkPanels from the editor.
+     * 
+     * @return LinkPanel that was removed
+     */
     public LinkPanel removeLinkPanel()
     {
         if (!linkPanels.isEmpty())
@@ -94,9 +96,7 @@ public class PageEditorData implements Serializable {
             return null;
         }       
     }
-    
 
-    
  // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public String getTitle() {
         return title;
@@ -129,15 +129,7 @@ public class PageEditorData implements Serializable {
     public void setOtherNodes(ArrayList<NodeRectangle> otherNodes) {
         this.otherNodes = otherNodes;
     }
-/*
-    public Map<String, String> getLinks() {
-        return links;
-    }
 
-    public void setLinks(Map<String, String> links) {
-        this.links = links;
-    }
-*/
     public ArrayList<LinkPanel> getLinkPanels() {
         return linkPanels;
     }
@@ -146,13 +138,6 @@ public class PageEditorData implements Serializable {
         this.linkPanels = linkPanels;
     }
     
-    
    // </editor-fold> 
-    
-    // for testing purposes
-   public static void main(String[] args)
-   {
-       
-   }
     
 }

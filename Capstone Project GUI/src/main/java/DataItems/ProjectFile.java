@@ -1,45 +1,67 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Copyright 2022 Victor Malone (vm19171).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-package InnerWorkings;
 
-import DataItems.Node;
+package DataItems;
+
 import com.google.common.collect.Multiset;
 import java.io.Serializable;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 /**
- *
+ * This is intended to hold all of the data used in a project. User-input data, settings, all of that. <p>
+ * The Model in the MVC pattern.
+ * 
  * @author Victor Malone (vm19171)
- * 
- * 
- * This file is intended to hold all of the data used in a project. User-input data, settings, all of that.
- * This is essentially the Model in the MVC pattern.
+ * @serial
  */
 public class ProjectFile implements Serializable {
     
-    String projectTitle = "New Project Title";     // project's title  
-    String authorName;      // author's name
+    /**
+     * Title of the project.
+     */
+    String projectTitle = "New Project Title";
     
-    Path filePath;                // path to access file
-    Path outputPath;          // path to output exported game (do you even need to store this separately?)    
+    /**
+     * Author of the project.
+     */
+    String authorName;
+        
+    /**
+     * The main meat of the tool. An ArrayList of all of the nodes/pages in the current file.
+     */
+    ArrayList<NodeRectangle> nodes; 
     
-    ArrayList<NodeRectangle> nodes; // ArrayList of story nodes/pages
-    ArrayList<Link> visualLinks;    // ArrayList of links between pages. This is just for the View to use.
+    /**
+     * An ArrayList of links between the nodes in the file. This is mainly for the View to use.
+     */
+    ArrayList<Link> visualLinks;    
 
     
-    
+    /**
+     * No-arg constructor, used for initializing new projects.
+     */
     public ProjectFile()
     {
         projectTitle = "New Project Title";
         authorName = "Author";
-        nodes = new ArrayList<>();  // should I start with one node placed?
+        nodes = new ArrayList<>(); 
         
         visualLinks = new ArrayList<>();
         
-        //  for testing
+        //<editor-fold defaultstate="collapsed" desc="For Testing">
         /*
         Node n = new Node("Title", "Content", "from");
         n.addLink("to", "Click here!");
@@ -60,8 +82,12 @@ public class ProjectFile implements Serializable {
         
         updateLinks();
         */
+        //</editor-fold>
     }
     
+    /**
+     * Updates the visualLinks variable.
+     */
     public void updateLinks()
     {
         // clear links
@@ -97,6 +123,15 @@ public class ProjectFile implements Serializable {
         }
     }
     
+    /**
+     * Deletes a node, given its position in the nodes ArrayList. 
+     * 
+     * @param i index of the node to delete
+     */
+    public void deleteNode(int i)
+    {
+        nodes.remove(i);
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Old updateLinks()">
     
@@ -149,6 +184,8 @@ public class ProjectFile implements Serializable {
 */
     //</editor-fold>
 
+    // Getters and Setters
+    
     public String getProjectTitle() {
         return projectTitle;
     }
@@ -165,28 +202,12 @@ public class ProjectFile implements Serializable {
         this.authorName = authorName;
     }
 
-    public Path getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(Path filePath) {
-        this.filePath = filePath;
-    }
-
-    public Path getOutputPath() {
-        return outputPath;
-    }
-
-    public void setOutputPath(Path outputPath) {
-        this.outputPath = outputPath;
-    }
-
     public ArrayList<NodeRectangle> getNodes() {
         return nodes;
     }
 
     public void setNodes(ArrayList<NodeRectangle> nodes) {
-        this.nodes = nodes; // make a deep copy of the new arraylist instead?
+        this.nodes = nodes;
     }
     
     // returns the Node at index i.
@@ -199,11 +220,6 @@ public class ProjectFile implements Serializable {
     public void setNode(int i, Node n)
     {
         nodes.get(i).setNode(n);
-    }
-    
-    public void deleteNode(int i)
-    {
-        nodes.remove(i);
     }
 
     public ArrayList<Link> getVisualLinks() {

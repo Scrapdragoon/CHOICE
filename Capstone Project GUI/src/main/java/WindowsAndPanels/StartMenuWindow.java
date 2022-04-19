@@ -1,12 +1,28 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Copyright 2022 Victor Malone (vm19171).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 package WindowsAndPanels;
 
-import WindowsAndPanels.EditorWindow;
 import com.formdev.flatlaf.FlatDarkLaf;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -45,7 +61,7 @@ public class StartMenuWindow extends javax.swing.JFrame {
         openFileDialog.setFileFilter(new InnerWorkings.CHOICEFileFilter());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("CHOICE (Working title)");
+        setTitle("The Condensed Hypertext Orgnization Interface for the Creation of Experiences)");
         setBackground(new java.awt.Color(61, 70, 77));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setFont(new java.awt.Font("DFPOP1-W9", 0, 10)); // NOI18N
@@ -233,6 +249,22 @@ public class StartMenuWindow extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        // attempt to load custom font
+        URL fontURL;
+        try {
+            File fontFile = new File("master_resources\\DFPop91.ttf");
+            Font dfpopFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+
+            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            env.registerFont(dfpopFont);
+        }
+        catch (IOException ex) {
+            Logger.getLogger(StartMenuWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (FontFormatException ex) {
+            Logger.getLogger(StartMenuWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

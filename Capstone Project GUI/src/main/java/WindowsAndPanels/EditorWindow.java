@@ -1,13 +1,25 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Copyright 2022 Victor Malone (vm19171).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 package WindowsAndPanels;
 
 import InnerWorkings.ApplicationHandler;
 import javax.swing.JOptionPane;
 import InnerWorkings.CHOICEFileFilter;
-import InnerWorkings.ProjectFile;
+import DataItems.ProjectFile;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
@@ -367,8 +379,8 @@ public class EditorWindow extends javax.swing.JFrame {
                  + "To create a link from one page to another, click the \"+\" button, and <strong>choose the destination page's ID</strong> from the drop-down box. <br>"
                  + "To the right of your choice, write the text that goes along with it. \"Turn left\" or \"Enter the strange door\", for example. (A page may link back to itself.)<br>"
                  + "To remove a link, click the \"-\" button. This will remove the link closest to the bottom of the page.<br>"
-                 + "After you're all done, click the OK button to save your changes! <br><br>"
-                 + ""
+                 + "After you're all done, click the OK button to save your changes! <br>"
+                 + "Also, right-click on a page to delete it.<br><br>"
                  + "Once you're done writing all the pages of your story, go to the File menu at the top left, and click <strong>\"Export Game\"</strong>. <br>"
                  + "Play with the settings, choose a location to save in, and then <strong>Make your CHOICE</strong>!"
                  + "</font></html>");

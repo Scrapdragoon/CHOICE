@@ -1,9 +1,23 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Copyright 2022 Victor Malone (vm19171).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 package InnerWorkings;
 
+import DataItems.ProjectFile;
+import DataItems.NodeRectangle;
 import WindowsAndPanels.DragAndDrop;
 import DataItems.Node;
 import WindowsAndPanels.CreatePageFrame;
@@ -26,77 +40,91 @@ import javax.swing.filechooser.FileSystemView;
 
 
 /**
- *
+ * This class stores and enacts the main methods the application uses. <p>
+ * This includes saving, loading, modifying the ProjectFile, etc. <p>
+ * This is the Controller in the MVC pattern.
+ * 
  * @author Victor Malone (vm19171)
  * 
- * This class is meant to be used to handle the methods the application will use. 
- * This includes saving, loading, modifying the ProjectFile, etc.
- * 
- * This is the Controller in the MVC pattern.
  */
 
 
 public class ApplicationHandler {
     
-    // Project file containing all project-specific data. Model.
+    /**
+     * Project file containing all project-specific data. The Model in the MVC pattern..
+     */
     private ProjectFile project;
     
-    // DragAndDrop panel. View.
+    /**
+     * DragAndDrop panel that displays the node data from the project variable. The View in the MVC pattern.
+     */
     private DragAndDrop view;
+    
+    /**
+     * Frame that contains this object.
+     */
     public JFrame frame;
     
-    // Page editor.
+    /**
+     * Page editor frame to pass node data to when editing.
+     */
      PageEditorFrame pageEditorFrame = new PageEditorFrame();
+     
+     /**
+      * Create page frame to receive data from, used to create new nodes.
+      */
      CreatePageFrame createPageFrame = new CreatePageFrame();
    
-    // dimension for NodeRectangles
+    /**
+     * Dimensions for NodeRectangles.
+     */
     public static Dimension nodeDimensions = new Dimension(75, 100);
     
-    // custom file extension
+    /**
+     * File extension for CHOICE projects.
+     */
     public final String extension = ".choice";
     
+    /**
+     * Value that determines whether the JFrame is enabled or not.
+     */
     public boolean enabled = true;
     
     //------------------------------------------------
 
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
-
-    public ApplicationHandler(ProjectFile p, DragAndDrop d)
-    {
-        project = p;
-        view = d;
-        // view.setNodes(project.getNodes());
-       //frame = (JFrame)SwingUtilities.getWindowAncestor(view);
-    }
-
+    /**
+     * No-argument constructor for NetBeans' GUI Builder. Creates a new ProjectFile.
+     */
     public ApplicationHandler() {
-        // no-argument
-        // for testing
-        System.out.println("AppHan no arg");
-        project = new ProjectFile();
-        //view = new DragAndDrop();
-
-        // updateView();
-        // view.revalidate();
-        //view.repaint();
-        
+        project = new ProjectFile();        
     }
     
     //</editor-fold> 
     
     //------------------------------------------------
 
-    //<editor-fold defaultstate="collapsed" desc="Loading, Saving, Exporting, etc.">
+    //<editor-fold defaultstate="collapsed" desc="Creation, Loading, Saving, etc.">
     // Operations that affect the project as a whole.
     
+    /**
+     * Replaces project with a new ProjectFile.
+     */
     public void createProject()
     {
-        // create new project (at directory?)
-        project = new ProjectFile();
-               
+        project = new ProjectFile();    
     }
     
+    /**
+     * Loads file passed to it, and assigns the results to its ProjectFile. Verification of file is performed before this step.
+     * 
+     * @param f The file to be loaded.
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
     public void loadProject(File f) throws FileNotFoundException, IOException, ClassNotFoundException
     {
         // load project data from a file and assign to project.
@@ -107,18 +135,22 @@ public class ApplicationHandler {
 
         // read from file
         project = (ProjectFile) objectInStream.readObject();
-        //System.out.println("Data loaded? Project name: " + project.getProjectTitle());
         
         // close streams
         fileInStream.close();
         objectInStream.close();                   
     }
     
+    /**
+     * Writes the ProjectFile object to a file.
+     * 
+     * @param f The file to save.
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public void saveProject(File f) throws FileNotFoundException, IOException
     {
-        // save project's data to a file.
-        // if file.exists(), ask to overwrite- or perhaps handle that in the JFileChooser itself. See here: https://stackoverflow.com/questions/3651494/jfilechooser-with-confirmation-dialog
-              
+        // save project's data to a file.  
         // main code already checks for extension.
         
         // create streams
@@ -133,56 +165,40 @@ public class ApplicationHandler {
         objectOutStream.close();
     }
     
-    
-   
+   /**
+    * Syncs the ProjectFile's nodes with those of DragAndDrop.
+    */
     public void updateProject()
     {
-        // to sync the ProjectFile's node data with DragAndDrop's.
         project.setNodes(view.getNodes());
-        
-        // is this more of a "link"? Does it only need to be done once?
     }
-    
-    /*
-    // to sync DragAndDrop's data with ProjectFile's.
-    public void updateView()
-    {
-        //System.out.println("Updating view...");
-        view.clearNodes();
-        
-        for (NodeRectangle r : project.getNodes())
-        {
-            System.out.println("Adding project nodes to view...");
-            view.addNode(r);
-        }
-    }
-*/
-    
-    
-    public void export()
-    {
-        // export project so it can be made into HTML pages.
-    }
-    
+           
     //</editor-fold>
+    
     
    // ------------------------------------------------
     
     
-    // returns a list of all IDs in the project
-    public ArrayList<String> getAllIDs()
+    //<editor-fold defaultstate="collapsed" desc="Node-Specific">  
+    
+    /**
+     * Creates a new node, and opens the page editor. <p>
+     * The node's ID is created here, based off of the title.
+     * 
+     * @param title title of node
+     */
+    public void createNewPage(String title)
     {
-        ArrayList<String> IDsArrayList = new ArrayList<>();
-        
-        for (NodeRectangle n : project.getNodes())
-        {
-            IDsArrayList.add(n.getNode().getID());
-        }
-        return IDsArrayList;
-    }
-        
-        
-     // open frame used to create new node
+        String ID = autoGenerateID(title);
+        Node n = new Node(title, "", ID);
+        NodeRectangle newNode = new NodeRectangle(n);
+        project.getNodes().add(newNode);
+        openPageEditor(newNode);
+    }   
+    
+    /**
+     * Opens the frame used for creating new nodes.
+     */
     public void openCreatePage()
     {
         System.out.println("AppHandler's openCreatePage method called.");
@@ -194,8 +210,12 @@ public class ApplicationHandler {
         createPageFrame.revalidate();
         createPageFrame.repaint();
     }
-        
-    // open frme used to edit nodes
+    
+    /**
+ * Opens the frame used to edit nodes.
+ * 
+ * @param n The node to be edited.
+ */
     public void openPageEditor(NodeRectangle n)
     {
         System.out.println("Opening page editor...");
@@ -208,19 +228,115 @@ public class ApplicationHandler {
         enableFrame(false);   
     }
     
-    // for opening the page editor directly after creating a new page. 
-    // ID is created here?
-    public void createNewPage(String title)
+    /**
+     *  Replaces all nodes in the ProjectFile that match the one passed as a parameter.
+     * 
+     * @param n The edited node to be saved/updated.
+     */
+    public void saveNode(Node n)
     {
-        String ID = autoGenerateID(title);
-        Node n = new Node(title, "", ID);
-        NodeRectangle newNode = new NodeRectangle(n);
-        project.getNodes().add(newNode);
-        openPageEditor(newNode);
-    }     
+        // takes input from editor window and saves the node with its new parameters.
+        
+        String replaceID = n.getID();   // ID that program needs to search for
+        
+        for (NodeRectangle node : project.getNodes())
+        {
+            if (node.getNode().getID().equalsIgnoreCase(replaceID))
+            {
+                node.setNode(n);
+            }
+        }
+        
+        project.updateLinks();
+        
+        view.updateViewNodes(project.getNodes());
+        view.revalidate();
+        view.repaint();
+    }
     
-    // automatically generates a starting ID based on the entered title/phrase.
-    // uses Guava's CharMatcher.
+        /**
+         * Removes all nodes containing originalID, and replaces them with new Node n. <p>
+         * This method also verifies Node n's ID, and alters it if not sufficient.
+         * 
+         * @param n The new node that will replace the ones containing originalID.
+         * @param originalID The ID of the node to be replaced.
+         */
+    public void removeAndSaveNode(Node n, String originalID)
+    {
+        n.setID(autoGenerateID(n.getID()));
+
+        // replaces nodes that have had IDs that were edited.
+        String replaceID = originalID;
+        
+        for (NodeRectangle node : project.getNodes())
+        {
+            System.out.println("Current node ID: " + node.getNode().getID());
+            System.out.println("Replacement ID: " + replaceID);
+            if(node.getNode().getID().equalsIgnoreCase(replaceID))
+            {
+                System.out.println("Node will be replaced.");
+                node.setNode(n);
+            }
+        }
+        System.out.println("");
+        
+        // iterate through all nodes and update links with new ID.
+        
+        // for each node
+        // if links contain originalID
+        // store all associated values, delete key
+        // putAll(newID, list/array of values)
+        System.out.println("Updating links...");
+        System.out.println("--");
+        for (NodeRectangle nodeRect : project.getNodes())
+        {
+
+            Node node = nodeRect.getNode();
+            Multimap<String, String> links = node.getLinks();   // copies the links multimap from Node. Key = ID, Value = hyperlink text
+            System.out.println("Node ID: " + node.getID());
+            System.out.println("Links: " + links.toString());
+            System.out.println("Looking for occurrences of ID " + replaceID + "...");
+            
+            if (links.containsKey(replaceID))
+            {
+                System.out.println("ID that needs to be replaced found!");
+                System.out.println("Replacing with ID: " + n.getID());
+                List<String> values = (List<String>) links.get(replaceID);
+                if (values.isEmpty())
+                {
+                    System.out.println("Values is empty. Returning function...");
+                    return;
+                }
+                
+                System.out.println("Values: " + values.toString());
+                links.putAll(n.getID(), values);
+               
+                
+                System.out.println("-");
+                System.out.println("Links after inserting new ID:" + links.toString());
+                links.removeAll(replaceID);
+                System.out.println("Links after removing old ID:" + links.toString());
+                System.out.println("-");
+
+                nodeRect.getNode().setLinks(links);
+                System.out.println("Node " + node.getID() + "'s new links: ");
+                System.out.println(links.toString());
+            }
+            System.out.println("-");
+        }
+        
+        project.updateLinks();
+        System.out.println("Nodes in this file:" + project.getNodes().toString());
+    }
+    
+  
+    /**
+     * Automatically generates a starting ID based on the entered title/phrase. <p>
+     * Uses Guava's CharMatcher.
+     * 
+     * @param enteredID The ID that needs to be determined/changed.
+     * @return The new ID, after alteration.
+     */
     public String autoGenerateID(String enteredID)
     {
         System.out.println("--");
@@ -269,156 +385,12 @@ public class ApplicationHandler {
         return newID;
     }
     
-    // for enabling/disabling frame when other windows are open.
-    public void enableFrame(boolean e)
-    {
-        if (e == true) frame.setEnabled(true);
-        else frame.setEnabled(false);
-    }
-    
-    
-    // ------------------------------------------------
-    
-    //<editor-fold defaultstate="collapsed" desc="Node-Specific">  
-    
-    public void saveNode(Node n)
-    {
-        // takes input from editor window and saves the node with its new parameters.
-        
-        // Attempt 1: replaces node in projectFile entirely.
-        
-        
-        String replaceID = n.getID();   // ID that program needs to search for
-        
-        for (NodeRectangle node : project.getNodes())
-        {
-            if (node.getNode().getID().equalsIgnoreCase(replaceID))
-            {
-                node.setNode(n);
-                //break;
-            }
-        }
-        
-        System.out.println("Node with ID " + replaceID + " replaced. Might need to update the view or something.");
-        ///updateView();
-        project.updateLinks();
-        
-        view.updateViewNodes(project.getNodes());
-        view.revalidate();
-        view.repaint();
-        
-
-    }
-        
-    public void removeAndSaveNode(Node n, String originalID)
-    {
-        System.out.println("");
-        System.out.println("--");
-        System.out.println("Verifying new ID first...");
-        n.setID(autoGenerateID(n.getID()));
-        System.out.println("ID verified.");
-        
-        
-        System.out.println("");
-        System.out.println("Removing and saving node...");
-        System.out.println("New node's ID: " + n.getID() + ". Original node's ID: " + originalID + ".");
-        System.out.println("Checking nodes....");
-        // replaces nodes that have had IDs that were edited.
-        String replaceID = originalID;
-        
-        for (NodeRectangle node : project.getNodes())
-        {
-            System.out.println("Current node ID: " + node.getNode().getID());
-            System.out.println("Replacement ID: " + replaceID);
-            if(node.getNode().getID().equalsIgnoreCase(replaceID))
-            {
-                System.out.println("Node will be replaced.");
-                node.setNode(n);
-                //break;
-            }
-        }
-        System.out.println("");
-        
-        
-        // iterate through all nodes and update links with new ID.
-        
-        // for each node
-        // if links contain originalID
-        // store all associated values, delete key
-        // putAll(newID, list/array of values)
-        System.out.println("Updating links...");
-        System.out.println("--");
-        for (NodeRectangle nodeRect : project.getNodes())
-        {
-
-            Node node = nodeRect.getNode();
-            Multimap<String, String> links = node.getLinks();   // copies the links multimap from Node. Key = ID, Value = hyperlink text
-            System.out.println("Node ID: " + node.getID());
-            System.out.println("Links: " + links.toString());
-            System.out.println("Looking for occurrences of ID " + replaceID + "...");
-            
-            if (links.containsKey(replaceID))
-            {
-                System.out.println("ID that needs to be replaced found!");
-                System.out.println("Replacing with ID: " + n.getID());
-                List<String> values = (List<String>) links.get(replaceID);
-                if (values.isEmpty())
-                {
-                    System.out.println("Values is empty. Returning function...");
-                    return;
-                }
-                
-                System.out.println("Values: " + values.toString());
-                links.putAll(n.getID(), values);
-                
-                /*
-                links.removeAll(replaceID);
-                System.out.println("Links after removing old ID:" + links.toString());
-                if (values.isEmpty())
-                {
-                    System.out.println("Values is empty.");
-                    break;
-                }
-                */
-                /*
-                for(String hyperlinkText : values)
-                {
-                    System.out.println("put: " + n.getID() + ", " + hyperlinkText);
-                    links.put(n.getID(), hyperlinkText);
-                }
-                */
-                
-                
-                System.out.println("-");
-                System.out.println("Links after inserting new ID:" + links.toString());
-                links.removeAll(replaceID);
-                System.out.println("Links after removing old ID:" + links.toString());
-                System.out.println("-");
-/*
-                boolean put = links.put(n.getID(), "testing put method");
-                System.out.println("Links after test put: " + links.toString());
-                boolean putAll = links.putAll(n.getID(), values);
-                
-                if (putAll != true)
-                {
-                    System.out.println("--putAll method did not change the multimap. Breaking...--");
-                    break;
-                }
-*/
-
-                nodeRect.getNode().setLinks(links);
-                System.out.println("Node " + node.getID() + "'s new links: ");
-                System.out.println(links.toString());
-            }
-            System.out.println("-");
-        }
-        
-        project.updateLinks();
-        System.out.println("Nodes in this file:" + project.getNodes().toString());
-    }
-    
-    // for removing a node entirely, using its ID.
-    // it then updates the other nodes, removing links if they would now lead to the "dead" ID.
+    /**
+     * Removes a node entirely, using its ID. <p>
+     * Then updates the other nodes, removing links if they would now lead to the "dead" ID.
+     * 
+     * @param ID ID of node to be deleted.
+     */
     public void deleteNode(String ID)
     {
         ArrayList<NodeRectangle> toRemove = new ArrayList<>();
@@ -447,19 +419,14 @@ public class ApplicationHandler {
         System.out.println("--");
     }
     
+    /**
+     * Updates the links within the ProjectFile.
+     */
     public void updateProjectFileLinks()
     {
         project.updateLinks();
     }
-    
-    
-    /*
-    public void autoSetNodeID()
-    {
         
-    }
-*/
-    
     //</editor-fold>
    
     // -----------------------------------------------
@@ -534,8 +501,6 @@ public class ApplicationHandler {
         this.enabled = enabled;
     }
     
-    
-    
     //</editor-fold>
     
     // -----------------------------------------------
@@ -543,18 +508,51 @@ public class ApplicationHandler {
     //<editor-fold defaultstate="collapsed" desc="Other Methods">
     // Misc/helper methods.
 
-    // Gets user default directory using JFileChooser.
+   /**
+    *  Returns a list of all of the IDs in project.
+    * 
+    * @return List of IDs of all of the nodes in the ProjectFile.
+    */
+    public ArrayList<String> getAllIDs()
+    {
+        ArrayList<String> IDsArrayList = new ArrayList<>();
+        
+        for (NodeRectangle n : project.getNodes())
+        {
+            IDsArrayList.add(n.getNode().getID());
+        }
+        return IDsArrayList;
+    }
+    
+    /**
+     * Enables/disables frame. For use when other windows open/close.
+     * 
+     * @param e Enable/disable frame.
+     */
+    public void enableFrame(boolean e)
+    {
+        if (e == true) frame.setEnabled(true);
+        else frame.setEnabled(false);
+    }
+        
+    /**
+     * Gets user default directory using JFileChooser.
+     * 
+     * @return String of user's default directory.
+     */
     public static String getUserDefaultDirectory()
     {
         FileSystemView fsv = new JFileChooser().getFileSystemView();
         return fsv.getDefaultDirectory().getPath();
     }
+    
     //</editor-fold>
     
      // -----------------------------------------------
 
     
     //<editor-fold defaultstate="collapsed" desc="Methods for Testing">
+    // Methods purely for testing. 
     
 /*
     // tester method
@@ -625,8 +623,8 @@ public class ApplicationHandler {
          fileOutStream.close();
         objectOutStream.close();
     }
-*/
-    
+
+
     public void testAutoGenerateID()
     {
        createNewPage("to!*&#&(*$;2,.,_*5)#@");
@@ -650,16 +648,10 @@ public class ApplicationHandler {
         System.out.println("DragAndDrop's new nodes:");
         System.out.println(view.getNodes());
         
-        // So it is a one-time link, then. There's no need to update the other when one is changed. 
+        // There's no need to update the other when one is changed. 
     }
+    */
     
     //</editor-fold>
     
-    
-    public static void main(String[] args) throws IOException, ClassNotFoundException
-    {
-        // testMethod();    
-        
-        //System.out.println("Current directory: " + System.getProperty("user.home"));
-    }
 }

@@ -16,7 +16,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="CHOICE (Working title)"/>
+    <Property name="title" type="java.lang.String" value="The Condensed Hypertext Orgnization Interface for the Creation of Experiences)"/>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="4d" green="46" red="3d" type="rgb"/>
     </Property>
