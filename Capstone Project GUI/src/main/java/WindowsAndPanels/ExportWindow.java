@@ -21,7 +21,8 @@ import DataItems.ProjectFile;
 import javax.swing.JFileChooser;
 
 /**
- *
+ * Window used for changing settings before exporting the finished game. 
+ * 
  * @author Victor Malone (vm19171)
  */
 public class ExportWindow extends javax.swing.JFrame {
@@ -208,7 +209,9 @@ public class ExportWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_chooseLocationButtonActionPerformed
 
-    
+    /**
+     * Creates a new ExportGame object and sets its theme. It then creates a new folder at the designated location, sets the ExportGame object's project file, and exports the game.
+     */
     public void export()
     {
         exportGame = new ExportGame();
@@ -233,6 +236,8 @@ public class ExportWindow extends javax.swing.JFrame {
         exportGame.setProject(project);
         exportGame.export();
     }
+    
+    // Getters and Setters
     
     public ProjectFile getProject() {
         return project;
@@ -282,6 +287,9 @@ public class ExportWindow extends javax.swing.JFrame {
         });
     }
     
+    /**
+     * ProjectFile used for exportation.
+     */
     private ProjectFile project;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

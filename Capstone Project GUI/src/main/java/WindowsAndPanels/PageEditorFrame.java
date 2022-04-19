@@ -23,7 +23,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- *
+ * Frame used to edit nodes' data. 
+ * 
  * @author Victor Malone (vm19171)
  */
 public class PageEditorFrame extends javax.swing.JFrame {
@@ -83,7 +84,12 @@ public class PageEditorFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
-    
+    /**
+     * Sets ApplicationHander variable and populates the editor panel's components with data. 
+     * 
+     * @param n the node to edit
+     * @param a the ApplicationHandler to send node back to when finished editing
+     */
        public void setWindowData(NodeRectangle n, ApplicationHandler a)
     {
         this.controller = a; // in order to pass data back to the handler
@@ -127,7 +133,12 @@ public class PageEditorFrame extends javax.swing.JFrame {
     }
     
        
-       
+       /**
+        * Sends node back to ApplicationHandler, to be saved. If the ID of the node was changed, calls ApplicationHandler's removeAndSaveNode method.
+        * 
+        * @param n the node to be saved
+        * @param originalID original ID of the node (stored in case node's ID was changed)
+        */
        public void sendNewNodeToAppHandler(Node n, String originalID)
        {
            // if image is not null,
@@ -158,7 +169,10 @@ public class PageEditorFrame extends javax.swing.JFrame {
            }
        }
        
-       // for when "Cancel" button is pressed.
+
+       /**
+        * Disposes of window without changing anything.
+        */
        public void cancel()
        {
            if (controller != null)
@@ -174,7 +188,6 @@ public class PageEditorFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-       
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -212,6 +225,9 @@ public class PageEditorFrame extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * ApplicationHandler currently in use by the tool
+     */
     private ApplicationHandler controller;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

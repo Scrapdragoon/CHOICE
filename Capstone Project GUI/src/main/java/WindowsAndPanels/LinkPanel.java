@@ -18,11 +18,11 @@ package WindowsAndPanels;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
- *
+ * Panel used to create and manage links between nodes. The '+' and '-' buttons in the page editor adds and deletes these as needed.
+ * 
  * @author Victor Malone (vm19171)
  */
 public class LinkPanel extends javax.swing.JPanel {
@@ -55,11 +55,6 @@ public class LinkPanel extends javax.swing.JPanel {
 
         choiceTextField.setText("Enter text here...");
         choiceTextField.setMinimumSize(new java.awt.Dimension(30, 22));
-        choiceTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                choiceTextFieldActionPerformed(evt);
-            }
-        });
 
         linkLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         linkLabel.setText("Link to page with ID:");
@@ -88,13 +83,9 @@ public class LinkPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void choiceTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choiceTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_choiceTextFieldActionPerformed
  
     
-    
+   // Getters and Setters
     public void setComboBoxModel(ComboBoxModel m)
     {
         this.choiceChooserBox.setModel(m);
@@ -109,11 +100,7 @@ public class LinkPanel extends javax.swing.JPanel {
     {
         this.choiceTextField.setText(s);
     }
-    
-    
-    
-    
-    // Getters and Setters
+
       public JComboBox<String> getChoiceChooserBox() {
         return choiceChooserBox;
     }
@@ -129,9 +116,6 @@ public class LinkPanel extends javax.swing.JPanel {
     public void setChoiceTextField(JTextField choiceTextField) {
         this.choiceTextField = choiceTextField;
     }
-
-    
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> choiceChooserBox;

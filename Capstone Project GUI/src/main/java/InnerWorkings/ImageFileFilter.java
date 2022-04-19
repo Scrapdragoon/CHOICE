@@ -20,11 +20,16 @@ import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
- *
+ *File filter for accepted images. <p>
+ * Includes JPEG, PNG, and GIF.
+ * 
  * @author Victor Malone (vm19171)
  */
 public class ImageFileFilter extends FileFilter {
     
+    /**
+     * Accepted extensions.
+     */
     String[] acceptedExts = new String[] {".jpeg", ".jpg", ".png", ".gif"};
     
     

@@ -36,31 +36,58 @@ import java.util.logging.Logger;
 
 
 /**
- *
- * @author Victor Malone (vm19171)
+ *This class is used to export the user's inputs into individual HTML pages with links.
  * 
- * This class is used to export the user's inputs into individual HTML pages with links. 
+ * @author Victor Malone (vm19171)
  */
 public class ExportGame {
     
-    
-    // ProjectFile from the... well, project file.
+    /**
+     * ProjectFile to read nodes from
+     */
     ProjectFile project = new ProjectFile();
     
-    // TODO - folder to save all of these pages in. This will be changed later
+   /**
+    * Folder to save the finished HTML files in.
+    */
     String outputFolder = "!ERROR - NO OUTPUT FOLDER SET!";
+    
+    /**
+     * Path to the user's resource folder, which will be created upon export.
+     */
     Path pathToUserResources = null;
     
+    /**
+     * Value that determines whether or not the 'book' background image will be copied to the user's resource folder.
+     */
     public boolean copyBGImage = true;
     
-            
-        
+
     // IF YOU CHANGE THE NAMES OF THESE, YOU'LL HAVE TO CHANGE THE NAMES IN THE CSS AS WELL.
+    
+    /**
+     * Name of the CSS file to copy.
+     */
     static String cssName = "StandardPageStylesheet.css";
+    
+    /**
+     * Name of the background image to copy.
+     */
     static String backgroundImageName = "bgImage_fade2.png";
-    static String titleClass = "pageTitle";
-    static String contentClass = "content";
+    
+    /**
+     * Class names to be used in HTML generation. If changed, the CSS file will need to be edited as well.
+     */
+    static String titleClass = "pageTitle", contentClass = "content";
+    
+    /**
+     * Appended to the output folder to store the game's pages.
+     */
     static String projectName; // appended to the output folder to store the game's pages.
+    
+    /**
+     * A default image source. 
+     */
     static String imgSrc = "../resources/UofE.jpg";    
         
     
@@ -72,12 +99,20 @@ public class ExportGame {
         
     }
     
+    /**
+     * Constructor that stores the given project file.
+     * 
+     * @param project project file to be exported
+     */
     public ExportGame(ProjectFile project)
     {
         this.project = project;
     }
     
-    
+    /**
+     * Creates a folder and exports the nodes in the ProjectFile to individual HTML pages. <p>
+     * Also, copies any resources needed for the game into a separate folder.
+     */
     public void export()
     {
         // iterate through each node in the file, creating HTML for each one. Save all of them in a folder named after project's name.
@@ -173,7 +208,12 @@ public class ExportGame {
         System.out.println("Game successfully exported! I hope...!");
     }
     
-    // for processing one page at a time.
+  /**
+   * Generates HTML for a page based off of its title, paragraph, image, and links.
+   * 
+   * @param n the node to be processed
+   * @return HTML for this node/page as a formatted String.
+   */
     public String processPage(Node n)
     {
         String title, ID, imagePathString, paragraph;
@@ -293,7 +333,13 @@ public class ExportGame {
     }
 
 
-    // used for copying images to resources folder. Returns relative(?) path of new image
+    /**
+     * Copies image from source to user's resource folder.
+     * 
+     * @param source path to image
+     * @return Relative path to image in resource folder
+     * @throws IOException if no folder or image found
+     */
     public String copyToResources(String source) throws IOException
     {
         System.out.println("Copying image at " + source + " to user resource folder...");
@@ -317,15 +363,15 @@ public class ExportGame {
         String relativePath = "./resources/" + img.getName();
         
         return relativePath;
-                // ?? - use URI relativize method to get relative path to image inside resources folder instead. This allows the game to be properly played on systems other than the one it was created on.
     }
 
-    
-    
-    
-    
-    
-    // make project's name 
+
+/**
+ * Cleans the project's name, to prevent creating folders with invalid characters
+ * 
+ * @param projectName name of the project
+ * @return altered name of project
+ */
     public String cleanProjectName(String projectName)
     {             
         String cleaned = CharMatcher.breakingWhitespace().replaceFrom(projectName, '_') ;
@@ -337,7 +383,12 @@ public class ExportGame {
         return cleaned;
     }
     
-    
+    /**
+     * Sets the theme of the exported game. <p>
+     * If Storybook theme, the standard CSS sheet will be used. If Dark theme, a darker, more simplistic CSS sheet will be used.
+     * 
+     * @param theme desired theme
+     */
    public void setTheme(String theme) {
         if (theme.equalsIgnoreCase("book"))
         {
@@ -357,7 +408,7 @@ public class ExportGame {
     }
     
     
-    
+    // Getters and Setters
     public ProjectFile getProject() {
         return project;
     }
@@ -381,30 +432,11 @@ public class ExportGame {
     public static void setProjectName(String projectName) {
         ExportGame.projectName = projectName;
     }
-    
-//<editor-fold defaultstate="collapsed" desc="CSS as String">
-    
-    String css = "html {\n    \n    /* background-image: url(\"resources/bgImageEDIT.png\"); "
-                + "*/\n    /* background-repeat: repeat; */\n   \n    min-width: 100%;\n\n    margin: 0;\n    "
-                + "position: relative;\n\n    background-image: url(\"resources/bgImage_fade2.png\"), "
-                + "url(\"resources/bgImage_fade2.png\");\n    background-position: left top, left top;\n   "
-                + " background-repeat: repeat-y; \n    background-attachment: scroll;\n    background-origin: border-box;\n    "
-                + "background-size: 100% auto;\n    background-position-y: 0px, 1100px;\n\n"
-                + "/* CURRENTLY CONTAINS A VISUAL GLITCH WHEN THE WINDOW IS NOT FULL SIZE.*/\n   "
-                + " \n    \n\n    \n    \n \n    margin-left: auto;\n    margin-right: auto;\n    padding-top: 100px;\n    "
-                + "\n    font-family: sans-serif;\n    \n}\n\nbody {\n  max-width: 65%;\n  margin: auto;\n    \n}\n\n\n\n"
-                + ".background-image {\n\n\n}\n\n\n.user-Image {\n    display: block;\n    \n    "
-                + "max-width: 90%; /* 90% of the div it's in  */\n    height: auto;\n    margin-left: auto;\n    "
-                + "margin-right: auto;\n    border-style: solid;\n    border-width: 3px;\n}\n\n.pageTitle {\n   "
-                + " text-align: center;\n    text-decoration: underline;\n    font-family: DFPOP1-W9, sans-serif;\n   "
-                + " font-size: 40px;\n\n}\n\n.content {\n\n}\n\n\n.paragraph {\n    display: block;\n    "
-                + "width: 95%;\n    margin-left: auto;\n    margin-right: auto;\n    \n    "
-                + "font-size: 20px;\n}\n\n.choices {\n    display: block;\n    width: 90%;\n    "
-                + "margin-left: auto;\n    margin-right: auto;\n    \n    font-size: 20px;\n}\n\n"
-                + "a:link {\n    color: #9999ff\n}\n\na:visited {\n    color: #9999ff\n}";    
-                
-    //</editor-fold>
-    
+
+    /**
+     * Unused. For testing only
+     * @param args Unused.
+     */
     public static void main(String[] args)
     {
         //<editor-fold defaultstate="collapsed" desc="Old test">
@@ -649,9 +681,9 @@ public class ExportGame {
         */
         
 //</editor-fold>
-        /*
+
         //<editor-fold defaultstate="collapsed" desc="Apr 7 Test 2">
-        
+                /*
         //Even newer test (Apr 7 again)
         ProjectFile p = new ProjectFile();
         Node n1 = new Node();
@@ -691,8 +723,9 @@ public class ExportGame {
         ExportGame e = new ExportGame(p);
       //</editor-fold>  
        */
-        
-        
+       
+        //<editor-fold defaultstate="collapsed" desc="Yet Another Test"> 
+/*
         String absolutePathToResourceString = "C:/Users/rolep/Documents/Apr_13_Test - CHOICE/resources/bigfeel.png";
         String baseString = "C:/Users/rolep/Documents/Apr_13_Test - CHOICE";
         String relative = new File(baseString).toURI().relativize(new File(absolutePathToResourceString).toURI()).getPath();
@@ -703,8 +736,8 @@ public class ExportGame {
         Path basePath = Paths.get("C:/Users/rolep/Documents/Apr_13_Test - CHOICE");
         relative = basePath.relativize(absPath).toString();
         System.out.println("Relative using Path: " + relative);
-        
-        
+        */
+        //</editor-fold>
     }
     
 }

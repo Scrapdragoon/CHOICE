@@ -22,19 +22,32 @@ import java.awt.Polygon;
 
 
 /**
- *
+ * A shape that represents the link from one page to another. 
+ * 
+ * Code referenced from: 
+ * 
+ * @see <a href = https://stackoverflow.com/questions/12175086/draw-perpendicular-line-to-given-line-on-canvas-android>Source 1</a>
+ * @see <a href = https://dzone.com/articles/how-find-point-coordinates>Source 2</a>
  * @author Victor Malone (vm19171)
- * Code referenced from https://stackoverflow.com/questions/12175086/draw-perpendicular-line-to-given-line-on-canvas-android
- * and https://dzone.com/articles/how-find-point-coordinates
  */
 public class ConnectionTriangle extends Polygon {
     
+    /**
+     * origin = center of start NodeRectangle, destination = center of end NodeRectangle
+     */
     Point origin, destination;
     
-    // the distance in pixels between origin and its nearby points
-    int distance = 10;
+    /**
+     * The distance in pixels between the origin and its nearby points.
+     */
+    private final int distance = 10;
     
-    
+    /**
+     * Constructor that assigns the origin and destination points.
+     * 
+     * @param start middle point of origin
+     * @param finish middle point of destination
+     */
     public ConnectionTriangle(Point start, Point finish)
     {
         super();
@@ -44,22 +57,27 @@ public class ConnectionTriangle extends Polygon {
         this.npoints = 3;
         
         setPoints();
-        
     }
     
+    /**
+     * Updates the location of the origin and destination. <p>
+     * Used when their NodeRectangles are dragged to new locations.
+     * 
+     * @param start middle point of origin
+     * @param finish middle point of destination
+     */
     public void update(Point start, Point finish)
     {
         origin = start;
         destination = finish;
     }
     
-    // calculates the points of the polygon.
+    /**
+     * Calculates the points of the polygon.<p>
+     * It is a triangle whose base rotates so it is always perpendicular to the line formed between the origin and destination.
+     */
     private void setPoints()
-    {
-        int vectorX, vectorY;
-        vectorX = destination.x - origin.x;
-        vectorY = destination.y - origin.y;
-        
+    {        
         int pVX, pVY;
         pVX = -(destination.y - origin.y);
         pVY = destination.x - origin.x;
@@ -78,7 +96,12 @@ public class ConnectionTriangle extends Polygon {
         ypoints = new int[] {p1.y, p2.y, p3.y};
     }
     
-    // to shorten the length of the perpendicular lines.
+    /**
+     * Shortens the base of the triangle to the length specified by the distance variable.
+     * 
+     * @param p1 the point to be moved
+     * @return The new location of the point.
+     */
     private Point calculateNewPoint(Point p1)
     {
         // distance from p1 to origin

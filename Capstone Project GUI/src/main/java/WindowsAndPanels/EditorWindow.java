@@ -27,8 +27,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author rolep
+ * The main window of the program. <p>
+ * Contains a DragAndDrop panel, ApplicationHandler, and ExportWindow.
+ * 
+ * @author Victor Malone (vm19171)
  */
 public class EditorWindow extends javax.swing.JFrame {
 

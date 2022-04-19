@@ -20,11 +20,15 @@ import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
- *
+ * A custom file filter for CHOICE files. 
+ * 
  * @author Victor Malone (vm19171)
  */
 public class CHOICEFileFilter extends FileFilter {
 
+    /**
+     * The CHOICE extension.
+     */
     private final String extension = ".choice";
     
     

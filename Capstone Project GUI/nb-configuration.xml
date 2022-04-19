@@ -20,5 +20,6 @@ Any value defined here will override the pom.xml file value but is only applicab
         <word>arg</word>
         <word>Multimap</word>
         <word>n's</word>
+        <word>nodes'</word>
     </spellchecker-wordlist>
 </project-shared-configuration>

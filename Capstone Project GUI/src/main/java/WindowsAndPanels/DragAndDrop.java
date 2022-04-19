@@ -35,23 +35,34 @@ import java.awt.RenderingHints;
 
 /**
  *
- * @author Victor Malone (vm19171)
- * Code referenced from https://examples.javacodegeeks.com/desktop-java/awt/event/draw-and-drag-rectangles/
- * 
+ * A panel that allows visual representations of nodes to be placed, dragged, and dropped where the user wishes. <p>
  * This is the View in the MVC pattern.
+ * 
+ * Code referenced from:
+ * @see <a href = https://examples.javacodegeeks.com/desktop-java/awt/event/draw-and-drag-rectangles/>Source</a>
+ * @author Victor Malone (vm19171)
+ * @serial 
  */
 public class DragAndDrop extends JPanel implements MouseMotionListener, Serializable {
     
-    // Controller.
+   /**
+    * The controller that contains the main elements of the program, including the project file.
+    */
     ApplicationHandler controller;
     
-    // ArrayList of all nodes on screen. Should be linked to list from controller
+    /**
+     * ArrayList of all nodes on screen. Should be linked to list from controller
+     */
    private ArrayList<NodeRectangle> nodes = new ArrayList<>();
     
-   // current selected node
+   /**
+    * The currently selected node.
+    */
     private int currentNode = -1;
     
-    
+    /**
+     * No-arg constructor. Initializes a new ArrayList of nodes.
+     */
     public DragAndDrop() {
         
         nodes = new ArrayList<>();
@@ -156,7 +167,11 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         this.repaint();
     }
     
-    // used to draw lines between connected pages
+    /**
+     * Draws the connections in between pages. 
+     * 
+     * @param g Graphics object.
+     */
     public void drawLines(Graphics2D g)
     {
         if (!nodes.isEmpty())
@@ -195,11 +210,17 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     
     
     // returns node clicked on, given position
+    /**
+     * Returns the node that was clicked on.
+     * 
+     * @param x x-coordinate of click
+     * @param y y-coordinate of click
+     * @return Selected node.
+     */
     public int getNodeClicked(int x, int y)
     {
         // by default, start with index that does not exist
         int nodeNum = -1;
-        
         
             for (Rectangle n : nodes)
             {
@@ -213,7 +234,12 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             return nodeNum;
     }
     
-    
+    /**
+     * Adds a node to the collection.
+     * 
+     * @param x x-coordinate of new node
+     * @param y y-coordinate of new node
+     */
     public void addNode(int x, int y)
     {
         // create node with center at the passed values
@@ -232,6 +258,11 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         repaint();
     }
        
+    /**
+     * Removes a node based on its position in the array.
+     * 
+     * @param i index of the node to remove
+     */
     public void removeNode(int i)
     {
         // if i is within nodes's range
@@ -252,7 +283,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         repaint();
     }
     
-    
+    // Getters and Setters
     public void setController(ApplicationHandler c)
     {
         controller = c;
@@ -276,7 +307,9 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         nodes.clear();
     }
       
-    
+    /**
+     * For testing purposes.
+     */
     public void showControllerNodeStats()
     {
         repaint();
@@ -286,6 +319,11 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         }
     }
     
+    /**
+     * Assigns the nodes array to the entered one. 
+     * 
+     * @param n new nodes array
+     */
     public void updateViewNodes(ArrayList<NodeRectangle> n)
     {
         nodes = n;

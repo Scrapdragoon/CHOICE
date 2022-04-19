@@ -19,7 +19,8 @@ package WindowsAndPanels;
 import InnerWorkings.ApplicationHandler;
 
 /**
- *
+ * Frame used to create new nodes/pages. The user is prompted to type in a title, and then the new node is added to the ApplicationHandler's project file.
+ * 
  * @author Victor Malone (vm19171)
  */
 public class CreatePageFrame extends javax.swing.JFrame {
@@ -190,6 +191,9 @@ public class CreatePageFrame extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * The handler that manages the main functions of the program.
+     */
     private ApplicationHandler controller;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

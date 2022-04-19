@@ -28,7 +28,8 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
- *
+ * The first window the user will see upon startup. Allows them to create a new project, open an existing one, or view the credits.
+ * 
  * @author Vic Malone
  */
 public class StartMenuWindow extends javax.swing.JFrame {
