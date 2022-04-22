@@ -213,7 +213,7 @@ public class ExportGame {
    * @param n the node to be processed
    * @return HTML for this node/page as a formatted String.
    * 
-   * @see <a href = https://j2html.com/examples.html >J2HTML</a>
+   * @see <a href = https://j2html.com/examples.html >J2HTML Examples</a>
    */
     public String processPage(Node n)
     {
@@ -221,7 +221,7 @@ public class ExportGame {
         Map<String, Collection<String>> choices;
         
         
-        // conditionals for showing/hiding elements of a page
+        // conditionals for showing/hiding elements of a page. Not fully implemented
         boolean showTitle = false, showImage = false, showParagraph = false, showChoices = false;
         
         // title

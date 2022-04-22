@@ -21,9 +21,6 @@ import javax.swing.JOptionPane;
 import DataItems.ProjectFile;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
 import javax.swing.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -417,7 +414,6 @@ public class EditorWindow extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.setTitle(appHandler.getProjectFile().getProjectTitle());
         appHandler.setFrame(this);
-        System.out.println(getClass().getResource("/pageSmall.png").getPath());
     }//GEN-LAST:event_formWindowOpened
 
     /**

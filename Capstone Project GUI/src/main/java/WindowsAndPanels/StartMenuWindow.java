@@ -20,9 +20,8 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -69,6 +68,11 @@ public class StartMenuWindow extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(770, 540));
         setResizable(false);
         setSize(new java.awt.Dimension(770, 540));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         welcomeLabel.setFont(new java.awt.Font("DFPOP1-W9", 1, 48)); // NOI18N
         welcomeLabel.setText("<html> <u>Welcome to CHOICE!</u>  ");
@@ -230,6 +234,28 @@ public class StartMenuWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_newProjectButtonActionPerformed
 
     /**
+     * Upon opening the window, load font and other resources.
+     * @param evt 
+     */
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        
+        // attempt to load custom font
+        try {
+            InputStream fontInput = getClass().getResourceAsStream("/DFPop91.ttf");
+            Font dfpopFont = Font.createFont(Font.TRUETYPE_FONT, fontInput);
+
+            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            env.registerFont(dfpopFont);
+        }
+        catch (IOException ex) {
+            Logger.getLogger(StartMenuWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (FontFormatException ex) {
+            Logger.getLogger(StartMenuWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    /**
      * Creates and runs the frame.
      * @param args the command line arguments
      */
@@ -272,22 +298,6 @@ public class StartMenuWindow extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
-        // attempt to load custom font
-        URL fontURL;
-        try {
-            File fontFile = new File("master_resources\\DFPop91.ttf");
-            Font dfpopFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
-
-            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            env.registerFont(dfpopFont);
-        }
-        catch (IOException ex) {
-            Logger.getLogger(StartMenuWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (FontFormatException ex) {
-            Logger.getLogger(StartMenuWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
