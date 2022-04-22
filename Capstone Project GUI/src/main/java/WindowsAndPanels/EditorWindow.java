@@ -18,10 +18,12 @@ package WindowsAndPanels;
 
 import InnerWorkings.ApplicationHandler;
 import javax.swing.JOptionPane;
-import InnerWorkings.CHOICEFileFilter;
 import DataItems.ProjectFile;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import javax.swing.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,6 +60,7 @@ public class EditorWindow extends javax.swing.JFrame {
         saveFileDialog = new javax.swing.JFileChooser(System.getProperty("user.dir"));
         appHandler = new InnerWorkings.ApplicationHandler();
         exportWindow = new WindowsAndPanels.ExportWindow();
+        confirmQuitDialog = new javax.swing.JDialog();
         buttonMenuPanel = new javax.swing.JPanel();
         createNodeButton = new javax.swing.JButton();
         dragAndDropPanel = new WindowsAndPanels.DragAndDrop();
@@ -83,6 +86,20 @@ public class EditorWindow extends javax.swing.JFrame {
         saveFileDialog.setFileFilter(new InnerWorkings.CHOICEFileFilter());
 
         appHandler.setView(dragAndDropPanel);
+
+        confirmQuitDialog.setTitle("Exit CHOICE");
+        confirmQuitDialog.setType(java.awt.Window.Type.POPUP);
+
+        javax.swing.GroupLayout confirmQuitDialogLayout = new javax.swing.GroupLayout(confirmQuitDialog.getContentPane());
+        confirmQuitDialog.getContentPane().setLayout(confirmQuitDialogLayout);
+        confirmQuitDialogLayout.setHorizontalGroup(
+            confirmQuitDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        confirmQuitDialogLayout.setVerticalGroup(
+            confirmQuitDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NAME OF PROJECT");
@@ -116,7 +133,7 @@ public class EditorWindow extends javax.swing.JFrame {
             .addGroup(buttonMenuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(createNodeButton)
-                .addContainerGap(949, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buttonMenuPanelLayout.setVerticalGroup(
             buttonMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,11 +151,11 @@ public class EditorWindow extends javax.swing.JFrame {
         dragAndDropPanel.setLayout(dragAndDropPanelLayout);
         dragAndDropPanelLayout.setHorizontalGroup(
             dragAndDropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1647, Short.MAX_VALUE)
         );
         dragAndDropPanelLayout.setVerticalGroup(
             dragAndDropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 663, Short.MAX_VALUE)
+            .addGap(0, 1749, Short.MAX_VALUE)
         );
 
         mainEditor = dragAndDropPanel;
@@ -248,6 +265,11 @@ public class EditorWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Begins a new file.
+     * 
+     * @param evt Unused.
+     */
     private void newMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newMenuItemActionPerformed
         System.out.println("File menu: New button pressed.");
         appHandler.setProjectFile(new ProjectFile());
@@ -255,14 +277,20 @@ public class EditorWindow extends javax.swing.JFrame {
         // JOptionPane.showMessageDialog(editorPanel, "You pressed the New menu option!");
     }//GEN-LAST:event_newMenuItemActionPerformed
 
+    /**
+     * Opens file selected via dialog and loads it. If file fails to load, a notice is shown instead.
+     * 
+     * @param evt Unused.
+     */
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
-
+        String prevTitle = this.getTitle();
+        ProjectFile currentProject = this.appHandler.getProjectFile();
+        
         try {
             int returnValue = openFileDialog.showOpenDialog(this);
             System.out.println(""); // for clarity
 
             if (returnValue == JFileChooser.APPROVE_OPTION) {
-                System.out.println("Load approved!");
 
                 appHandler.loadProject(openFileDialog.getSelectedFile());
                 this.setTitle(appHandler.getProjectFile().getProjectTitle());
@@ -278,18 +306,37 @@ public class EditorWindow extends javax.swing.JFrame {
         }
         catch (IOException | ClassNotFoundException ex) {
             System.out.println("There was a problem loading the file.");
+            JOptionPane.showMessageDialog(this,"File could not be loaded. Please try a different file.");
             Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
+      System.out.println("Load approved!");
     }//GEN-LAST:event_openMenuItemActionPerformed
 
+    /**
+     * Shows a JOptionPane stating that the Undo and Redo functions have yet to be implemented.
+     * 
+     * @param evt Unused.
+     */
     private void editMenuUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuUndoActionPerformed
        JOptionPane.showMessageDialog(this, "The Undo and Redo functions have not yet been implemented. Please look forward to the 2.0 release!");
     }//GEN-LAST:event_editMenuUndoActionPerformed
 
+    /**
+     * Exits the program. 
+     * 
+     * @param evt Unused.
+     */
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+        
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
+    /**
+     * Creates a node, then asks the user to enter a title.
+     * 
+     * @param evt Unused.
+     */
     private void createNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNodeButtonActionPerformed
         System.out.println("Create Node button pressed! This is how the user will be able to add new nodes.");
         appHandler.openCreatePage();        
@@ -298,6 +345,11 @@ public class EditorWindow extends javax.swing.JFrame {
         mainEditor.repaint();
     }//GEN-LAST:event_createNodeButtonActionPerformed
 
+    /**
+     * Allows the user to select a directory and name before saving the project as a .choice file.
+     * 
+     * @param evt Unused.
+     */
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
         
         // for saving files
@@ -357,21 +409,42 @@ public class EditorWindow extends javax.swing.JFrame {
         */
     }//GEN-LAST:event_formKeyTyped
 
+    /**
+     * Sets the title of the window along with appHandler's frame upon opening.
+     * 
+     * @param evt Unused.
+     */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.setTitle(appHandler.getProjectFile().getProjectTitle());
         appHandler.setFrame(this);
+        System.out.println(getClass().getResource("/pageSmall.png").getPath());
     }//GEN-LAST:event_formWindowOpened
 
+    /**
+     * Sets the export window's visibility to true, and sends the appHandler's project file to it for exportation.
+     * 
+     * @param evt Unused.
+     */
     private void exportGameMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportGameMenuItemActionPerformed
 
         exportWindow.setProject(appHandler.getProjectFile());
         exportWindow.setVisible(true);
     }//GEN-LAST:event_exportGameMenuItemActionPerformed
 
+   /**
+     * Shows a JOptionPane stating that the Undo and Redo functions have yet to be implemented.
+     * 
+     * @param evt Unused.
+     */
     private void editMenuRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuRedoActionPerformed
         JOptionPane.showMessageDialog(this, "The Undo and Redo functions have not yet been implemented. Please look forward to the 2.0 release!");
     }//GEN-LAST:event_editMenuRedoActionPerformed
 
+  /**
+     * Shows a JOption pane that explains the basic functions of the program.
+     * 
+     * @param evt Unused.
+     */
     private void helpMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpMenuItemActionPerformed
          JOptionPane.showMessageDialog(this, "<html> <font size= \"+1\">"
                  + "<strong>Welcome, and thank you for using CHOICE!</strong><br><br>"
@@ -388,6 +461,8 @@ public class EditorWindow extends javax.swing.JFrame {
                  + "</font></html>");
     }//GEN-LAST:event_helpMenuItemActionPerformed
 
+    
+    //Getters and Setters
     public ApplicationHandler getAppHandler() {
         return appHandler;
     }
@@ -405,6 +480,7 @@ public class EditorWindow extends javax.swing.JFrame {
     }
 
     /**
+     * Creates and displays the frame.
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -443,6 +519,7 @@ public class EditorWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private InnerWorkings.ApplicationHandler appHandler;
     private javax.swing.JPanel buttonMenuPanel;
+    private javax.swing.JDialog confirmQuitDialog;
     private javax.swing.JButton createNodeButton;
     private WindowsAndPanels.DragAndDrop dragAndDropPanel;
     private javax.swing.JMenuItem editMenuRedo;

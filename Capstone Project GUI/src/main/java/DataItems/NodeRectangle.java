@@ -57,6 +57,7 @@ public class NodeRectangle extends Rectangle {
         
     }
     
+    
     /**
      * Constructor that also creates a node with the given title. 
      * 
@@ -119,7 +120,6 @@ public class NodeRectangle extends Rectangle {
     public void paintComponent (Graphics2D g)
     {
         g.setPaint(new GradientPaint(this.x+ width/2, this.y, Color.WHITE, this.x + width + 15, this.y + height, Color.LIGHT_GRAY));
-        //g.setColor(Color.WHITE);
         g.fillRect(this.x, this.y, this.width, this.height);
         g.setColor(Color.BLACK);
         g.drawRect(this.x, this.y, this.width, this.height);

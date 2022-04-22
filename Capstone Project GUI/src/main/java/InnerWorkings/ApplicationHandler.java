@@ -79,7 +79,7 @@ public class ApplicationHandler {
     /**
      * Dimensions for NodeRectangles.
      */
-    public static Dimension nodeDimensions = new Dimension(75, 100);
+    public static Dimension nodeDimensions = new Dimension(128, 134);
     
     /**
      * File extension for CHOICE projects.
@@ -175,9 +175,7 @@ public class ApplicationHandler {
            
     //</editor-fold>
     
-    
    // ------------------------------------------------
-    
     
     //<editor-fold defaultstate="collapsed" desc="Node-Specific">  
     
@@ -194,6 +192,9 @@ public class ApplicationHandler {
         NodeRectangle newNode = new NodeRectangle(n);
         project.getNodes().add(newNode);
         openPageEditor(newNode);
+        
+        view.revalidate();
+        view.repaint();
     }   
     
     /**

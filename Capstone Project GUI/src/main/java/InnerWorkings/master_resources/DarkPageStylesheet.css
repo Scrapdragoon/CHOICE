@@ -1,13 +1,9 @@
 /*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
-*/
-/* 
     Created on : Apr 14, 2022, 4:03:09 PM
     Author     : Victor Malone (vm19171)
 */
 
-/* a "dark mode" for pages. */
+/* A "dark mode" for pages. You may modify this file however you wish; however, any changes you make to this master file will be reflected in any further games you create. */
 
 html {
     min-width: 100%;
@@ -22,7 +18,22 @@ html {
     margin-right: auto;
     padding-top: 100px;
     
-    font-family: sans-serif;
+    font-family: serif;
+    /* Fade-in effect */
+    animation: ease 1.5s;
+    animation-name: fadeIn;
+    animation-fill-mode: forwards;   
+    
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0.0;
+    }
+    
+    100% {
+        opacity: 1.0:
+    }
 }
 
 body {

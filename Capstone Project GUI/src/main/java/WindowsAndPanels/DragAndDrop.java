@@ -20,9 +20,12 @@ import InnerWorkings.ApplicationHandler;
 import InnerWorkings.ConnectionTriangle;
 import DataItems.Link;
 import DataItems.NodeRectangle;
+import static InnerWorkings.ApplicationHandler.nodeDimensions;
+import com.google.common.collect.Lists;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
@@ -32,6 +35,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import java.io.File;
+import java.nio.file.Paths;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -59,14 +67,23 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     * The currently selected node.
     */
     private int currentNode = -1;
+        
+        
+   /**
+     * Icon for page images.
+     */
+    Image pageIcon;
     
     /**
-     * No-arg constructor. Initializes a new ArrayList of nodes.
+     * No-arg constructor. Initializes a new ArrayList of nodes and loads the GIF to represent pages.
      */
     public DragAndDrop() {
         
-        nodes = new ArrayList<>();
-        
+       nodes = new ArrayList<>();
+       
+        pageIcon = new ImageIcon(getClass().getResource("/pageAnim.gif")).getImage();
+        pageIcon = pageIcon.getScaledInstance(nodeDimensions.width, nodeDimensions.height, Image.SCALE_DEFAULT);
+
         
         //<editor-fold defaultstate="collapsed" desc="Mouse Listeners">
 
@@ -138,6 +155,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         super.paintComponent(gr);
         Graphics2D g = (Graphics2D)gr;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         g.setColor(Color.RED);
         
        ((Graphics2D)g).setStroke(new java.awt.BasicStroke(4));
@@ -151,7 +169,11 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
             // draw every node
             for (NodeRectangle n : nodes)
             {
-                n.paintComponent((Graphics2D)g);
+               //g.draw(n);
+               
+               // draw page images
+               g.drawImage(pageIcon, n.x, n.y, this);
+                
                 g.setColor(Color.BLACK);
                 
                 // if title is long, abbreviate
@@ -161,10 +183,9 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                     title = title.substring(0, 10);
                     title += "...";
                 }
-                ((Graphics2D)g).drawString(title, n.x, n.y - 3);
+                ((Graphics2D)g).drawString(title, n.x-3, n.y-5);
             }
         }
-        this.repaint();
     }
     
     /**
@@ -205,7 +226,7 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                     g.fillPolygon(t);
                 }
             }
-        }                
+        }            
     }
     
     
@@ -222,7 +243,8 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         // by default, start with index that does not exist
         int nodeNum = -1;
         
-            for (Rectangle n : nodes)
+        // start from the most forefront node
+            for (Rectangle n : Lists.reverse(nodes))
             {
                 // if x and y are within a node
                 if (n.contains(x, y))
@@ -301,7 +323,9 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     {
         return nodes;
     }
-    
+    /**
+     * Clears all nodes from the array.
+     */
     public void clearNodes()
     {
         nodes.clear();

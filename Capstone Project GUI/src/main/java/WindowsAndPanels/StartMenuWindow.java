@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
- * The first window the user will see upon startup. Allows them to create a new project, open an existing one, or view the credits.
+ * This is the first window the user will see upon startup. Allows the user to create a new project, open an existing one, or view the credits.
  * 
  * @author Vic Malone
  */
@@ -156,48 +156,70 @@ public class StartMenuWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Shows who made this tool!
+     * @param evt 
+     */
     private void creditsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditsButtonActionPerformed
         System.out.println("4th button pressed.");
         JOptionPane.showMessageDialog(buttonPanel, "Here's where the credits will go!");
     }//GEN-LAST:event_creditsButtonActionPerformed
 
+    /**
+     * Show the program's settings. Actual settings not yet implemented.
+     * 
+     * @param evt Unused.
+     */
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
         System.out.println("Settings button pressed.");
         JOptionPane.showMessageDialog(buttonPanel, "You pressed the Settings button! Unfortunately, this feature has not yet been implemented. Please look forward to the 2.0 release!");
     }//GEN-LAST:event_settingsButtonActionPerformed
 
+    /**
+     * Opens a dialogue that accepts .choice files only. If selected file approved, loads the file and places the data in an EditorWindow.
+     * 
+     * @param evt Unused.
+     */
     private void openProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectButtonActionPerformed
         try {
             int returnValue = openFileDialog.showOpenDialog(this);
             System.out.println(""); // for clarity
 
             if (returnValue == JFileChooser.APPROVE_OPTION) {
-                System.out.println("Load approved!");
-                
+                          
                 EditorWindow editorWindow = new EditorWindow();
+                editorWindow.setVisible(true);
                 editorWindow.getAppHandler().loadProject(openFileDialog.getSelectedFile());
                 editorWindow.setTitle(editorWindow.getAppHandler().getProjectFile().getProjectTitle());
                 editorWindow.getDragAndDropPanel().setNodes(editorWindow.getAppHandler().getNodes());
                 editorWindow.getDragAndDropPanel().repaint();
-                editorWindow.setVisible(true);
+
                 
                 // dispose of start window
                 this.dispose();
             }
             else {
                 System.out.println("Load not approved...");
+                return;
             }
-
         }
         catch (java.awt.HeadlessException e1) {
             e1.printStackTrace();
         }
         catch (IOException | ClassNotFoundException ex) {
-            System.out.println("There was a problem loading the file.");
             Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,"File could not be loaded. Please try a different file.");
+            return;
         }
+        
+        System.out.println("Load approved!");
     }//GEN-LAST:event_openProjectButtonActionPerformed
-
+    
+    /**
+     * Starts a new project in an EditorWindow.
+     * 
+     * @param evt Unused.
+     */
     private void newProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProjectButtonActionPerformed
         System.out.println("New Project button pressed.");
         // JOptionPane.showMessageDialog(buttonPanel, "You pressed the New Project button!");
@@ -208,6 +230,7 @@ public class StartMenuWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_newProjectButtonActionPerformed
 
     /**
+     * Creates and runs the frame.
      * @param args the command line arguments
      */
     public static void main(String args[]) {

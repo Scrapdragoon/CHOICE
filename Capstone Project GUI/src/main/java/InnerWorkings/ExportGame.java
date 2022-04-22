@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.Map;
@@ -36,14 +35,14 @@ import java.util.logging.Logger;
 
 
 /**
- *This class is used to export the user's inputs into individual HTML pages with links.
+ *This program exports the user's inputs into individual HTML pages, connected by hyperlinks.
  * 
  * @author Victor Malone (vm19171)
  */
 public class ExportGame {
     
     /**
-     * ProjectFile to read nodes from
+     * ProjectFile to read nodes from.
      */
     ProjectFile project = new ProjectFile();
     
@@ -213,6 +212,8 @@ public class ExportGame {
    * 
    * @param n the node to be processed
    * @return HTML for this node/page as a formatted String.
+   * 
+   * @see <a href = https://j2html.com/examples.html >J2HTML</a>
    */
     public String processPage(Node n)
     {

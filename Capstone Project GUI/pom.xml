@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany</groupId>
     <artifactId>CapstoneProjectGUI</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.5-SNAPSHOT</version>
     <packaging>jar</packaging>   
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,9 +34,29 @@
   <artifactId>flatlaf</artifactId>
   <version>2.1</version>
 </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ImagesAndIcons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     
         <build>
+            
+            <finalName>CHOICE - The Condensed Hypertext Organization Interface for the Creation of Experiences - ${version}</finalName>
+            
+            <resources>
+                <resource>
+                    <directory>${basedir}/src/main/java/ImagesAndIcons</directory>
+                </resource>
+                
+                <resource>
+                    <directory>${basedir}/src/main/java/InnerWorkings/master_resources</directory>
+                </resource>
+            </resources>
+            
+            
         <plugins>
             <plugin>
     <artifactId>maven-assembly-plugin</artifactId>
@@ -59,7 +79,9 @@
             </goals>
         </execution>
     </executions>
-</plugin>      
+</plugin>    
+
+    
 </plugins>  
     </build>
 </project>

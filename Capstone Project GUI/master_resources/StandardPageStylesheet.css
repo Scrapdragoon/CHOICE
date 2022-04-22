@@ -1,20 +1,11 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
-*/
 /* 
     Created on : Dec 8, 2021, 3:53:09 PM
     Author     : Victor Malone (vm19171)
-
-Standard page layout.
-May have to create other layouts for a image-less pages.
 */
+/* A "standard" page layout, with a storybook theme. You may modify this file however you wish; however, any changes you make to this master file will be reflected in any further games you create. */
 
 
 html {
-    
-    /* background-image: url("resources/bgImageEDIT.png"); */
-    /* background-repeat: repeat; */
    
     min-width: 100%;
 
@@ -31,30 +22,38 @@ html {
 
 /* CURRENTLY CONTAINS A VISUAL GLITCH WHEN THE WINDOW IS NOT FULL SIZE.*/
     
-    
-
-    
-    
- 
     margin-left: auto;
     margin-right: auto;
     padding-top: 100px;
     
     font-family: sans-serif;
+
+    /* Fade-in effect */
+    animation: ease 2s;
+    animation-name: fadeIn;
+    animation-fill-mode: forwards;   
     
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0.0;
+    }
+    
+    100% {
+        opacity: 1.0:
+    }
 }
 
 body {
   max-width: 65%;
   margin: auto;
-    
 }
 
 
 
 .background-image {
-
-
+    animation: ease-in;
 }
 
 
@@ -101,9 +100,16 @@ body {
 }
 
 a:link {
-    color: #9999ff
+    color: #9f4f6f;
+    text-decoration: none;
 }
 
 a:visited {
-    color: #9999ff
+    color: #9f4f6f;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #71384f;
+    text-decoration: none;
 }

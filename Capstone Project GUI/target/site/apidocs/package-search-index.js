@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"DataItems"},{"l":"InnerWorkings"},{"l":"WindowsAndPanels"}]
