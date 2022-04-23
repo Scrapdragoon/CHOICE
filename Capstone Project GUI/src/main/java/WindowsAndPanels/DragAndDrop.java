@@ -35,11 +35,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.io.File;
-import java.nio.file.Paths;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 /**
  *
@@ -230,7 +226,6 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
     }
     
     
-    // returns node clicked on, given position
     /**
      * Returns the node that was clicked on.
      * 

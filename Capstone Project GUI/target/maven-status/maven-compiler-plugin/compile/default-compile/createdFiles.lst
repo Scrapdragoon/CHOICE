@@ -49,6 +49,5 @@ WindowsAndPanels\EditorWindow$7.class
 DataItems\PageEditorData.class
 WindowsAndPanels\CreatePageFrame$3.class
 DataItems\Node.class
-DataItems\NodeTest.class
 WindowsAndPanels\LinkPanel.class
 WindowsAndPanels\ExportWindow$1.class

@@ -20,6 +20,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -27,7 +28,8 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
- * This is the first window the user will see upon startup. Allows the user to create a new project, open an existing one, or view the credits.
+ * This is the first window the user will see upon startup. Allows the user to create a new project, open an existing one, or view the credits. <p>
+ * Appears blank when opened in NetBeans' GUI Builder, because all of its icons and text are composed of custom icons.
  * 
  * @author Vic Malone
  */
@@ -61,10 +63,11 @@ public class StartMenuWindow extends javax.swing.JFrame {
         openFileDialog.setFileFilter(new InnerWorkings.CHOICEFileFilter());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("The Condensed Hypertext Orgnization Interface for the Creation of Experiences)");
+        setTitle("The Condensed Hypertext Orgnization Interface for the Creation of Experiences");
         setBackground(new java.awt.Color(61, 70, 77));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setFont(new java.awt.Font("DFPOP1-W9", 0, 10)); // NOI18N
+        setMaximumSize(new java.awt.Dimension(780, 618));
         setMinimumSize(new java.awt.Dimension(770, 540));
         setResizable(false);
         setSize(new java.awt.Dimension(770, 540));
@@ -75,14 +78,36 @@ public class StartMenuWindow extends javax.swing.JFrame {
         });
 
         welcomeLabel.setFont(new java.awt.Font("DFPOP1-W9", 1, 48)); // NOI18N
-        welcomeLabel.setText("<html> <u>Welcome to CHOICE!</u>  ");
+        welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        welcomeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/title_animation.gif")));
+        welcomeLabel.setToolTipText("Welcome to the Condensed Hypertext Organization Interface for the Creation of Experiences!");
+        welcomeLabel.setMinimumSize(new java.awt.Dimension(468, 49));
+        welcomeLabel.setPreferredSize(new java.awt.Dimension(466, 125));
+        // attempt to load custom font
+        try {
+            InputStream fontInput = getClass().getResourceAsStream("/DFPop91.ttf");
+            Font dfpopFont = Font.createFont(Font.TRUETYPE_FONT, fontInput);
+
+            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            env.registerFont(dfpopFont);
+
+        }
+        catch (IOException ex) {
+            Logger.getLogger(StartMenuWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (FontFormatException ex) {
+            Logger.getLogger(StartMenuWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         buttonPanel.setPreferredSize(new java.awt.Dimension(650, 435));
         buttonPanel.setLayout(new java.awt.GridLayout(2, 2, 15, 15));
 
+        newProjectButton.setBackground(new java.awt.Color(60, 63, 65));
         newProjectButton.setFont(new java.awt.Font("DFPOP1-W9", 0, 60)); // NOI18N
-        newProjectButton.setText("<html> New <br> Project");
+        newProjectButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/New_Project_Animation.gif")));
+        newProjectButton.setToolTipText("New Project");
         newProjectButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        newProjectButton.setBorderPainted(false);
         newProjectButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         newProjectButton.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         newProjectButton.setFocusPainted(false);
@@ -94,9 +119,12 @@ public class StartMenuWindow extends javax.swing.JFrame {
         });
         buttonPanel.add(newProjectButton);
 
+        openProjectButton.setBackground(new java.awt.Color(60, 63, 65));
         openProjectButton.setFont(new java.awt.Font("DFPOP1-W9", 0, 60)); // NOI18N
-        openProjectButton.setText("<html> Open <br> Project...");
+        openProjectButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Open_Project_Animation.gif")));
+        openProjectButton.setToolTipText("Open Project");
         openProjectButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        openProjectButton.setBorderPainted(false);
         openProjectButton.setFocusPainted(false);
         openProjectButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         openProjectButton.setMargin(new java.awt.Insets(2, 14, 2, 2));
@@ -107,9 +135,12 @@ public class StartMenuWindow extends javax.swing.JFrame {
         });
         buttonPanel.add(openProjectButton);
 
+        settingsButton.setBackground(new java.awt.Color(60, 63, 65));
         settingsButton.setFont(new java.awt.Font("DFPOP1-W9", 0, 60)); // NOI18N
-        settingsButton.setText("Settings");
+        settingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Settings_Animation.gif")));
+        settingsButton.setToolTipText("Settings");
         settingsButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        settingsButton.setBorderPainted(false);
         settingsButton.setFocusPainted(false);
         settingsButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         settingsButton.setMargin(new java.awt.Insets(2, 14, 2, 2));
@@ -120,9 +151,12 @@ public class StartMenuWindow extends javax.swing.JFrame {
         });
         buttonPanel.add(settingsButton);
 
+        creditsButton.setBackground(new java.awt.Color(60, 63, 65));
         creditsButton.setFont(new java.awt.Font("DFPOP1-W9", 0, 60)); // NOI18N
-        creditsButton.setText("Credits");
+        creditsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Credits_Animation.gif")));
+        creditsButton.setToolTipText("Credits");
         creditsButton.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        creditsButton.setBorderPainted(false);
         creditsButton.setFocusPainted(false);
         creditsButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         creditsButton.setMargin(new java.awt.Insets(2, 14, 2, 2));
@@ -137,22 +171,19 @@ public class StartMenuWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(60, 60, 60)
-                .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
                 .addGap(60, 60, 60))
+            .addComponent(welcomeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
 
@@ -234,25 +265,11 @@ public class StartMenuWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_newProjectButtonActionPerformed
 
     /**
-     * Upon opening the window, load font and other resources.
+     * Upon opening the window, loads font and other resources.
      * @param evt 
      */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        
-        // attempt to load custom font
-        try {
-            InputStream fontInput = getClass().getResourceAsStream("/DFPop91.ttf");
-            Font dfpopFont = Font.createFont(Font.TRUETYPE_FONT, fontInput);
 
-            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            env.registerFont(dfpopFont);
-        }
-        catch (IOException ex) {
-            Logger.getLogger(StartMenuWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (FontFormatException ex) {
-            Logger.getLogger(StartMenuWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -303,10 +320,11 @@ public class StartMenuWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new StartMenuWindow().setVisible(true);
+                
             }
         });
     }
-
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JPanel buttonPanel;
     javax.swing.JButton creditsButton;
