@@ -91,7 +91,6 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         imageChooser.setDialogTitle("Choose Image");
         imageChooser.setFileFilter(new ImageFileFilter());
 
-        setBackground(new java.awt.Color(255, 153, 153));
         setFont(new java.awt.Font("DFPOP1-W9", 0, 12)); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
@@ -130,6 +129,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(nodeTitlePanel, gridBagConstraints);
 
@@ -165,16 +165,17 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
                 .addGap(11, 11, 11)
                 .addComponent(paragraphTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(paragraphScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                .addComponent(paragraphScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
                 .addGap(14, 14, 14))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.7;
-        gridBagConstraints.weighty = 0.7;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.3;
         add(paragraphPanel, gridBagConstraints);
 
         nodeIDPanel.setFont(new java.awt.Font("DFPOP1-W9", 0, 18)); // NOI18N
@@ -202,13 +203,14 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
                 .addGap(11, 11, 11)
                 .addGroup(nodeIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(IDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(IDField))
+                    .addComponent(IDField, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(nodeIDPanel, gridBagConstraints);
 
@@ -261,6 +263,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(imagePanel, gridBagConstraints);
 
@@ -333,6 +336,7 @@ public class PageEditorPanel extends javax.swing.JPanel implements Serializable 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(choicesPanel, gridBagConstraints);
 

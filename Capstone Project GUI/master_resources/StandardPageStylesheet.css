@@ -29,7 +29,7 @@ html {
     font-family: sans-serif;
 
     /* Fade-in effect */
-    animation: ease 2s;
+    animation: ease 1.5s;
     animation-name: fadeIn;
     animation-fill-mode: forwards;   
     
@@ -86,8 +86,8 @@ body {
     width: 95%;
     margin-left: auto;
     margin-right: auto;
-    
     font-size: 20px;
+    white-space: pre-line;
 }
 
 .choices {
@@ -111,5 +111,5 @@ a:visited {
 
 a:hover {
     color: #71384f;
-    text-decoration: none;
+    font-style: italic;
 }

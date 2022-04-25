@@ -19,6 +19,7 @@ package WindowsAndPanels;
 import InnerWorkings.ExportGame;
 import DataItems.ProjectFile;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  * Window used for changing settings before exporting the finished game. 
@@ -41,22 +42,22 @@ public class ExportWindow extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         exportGame = new InnerWorkings.ExportGame();
         exportLocationChooser = new javax.swing.JFileChooser();
         themeButtonGroup = new javax.swing.ButtonGroup();
         mainPanel = new javax.swing.JPanel();
         exportLabel = new javax.swing.JLabel();
-        titlePageCheckbox = new javax.swing.JCheckBox();
-        authorNameField = new javax.swing.JTextField();
-        chooseLocationButton = new javax.swing.JButton();
-        authorNameCheckbox = new javax.swing.JCheckBox();
+        jTextArea1 = new javax.swing.JTextArea();
+        ternaryPanel = new javax.swing.JPanel();
+        exportButton = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        themeLabel = new javax.swing.JLabel();
         bookThemeButton = new javax.swing.JRadioButton();
         darkThemeButton = new javax.swing.JRadioButton();
-        infoLabel = new javax.swing.JLabel();
-        secondaryPanel = new javax.swing.JPanel();
-        exportButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        saveLabel = new javax.swing.JLabel();
+        chooseLocationButton = new javax.swing.JButton();
 
         exportLocationChooser.setAcceptAllFileFilterUsed(false);
         exportLocationChooser.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
@@ -71,99 +72,112 @@ public class ExportWindow extends javax.swing.JFrame {
         exportLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exportLabel.setText("<html>  <u>Export</u> </html> ");
 
-        titlePageCheckbox.setText("Generate Title Page");
-        titlePageCheckbox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                titlePageCheckboxActionPerformed(evt);
-            }
-        });
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("So, you've made it this far! Congratulations on the creation of your new masterpiece! \n\n   Before you can play, you need to export your game. \n   To do so, choose a theme below, a location to export to, and then Make your CHOICE!\n   It will be saved as a collection of HTML files in a folder named after your game.\n\n   Once you've successfully exported your experience, you can play it by navigating to the folder you saved it\n   in, and opening the file named after the ID of your starting page.   \n\n   If you'd like to share your creation with a friend, simply send them the entire folder containing all the pages      of your game.\n\n   Make sure to include the resources folder as well! Have fun! ");
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setAutoscrolls(false);
+        jTextArea1.setBorder(null);
+        jTextArea1.setFocusable(false);
+        jTextArea1.setHighlighter(null);
+        jTextArea1.setRequestFocusEnabled(false);
 
-        authorNameField.setText("Author Name");
-
-        chooseLocationButton.setText("Choose Export Location...");
-        chooseLocationButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chooseLocationButtonActionPerformed(evt);
-            }
-        });
-
-        authorNameCheckbox.setText("Display Author Name");
-
-        themeButtonGroup.add(bookThemeButton);
-        bookThemeButton.setSelected(true);
-        bookThemeButton.setText("Storybook Theme");
-
-        themeButtonGroup.add(darkThemeButton);
-        darkThemeButton.setText("Dark Theme");
-
-        infoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        infoLabel.setText("<html> Include info here! Things like how to play(and let others play), what the game is comprised of, how to edit, etc. <br> The program will create a folder, export pages into said folder, and copy image files into a 'resource' folder within that folder.  Any preexisting materials will be replaced. </html> ");
-
+        exportButton.setFont(new java.awt.Font("DFPOP1-W9", 0, 18)); // NOI18N
         exportButton.setText("Make your CHOICE!");
         exportButton.setEnabled(false);
-        exportButton.setMaximumSize(new java.awt.Dimension(137, 30));
-        exportButton.setMinimumSize(new java.awt.Dimension(137, 30));
-        exportButton.setPreferredSize(new java.awt.Dimension(137, 30));
+        exportButton.setMaximumSize(new java.awt.Dimension(220, 30));
+        exportButton.setMinimumSize(new java.awt.Dimension(220, 30));
+        exportButton.setPreferredSize(new java.awt.Dimension(220, 30));
         exportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportButtonActionPerformed(evt);
             }
         });
-        secondaryPanel.add(exportButton);
+        ternaryPanel.add(exportButton);
 
-        jLabel1.setText("Theme:");
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        themeLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        themeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        themeLabel.setText("Choose a theme for your game:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel1.add(themeLabel, gridBagConstraints);
+
+        themeButtonGroup.add(bookThemeButton);
+        bookThemeButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        bookThemeButton.setSelected(true);
+        bookThemeButton.setText("Storybook Theme");
+        bookThemeButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        jPanel1.add(bookThemeButton, gridBagConstraints);
+
+        themeButtonGroup.add(darkThemeButton);
+        darkThemeButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        darkThemeButton.setText("Dark Theme");
+        darkThemeButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
+        jPanel1.add(darkThemeButton, gridBagConstraints);
+
+        saveLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        saveLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        saveLabel.setText("And somewhere to save it:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 6, 0);
+        jPanel1.add(saveLabel, gridBagConstraints);
+
+        chooseLocationButton.setText("Choose Export Location...");
+        chooseLocationButton.setMaximumSize(new java.awt.Dimension(185, 22));
+        chooseLocationButton.setMinimumSize(new java.awt.Dimension(185, 22));
+        chooseLocationButton.setPreferredSize(new java.awt.Dimension(185, 22));
+        chooseLocationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseLocationButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        jPanel1.add(chooseLocationButton, gridBagConstraints);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(exportLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chooseLocationButton)
-                            .addComponent(titlePageCheckbox)
-                            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(authorNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(authorNameCheckbox))
-                            .addComponent(darkThemeButton)
-                            .addComponent(bookThemeButton)))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1)))
-                .addGap(18, 18, 18)
-                .addComponent(infoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(secondaryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+            .addComponent(ternaryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(exportLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(titlePageCheckbox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(authorNameCheckbox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(authorNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1)
-                        .addGap(8, 8, 8)
-                        .addComponent(bookThemeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(darkThemeButton)
-                        .addGap(34, 34, 34)
-                        .addComponent(chooseLocationButton)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(infoLabel)))
-                .addGap(27, 27, 27)
-                .addComponent(secondaryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ternaryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -181,19 +195,15 @@ public class ExportWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void titlePageCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titlePageCheckboxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_titlePageCheckboxActionPerformed
-
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
         this.export();
     }//GEN-LAST:event_exportButtonActionPerformed
 
     private void chooseLocationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseLocationButtonActionPerformed
-       
+
         try {
             int returnValue = exportLocationChooser.showSaveDialog(this);
-            
+
             if (returnValue == JFileChooser.APPROVE_OPTION)
             {
                 System.out.println("Export location successfully set.");
@@ -235,6 +245,8 @@ public class ExportWindow extends javax.swing.JFrame {
         exportGame.setOutputFolder(outputFolder);
         exportGame.setProject(project);
         exportGame.export();
+        
+        JOptionPane.showMessageDialog(this, "Well done! Your game was created successfully!");
     }
     
     // Getters and Setters
@@ -293,8 +305,6 @@ public class ExportWindow extends javax.swing.JFrame {
     private ProjectFile project;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox authorNameCheckbox;
-    private javax.swing.JTextField authorNameField;
     private javax.swing.JRadioButton bookThemeButton;
     private javax.swing.JButton chooseLocationButton;
     private javax.swing.JRadioButton darkThemeButton;
@@ -302,12 +312,13 @@ public class ExportWindow extends javax.swing.JFrame {
     private InnerWorkings.ExportGame exportGame;
     private javax.swing.JLabel exportLabel;
     private javax.swing.JFileChooser exportLocationChooser;
-    private javax.swing.JLabel infoLabel;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JPanel secondaryPanel;
+    private javax.swing.JLabel saveLabel;
+    private javax.swing.JPanel ternaryPanel;
     private javax.swing.ButtonGroup themeButtonGroup;
-    private javax.swing.JCheckBox titlePageCheckbox;
+    private javax.swing.JLabel themeLabel;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -35,6 +35,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.awt.RenderingHints;
+import java.awt.image.BufferStrategy;
+import java.util.Map;
 import javax.swing.ImageIcon;
 
 /**
@@ -59,6 +61,8 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
      */
    private ArrayList<NodeRectangle> nodes = new ArrayList<>();
     
+   private Map<NodeRectangle, Image> visuals;
+   
    /**
     * The currently selected node.
     */
@@ -74,6 +78,8 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
      * No-arg constructor. Initializes a new ArrayList of nodes and loads the GIF to represent pages.
      */
     public DragAndDrop() {
+        
+        this.setDoubleBuffered(true);
         
        nodes = new ArrayList<>();
        
@@ -174,9 +180,9 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
                 
                 // if title is long, abbreviate
                 String title = n.getNode().getTitle();
-                if (title.length() > 10)
+                if (title.length() > 15)
                 {
-                    title = title.substring(0, 10);
+                    title = title.substring(0, 15);
                     title += "...";
                 }
                 ((Graphics2D)g).drawString(title, n.x-3, n.y-5);

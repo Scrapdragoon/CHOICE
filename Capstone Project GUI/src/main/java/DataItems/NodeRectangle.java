@@ -17,7 +17,6 @@
 
 package DataItems;
 
-import DataItems.Node;
 import InnerWorkings.ApplicationHandler;
 import java.awt.Color;
 import java.awt.Dimension;

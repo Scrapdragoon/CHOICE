@@ -20,7 +20,6 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.awt.Image;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -52,6 +51,8 @@ public class StartMenuWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         openFileDialog = new javax.swing.JFileChooser(System.getProperty("user.dir"));
+        loadingDialog = new javax.swing.JDialog(this);
+        loadingLabel = new javax.swing.JLabel();
         welcomeLabel = new javax.swing.JLabel();
         buttonPanel = new javax.swing.JPanel();
         newProjectButton = new javax.swing.JButton();
@@ -62,12 +63,40 @@ public class StartMenuWindow extends javax.swing.JFrame {
         openFileDialog.setDialogTitle("Open Project");
         openFileDialog.setFileFilter(new InnerWorkings.CHOICEFileFilter());
 
+        loadingDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        loadingDialog.setTitle("Loading...");
+        loadingDialog.setMinimumSize(new java.awt.Dimension(272, 68));
+        loadingDialog.setUndecorated(true);
+        loadingDialog.setType(java.awt.Window.Type.POPUP);
+        loadingDialog.setLocationRelativeTo(this);
+
+        loadingDialog.pack();
+
+        loadingLabel.setFont(new java.awt.Font("DFPOP1-W9", 0, 24)); // NOI18N
+        loadingLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        loadingLabel.setText("One moment...");
+        loadingLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        loadingLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        loadingLabel.setMaximumSize(new java.awt.Dimension(272, 68));
+        loadingLabel.setMinimumSize(new java.awt.Dimension(272, 68));
+        loadingLabel.setPreferredSize(new java.awt.Dimension(272, 68));
+
+        javax.swing.GroupLayout loadingDialogLayout = new javax.swing.GroupLayout(loadingDialog.getContentPane());
+        loadingDialog.getContentPane().setLayout(loadingDialogLayout);
+        loadingDialogLayout.setHorizontalGroup(
+            loadingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        loadingDialogLayout.setVerticalGroup(
+            loadingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("The Condensed Hypertext Orgnization Interface for the Creation of Experiences");
         setBackground(new java.awt.Color(61, 70, 77));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setFont(new java.awt.Font("DFPOP1-W9", 0, 10)); // NOI18N
-        setMaximumSize(new java.awt.Dimension(780, 618));
         setMinimumSize(new java.awt.Dimension(770, 540));
         setResizable(false);
         setSize(new java.awt.Dimension(770, 540));
@@ -197,7 +226,10 @@ public class StartMenuWindow extends javax.swing.JFrame {
      */
     private void creditsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditsButtonActionPerformed
         System.out.println("4th button pressed.");
-        JOptionPane.showMessageDialog(buttonPanel, "Here's where the credits will go!");
+        JOptionPane.showMessageDialog(buttonPanel, "<html><center>Developed by <b>Victor Malone!</b><br>"
+                + "<b>Special thanks to:</b> The Malone family, Conner Logan Bloomer, Jennifer Megumi Shoup,<br>"
+                + "and my supervisor, Dr. Michael T Sanderson.<br>"
+                + "Thanks, everyone!</center></html>");
     }//GEN-LAST:event_creditsButtonActionPerformed
 
     /**
@@ -207,7 +239,7 @@ public class StartMenuWindow extends javax.swing.JFrame {
      */
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
         System.out.println("Settings button pressed.");
-        JOptionPane.showMessageDialog(buttonPanel, "You pressed the Settings button! Unfortunately, this feature has not yet been implemented. Please look forward to the 2.0 release!");
+        JOptionPane.showMessageDialog(buttonPanel, "Unfortunately, this feature has not yet been implemented. Please look forward to the 2.0 release!");
     }//GEN-LAST:event_settingsButtonActionPerformed
 
     /**
@@ -217,24 +249,22 @@ public class StartMenuWindow extends javax.swing.JFrame {
      */
     private void openProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectButtonActionPerformed
         try {
+            this.loadingDialog.setVisible(true);
             int returnValue = openFileDialog.showOpenDialog(this);
             System.out.println(""); // for clarity
 
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                           
                 EditorWindow editorWindow = new EditorWindow();
-                editorWindow.setVisible(true);
                 editorWindow.getAppHandler().loadProject(openFileDialog.getSelectedFile());
                 editorWindow.setTitle(editorWindow.getAppHandler().getProjectFile().getProjectTitle());
                 editorWindow.getDragAndDropPanel().setNodes(editorWindow.getAppHandler().getNodes());
                 editorWindow.getDragAndDropPanel().repaint();
-
-                
-                // dispose of start window
-                this.dispose();
+                editorWindow.setVisible(true);
             }
             else {
                 System.out.println("Load not approved...");
+                this.loadingDialog.setVisible(false);
                 return;
             }
         }
@@ -244,14 +274,18 @@ public class StartMenuWindow extends javax.swing.JFrame {
         catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(EditorWindow.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this,"File could not be loaded. Please try a different file.");
+            this.loadingDialog.setVisible(false);
             return;
         }
         
-        System.out.println("Load approved!");
+            System.out.println("Load approved!");
+
+        // Dispose of window
+        this.dispose();
     }//GEN-LAST:event_openProjectButtonActionPerformed
     
     /**
-     * Starts a new project in an EditorWindow.
+     * Starts a new project in an EditorWindow, on a new Thread.
      * 
      * @param evt Unused.
      */
@@ -259,9 +293,13 @@ public class StartMenuWindow extends javax.swing.JFrame {
         System.out.println("New Project button pressed.");
         // JOptionPane.showMessageDialog(buttonPanel, "You pressed the New Project button!");
 
-        EditorWindow editorWindow = new EditorWindow();
-        editorWindow.setVisible(true);
-        this.dispose();
+        loadingDialog.setVisible(true);
+        
+        SwingUtilities.invokeLater(() -> {
+            new EditorWindow().setVisible(true);    
+            dispose();
+        });
+       
     }//GEN-LAST:event_newProjectButtonActionPerformed
 
     /**
@@ -328,6 +366,8 @@ public class StartMenuWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JPanel buttonPanel;
     javax.swing.JButton creditsButton;
+    javax.swing.JDialog loadingDialog;
+    javax.swing.JLabel loadingLabel;
     javax.swing.JButton newProjectButton;
     javax.swing.JFileChooser openFileDialog;
     javax.swing.JButton openProjectButton;

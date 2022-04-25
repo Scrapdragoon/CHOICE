@@ -57,9 +57,9 @@ public class EditorWindow extends javax.swing.JFrame {
         saveFileDialog = new javax.swing.JFileChooser(System.getProperty("user.dir"));
         appHandler = new InnerWorkings.ApplicationHandler();
         exportWindow = new WindowsAndPanels.ExportWindow();
-        confirmQuitDialog = new javax.swing.JDialog();
         buttonMenuPanel = new javax.swing.JPanel();
         createNodeButton = new javax.swing.JButton();
+        editorScrollPane = new javax.swing.JScrollPane();
         dragAndDropPanel = new WindowsAndPanels.DragAndDrop();
         editorMenu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
@@ -84,23 +84,10 @@ public class EditorWindow extends javax.swing.JFrame {
 
         appHandler.setView(dragAndDropPanel);
 
-        confirmQuitDialog.setTitle("Exit CHOICE");
-        confirmQuitDialog.setType(java.awt.Window.Type.POPUP);
-
-        javax.swing.GroupLayout confirmQuitDialogLayout = new javax.swing.GroupLayout(confirmQuitDialog.getContentPane());
-        confirmQuitDialog.getContentPane().setLayout(confirmQuitDialogLayout);
-        confirmQuitDialogLayout.setHorizontalGroup(
-            confirmQuitDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        confirmQuitDialogLayout.setVerticalGroup(
-            confirmQuitDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NAME OF PROJECT");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(1659, 1000));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -114,48 +101,47 @@ public class EditorWindow extends javax.swing.JFrame {
 
         buttonMenuPanel.setBackground(new java.awt.Color(153, 153, 255));
 
-        createNodeButton.setText("Create Node");
+        createNodeButton.setBackground(new java.awt.Color(153, 153, 255));
+        createNodeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/CreatePage_Animation.gif")));
+        createNodeButton.setToolTipText("");
+        createNodeButton.setBorder(null);
+        createNodeButton.setDoubleBuffered(true);
         createNodeButton.setFocusable(false);
+        createNodeButton.setMaximumSize(new java.awt.Dimension(201, 40));
+        createNodeButton.setMinimumSize(new java.awt.Dimension(201, 40));
+        createNodeButton.setPreferredSize(new java.awt.Dimension(201, 40));
         createNodeButton.setRequestFocusEnabled(false);
         createNodeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createNodeButtonActionPerformed(evt);
             }
         });
+        buttonMenuPanel.add(createNodeButton);
 
-        javax.swing.GroupLayout buttonMenuPanelLayout = new javax.swing.GroupLayout(buttonMenuPanel);
-        buttonMenuPanel.setLayout(buttonMenuPanelLayout);
-        buttonMenuPanelLayout.setHorizontalGroup(
-            buttonMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(buttonMenuPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(createNodeButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        buttonMenuPanelLayout.setVerticalGroup(
-            buttonMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonMenuPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(createNodeButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        editorScrollPane.setViewportView(dragAndDropPanel);
+        // change speed of scroll bar
+        editorScrollPane.getVerticalScrollBar().setUnitIncrement(15);
 
         dragAndDropPanel.setBackground(new java.awt.Color(204, 204, 255));
         dragAndDropPanel.setController(appHandler);
         dragAndDropPanel.setFont(new java.awt.Font("DFPOP1-W9", 0, 18)); // NOI18N
+        dragAndDropPanel.setMinimumSize(new java.awt.Dimension(2000, 1000));
+        dragAndDropPanel.setPreferredSize(new java.awt.Dimension(2000, 1500));
 
         javax.swing.GroupLayout dragAndDropPanelLayout = new javax.swing.GroupLayout(dragAndDropPanel);
         dragAndDropPanel.setLayout(dragAndDropPanelLayout);
         dragAndDropPanelLayout.setHorizontalGroup(
             dragAndDropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1647, Short.MAX_VALUE)
+            .addGap(0, 2000, Short.MAX_VALUE)
         );
         dragAndDropPanelLayout.setVerticalGroup(
             dragAndDropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1749, Short.MAX_VALUE)
+            .addGap(0, 1500, Short.MAX_VALUE)
         );
 
         mainEditor = dragAndDropPanel;
+
+        editorScrollPane.setViewportView(dragAndDropPanel);
 
         editorMenu.setName(""); // NOI18N
 
@@ -245,7 +231,7 @@ public class EditorWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dragAndDropPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(editorScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1647, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -254,7 +240,7 @@ public class EditorWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(buttonMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dragAndDropPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(editorScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 909, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -270,6 +256,9 @@ public class EditorWindow extends javax.swing.JFrame {
     private void newMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newMenuItemActionPerformed
         System.out.println("File menu: New button pressed.");
         appHandler.setProjectFile(new ProjectFile());
+        this.setTitle(appHandler.getProjectFile().getProjectTitle());
+        
+        this.revalidate();
         this.repaint();
         // JOptionPane.showMessageDialog(editorPanel, "You pressed the New menu option!");
     }//GEN-LAST:event_newMenuItemActionPerformed
@@ -292,7 +281,8 @@ public class EditorWindow extends javax.swing.JFrame {
                 appHandler.loadProject(openFileDialog.getSelectedFile());
                 this.setTitle(appHandler.getProjectFile().getProjectTitle());
                 dragAndDropPanel.setNodes(appHandler.getNodes());
-                dragAndDropPanel.repaint();
+                this.revalidate();
+                this.repaint();
             }
             else {
                 System.out.println("Load not approved...");
@@ -336,6 +326,8 @@ public class EditorWindow extends javax.swing.JFrame {
      */
     private void createNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNodeButtonActionPerformed
         System.out.println("Create Node button pressed! This is how the user will be able to add new nodes.");
+        this.editorScrollPane.getVerticalScrollBar().setValue(0);
+        this.editorScrollPane.getHorizontalScrollBar().setValue(0);
         appHandler.openCreatePage();        
         
         mainEditor.revalidate();
@@ -422,9 +414,15 @@ public class EditorWindow extends javax.swing.JFrame {
      * @param evt Unused.
      */
     private void exportGameMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportGameMenuItemActionPerformed
-
-        exportWindow.setProject(appHandler.getProjectFile());
-        exportWindow.setVisible(true);
+        if (appHandler.getProjectFile().getNodes().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "Your project is empty... You need at least one page to export!");
+        }
+        else
+        {
+            exportWindow.setProject(appHandler.getProjectFile());
+            exportWindow.setVisible(true);
+        }
     }//GEN-LAST:event_exportGameMenuItemActionPerformed
 
    /**
@@ -515,12 +513,12 @@ public class EditorWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private InnerWorkings.ApplicationHandler appHandler;
     private javax.swing.JPanel buttonMenuPanel;
-    private javax.swing.JDialog confirmQuitDialog;
     private javax.swing.JButton createNodeButton;
     private WindowsAndPanels.DragAndDrop dragAndDropPanel;
     private javax.swing.JMenuItem editMenuRedo;
     private javax.swing.JMenuItem editMenuUndo;
     private javax.swing.JMenuBar editorMenu;
+    private javax.swing.JScrollPane editorScrollPane;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuItem exportGameMenuItem;
     private WindowsAndPanels.ExportWindow exportWindow;

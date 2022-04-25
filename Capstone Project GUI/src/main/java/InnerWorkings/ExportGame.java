@@ -305,7 +305,7 @@ public class ExportGame {
                                                 each(choices, choice ->
                                                         div(attrs(".choices"),
                                                                 
-                                                                // choice = entry. Key = URL, Value = Collection<String>.
+                                                                // choice = entry. Key = file name, Value = Collection<String>.
                                                                 // for each String 'text' in getValue(),
                                                                 // make hyperlink(key, text)
                                                                 each(choice.getValue(), text ->
@@ -327,7 +327,7 @@ public class ExportGame {
                 
         ).renderFormatted();   // end of HTML tag </html>
         
-        System.out.println(HTML);
+        System.out.println(HTML);   // for testing
         
         
         return HTML;        
