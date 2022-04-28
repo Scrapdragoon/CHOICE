@@ -5,6 +5,13 @@
 
 /* A "dark mode" for pages. You may modify this file however you wish; however, any changes you make to this master file will be reflected in any further games you create. */
 
+/* Custom font DFPOP1-W9*/
+@font-face {
+    font-family: 'DFPOP1-W9';
+    src: url('DFPop91.woff') format("woff");
+}
+
+
 html {
     min-width: 100%;
 
@@ -56,7 +63,7 @@ body {
 .pageTitle {
     text-align: center;
     text-decoration: underline;
-    font-family: DFPOP1-W9, sans-serif;
+    font-family: DFPOP1-W9, serif;
     font-size: 40px;
 }
 

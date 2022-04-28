@@ -83,8 +83,8 @@ public class DragAndDrop extends JPanel implements MouseMotionListener, Serializ
         
        nodes = new ArrayList<>();
        
-        pageIcon = new ImageIcon(getClass().getResource("/pageAnim.gif")).getImage();
-        pageIcon = pageIcon.getScaledInstance(nodeDimensions.width, nodeDimensions.height, Image.SCALE_DEFAULT);
+        pageIcon = new ImageIcon(getClass().getResource("/Page_Animation_v3.gif")).getImage();
+        //pageIcon = pageIcon.getScaledInstance(nodeDimensions.width, nodeDimensions.height, Image.SCALE_DEFAULT);
 
         
         //<editor-fold defaultstate="collapsed" desc="Mouse Listeners">

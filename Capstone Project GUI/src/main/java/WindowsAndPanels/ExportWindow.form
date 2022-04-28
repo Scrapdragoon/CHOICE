@@ -18,6 +18,9 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[839, 627]"/>
+    </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -57,17 +60,17 @@
               <Component id="exportLabel" alignment="1" max="32767" attributes="0"/>
               <Component id="ternaryPanel" alignment="0" max="32767" attributes="0"/>
               <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                  <Component id="jTextArea1" min="-2" pref="676" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                  <Component id="jTextArea1" min="-2" pref="758" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="exportLabel" min="-2" pref="82" max="-2" attributes="0"/>
+                  <Component id="exportLabel" min="-2" pref="97" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jTextArea1" min="-2" pref="276" max="-2" attributes="0"/>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
@@ -97,7 +100,7 @@
             </Property>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="So, you&apos;ve made it this far! Congratulations on the creation of your new masterpiece! &#xa;&#xa;   Before you can play, you need to export your game. &#xa;   To do so, choose a theme below, a location to export to, and then Make your CHOICE!&#xa;   It will be saved as a collection of HTML files in a folder named after your game.&#xa;&#xa;   Once you&apos;ve successfully exported your experience, you can play it by navigating to the folder you saved it&#xa;   in, and opening the file named after the ID of your starting page.   &#xa;&#xa;   If you&apos;d like to share your creation with a friend, simply send them the entire folder containing all the pages      of your game.&#xa;&#xa;   Make sure to include the resources folder as well! Have fun! "/>
+            <Property name="text" type="java.lang.String" value="So, you&apos;ve made it this far! Congratulations on the creation of your new masterpiece! &#xa;&#xa;Before you can play, you need to export your game. &#xa;To do so, choose a theme below, a location to export to, and then Make your CHOICE!&#xa;It will be saved as a collection of HTML files in a folder named after your game.&#xa;&#xa;Once you&apos;ve successfully exported your experience, you can play it by navigating to the folder you saved it&#xa;in, and opening the file named after the ID of your starting page.   &#xa;&#xa;If you&apos;d like to share your creation with a friend, simply send them the entire folder containing all the pages of your game.&#xa;&#xa;Make sure to include the resources folder as well! Have fun! "/>
             <Property name="wrapStyleWord" type="boolean" value="true"/>
             <Property name="autoscrolls" type="boolean" value="false"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -208,13 +211,13 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Choose Export Location..."/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[185, 22]"/>
+                  <Dimension value="[1000, 30]"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[185, 22]"/>
+                  <Dimension value="[185, 27]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[185, 22]"/>
+                  <Dimension value="[185, 27]"/>
                 </Property>
               </Properties>
               <Events>

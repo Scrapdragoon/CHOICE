@@ -175,6 +175,20 @@ public class ExportGame {
                                 Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
                             }
                     }
+                    try {
+                        System.out.println("Atempting to copy DFPOP1-W9 font...");
+                        
+                        // get path of master DFPOP1-W9 font, copy to user resources
+                        Path fontPath = Path.of(new File("master_resources/DFPop91.woff").getAbsolutePath());
+                        Path userFontPath = Path.of(pathToUserResources.toString() + "/DFPop91.woff");
+                        
+                        Files.copy(fontPath,userFontPath, StandardCopyOption.REPLACE_EXISTING);
+                        System.out.println("Font copied.");
+                    }
+            catch (IOException ex) {
+                System.out.println("There was an issue with copying the font to the user's resource folder.");
+                Logger.getLogger(ExportGame.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 }
         else
         {

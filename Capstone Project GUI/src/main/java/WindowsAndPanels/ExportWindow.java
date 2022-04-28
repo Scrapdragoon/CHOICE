@@ -66,6 +66,7 @@ public class ExportWindow extends javax.swing.JFrame {
         exportLocationChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(839, 627));
         setResizable(false);
 
         exportLabel.setFont(new java.awt.Font("DFPOP1-W9", 0, 48)); // NOI18N
@@ -77,7 +78,7 @@ public class ExportWindow extends javax.swing.JFrame {
         jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
-        jTextArea1.setText("So, you've made it this far! Congratulations on the creation of your new masterpiece! \n\n   Before you can play, you need to export your game. \n   To do so, choose a theme below, a location to export to, and then Make your CHOICE!\n   It will be saved as a collection of HTML files in a folder named after your game.\n\n   Once you've successfully exported your experience, you can play it by navigating to the folder you saved it\n   in, and opening the file named after the ID of your starting page.   \n\n   If you'd like to share your creation with a friend, simply send them the entire folder containing all the pages      of your game.\n\n   Make sure to include the resources folder as well! Have fun! ");
+        jTextArea1.setText("So, you've made it this far! Congratulations on the creation of your new masterpiece! \n\nBefore you can play, you need to export your game. \nTo do so, choose a theme below, a location to export to, and then Make your CHOICE!\nIt will be saved as a collection of HTML files in a folder named after your game.\n\nOnce you've successfully exported your experience, you can play it by navigating to the folder you saved it\nin, and opening the file named after the ID of your starting page.   \n\nIf you'd like to share your creation with a friend, simply send them the entire folder containing all the pages of your game.\n\nMake sure to include the resources folder as well! Have fun! ");
         jTextArea1.setWrapStyleWord(true);
         jTextArea1.setAutoscrolls(false);
         jTextArea1.setBorder(null);
@@ -141,9 +142,9 @@ public class ExportWindow extends javax.swing.JFrame {
         jPanel1.add(saveLabel, gridBagConstraints);
 
         chooseLocationButton.setText("Choose Export Location...");
-        chooseLocationButton.setMaximumSize(new java.awt.Dimension(185, 22));
-        chooseLocationButton.setMinimumSize(new java.awt.Dimension(185, 22));
-        chooseLocationButton.setPreferredSize(new java.awt.Dimension(185, 22));
+        chooseLocationButton.setMaximumSize(new java.awt.Dimension(1000, 30));
+        chooseLocationButton.setMinimumSize(new java.awt.Dimension(185, 27));
+        chooseLocationButton.setPreferredSize(new java.awt.Dimension(185, 27));
         chooseLocationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chooseLocationButtonActionPerformed(evt);
@@ -163,15 +164,15 @@ public class ExportWindow extends javax.swing.JFrame {
             .addComponent(exportLabel, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(ternaryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addComponent(exportLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(exportLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
