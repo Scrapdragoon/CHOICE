@@ -1,0 +1,100 @@
+/*
+    Created on : Apr 14, 2022, 4:03:09 PM
+    Author     : Victor Malone (vm19171)
+*/
+
+/* A "dark mode" for pages. You may modify this file however you wish; however, any changes you make to this master file will be reflected in any further games you create. */
+
+/* Custom font DFPOP1-W9*/
+@font-face {
+    font-family: 'DFPOP1-W9';
+    src: url('DFPop91.woff') format("woff");
+}
+
+
+html {
+    min-width: 100%;
+
+    margin: 0;
+    position: relative;
+
+    background-color: #1C1C1C;
+    color: #D0D0D0;
+
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+    
+    font-family: serif;
+    
+}
+
+body {
+  max-width: 65%;
+  margin: auto;
+  
+      /* Fade-in effect */
+    animation: ease 1.5s;
+    animation-name: fadeIn;
+    animation-fill-mode: forwards;   
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0.0;
+    }
+    
+    100% {
+        opacity: 1.0:
+    }
+}
+
+.user-Image {
+    display: block;
+    
+    max-width: 90%; /* 90% of the div it's in  */
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.pageTitle {
+    text-align: center;
+    text-decoration: underline;
+    font-family: DFPOP1-W9, serif;
+    font-size: 40px;
+}
+
+.paragraph {
+    display: block;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+    white-space: pre-line;
+}
+
+.choices {
+    display: block;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+}
+
+a:link {
+    color: #D0D0D0;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #D0D0D0;
+    text-decoration: none;
+}
+
+a:hover {
+    font-style: italic;
+    color: #7F7F7F;
+}
