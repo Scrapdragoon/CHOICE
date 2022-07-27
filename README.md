@@ -1,4 +1,8 @@
-Welcome to the repository for the Condensed Hypertext Organization Interface for the Creation of Experiences! 
+## Welcome to the repository for the Condensed Hypertext Organization Interface for the Creation of Experiences!
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/109912356/181355176-e0744936-1050-4206-a149-d1a1dfe1022f.gif">
+</p>
 
 To use the application, download the CHOICE v1.8.zip file, extract it, and run CHOICE v1.8.exe to use the application.
 Running the CHOICE application requires Oracle's Java Runtime Environment, which you can download [here.](https://www.oracle.com/java/technologies/downloads/#jdk18-windows) Please remember to keep the CHOICE v1.8.exe file within the same folder as the master_resources directory!
