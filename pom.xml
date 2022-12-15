@@ -65,6 +65,8 @@
         </archive>
     </configuration>
     <executions>
+
+        
         <execution>
             <id>make-assembly</id>
             <phase>package</phase>
@@ -72,10 +74,48 @@
                 <goal>single</goal>
             </goals>
         </execution>
-    </executions>
-</plugin>    
 
+    </executions>
+</plugin>  
+
+<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.4.1</version>
+        <configuration>
+
+            <reportOutputDirectory>${basedir}</reportOutputDirectory>
+                    <destDir>docs</destDir>
+            
+        </configuration>
+                        
+        <executions>
+            <execution>
+                <id>auto-generate-javadoc</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>javadoc</goal>
+                </goals>
+            </execution>
+        </executions>
+      </plugin>  
     
 </plugins>  
-    </build>
+    </build> 
+    
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+
+                    <reportOutputDirectory>${basedir}</reportOutputDirectory>
+                    <destDir>reportDocs</destDir>
+
+                </configuration>
+              </plugin>  
+      </plugins>
+  </reporting>
 </project>
