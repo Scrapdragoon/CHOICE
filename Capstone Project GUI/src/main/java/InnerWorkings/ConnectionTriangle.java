@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Victor Malone (vm19171).
+ * Copyright 2022 Victor Malone.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import java.awt.Polygon;
  * 
  * @see <a href = https://stackoverflow.com/questions/12175086/draw-perpendicular-line-to-given-line-on-canvas-android>Source 1</a>
  * @see <a href = https://dzone.com/articles/how-find-point-coordinates>Source 2</a>
- * @author Victor Malone (vm19171)
+ * @author Victor Malone
  */
 public class ConnectionTriangle extends Polygon {
     

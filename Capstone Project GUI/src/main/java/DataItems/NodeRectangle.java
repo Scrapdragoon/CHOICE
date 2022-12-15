@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Victor Malone (vm19171).
+ * Copyright 2022 Victor Malone.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import java.awt.Rectangle;
 /**
  *This is a visual representation of the Node class, used for the visual editor.
  * 
- * @author Victor Malone (vm19171)
+ * @author Victor Malone
  * 
  */
 public class NodeRectangle extends Rectangle {

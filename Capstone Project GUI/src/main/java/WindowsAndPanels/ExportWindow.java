@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Victor Malone (vm19171).
+ * Copyright 2022 Victor Malone.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 /**
  * Window used for changing settings before exporting the finished game. 
  * 
- * @author Victor Malone (vm19171)
+ * @author Victor Malone
  */
 public class ExportWindow extends javax.swing.JFrame {
 

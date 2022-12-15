@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Victor Malone (vm19171).
+ * Copyright 2022 Victor Malone.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import java.io.Serializable;
  * Represents a user-created passage. <p>
  * Includes a title, paragraph, ID, image, and list of links. This will be used to store the data used to create HTML pages based on user input.
  * 
- * @author Victor Malone (vm19171)
+ * @author Victor Malone
  * @serial 
  */
 public class Node implements Serializable {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Victor Malone (vm19171).
+ * Copyright 2022 Victor Malone.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import InnerWorkings.ApplicationHandler;
 /**
  * Frame used to create new nodes/pages. The user is prompted to type in a title, and then the new node is added to the ApplicationHandler's project file.
  * 
- * @author Victor Malone (vm19171)
+ * @author Victor Malone
  */
 public class CreatePageFrame extends javax.swing.JFrame {
 

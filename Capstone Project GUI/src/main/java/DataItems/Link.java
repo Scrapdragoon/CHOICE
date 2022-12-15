@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Victor Malone (vm19171).
+ * Copyright 2022 Victor Malone.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import java.io.Serializable;
 /**
  *This is an object for storage of links between nodes. Used to draw the connections in the DragAndDrop panel.
  * 
- * @author Victor Malone (vm19171)
+ * @author Victor Malone
  * 
  */
 public class Link implements Serializable {
