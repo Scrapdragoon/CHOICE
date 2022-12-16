@@ -15,4 +15,4 @@ The aforementioned ZIP also contains the CHOICE file for the Demo Project game, 
 
 You'll find the source code for this application in the Capstone Project GUI folder, so check that out if you'd like to see its inner workings.
 
-I am currently trying to get the technical documentation hosted here on this site.
+I am currently trying to get the technical documentation hosted here on this site. Keep running into a lot of problems....
