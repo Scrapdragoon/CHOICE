@@ -15,4 +15,4 @@ The aforementioned ZIP also contains the CHOICE file for the Demo Project game, 
 
 You'll find the source code for this application in the Capstone Project GUI folder, so check that out if you'd like to see its inner workings.
 
-The Technical Documentation directory contains the folder that holds the Javadoc for this project. Please download the 'apidocs' folder and open the file named "index.html" to view.
+I am currently trying to get the technical documentation hosted here on this site.
