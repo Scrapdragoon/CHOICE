@@ -11,3 +11,9 @@ To use the application, download the CHOICE v1.8.zip file, extract it, and run C
 Running the CHOICE application requires Oracle's Java Runtime Environment, which you can download [here](https://www.oracle.com/java/technologies/downloads/#jdk18-windows). Please keep the CHOICE v1.8.exe file within the same folder as the master_resources directory!
 
 You can view the Javadoc for this project [here](https://scrapdragoon.github.io/CHOICE/docs/).
+
+Thanks for stopping by!
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/109912356/216706729-65d2e0e6-c84d-45e2-a2c4-41c883e11fc0.gif">
+</p>
