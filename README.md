@@ -10,7 +10,10 @@ CHOICE is a tool used to create text-based adventure games, which can then be ex
 To use the application, download the CHOICE v1.8.zip file, extract it, and run CHOICE v1.8.exe to use the application.
 Running the CHOICE application requires Oracle's Java Runtime Environment, which you can download [here](https://www.oracle.com/java/technologies/downloads/#jdk18-windows). Please keep the CHOICE v1.8.exe file within the same folder as the master_resources directory!
 
-You can view the Javadoc for this project [here](https://scrapdragoon.github.io/CHOICE/docs/).
+### You can play a demo game I made using this tool [here](https://scrapdragoon.github.io/game/Forest_Clearing.html)!
+
+View the Javadoc for this project [here](https://scrapdragoon.github.io/CHOICE/docs/).
+
 
 Thanks for stopping by!
 
